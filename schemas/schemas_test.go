@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v2"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator"
+	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator"
 )
 
 type TestCase struct {
@@ -39,7 +39,7 @@ func TestPersonaSchema(t *testing.T) {
 	}
 
 	for _, file := range files {
-
+		file := file // capture
 		t.Run(file, func(t *testing.T) {
 			a := assert.New(t)
 

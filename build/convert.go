@@ -37,9 +37,12 @@ func chext(s string, ext string) string {
 func sources(src string) ([]string, error) {
 	res := []string{}
 	err := filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
-		m, err := filepath.Match("*.yaml", filepath.Base(path))
 		if err != nil {
 			return err
+		}
+		m, errr := filepath.Match("*.yaml", filepath.Base(path))
+		if errr != nil {
+			return errr
 		}
 		if m {
 			res = append(res, path)

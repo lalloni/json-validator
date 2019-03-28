@@ -14,7 +14,7 @@ require (
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/lalloni/afip v1.1.0
 	github.com/lalloni/gojsonschema v1.1.1-0.20190328194815-d8f6c0272505
-	github.com/magefile/mage v1.8.0
+	github.com/magefile/mage v1.8.1-0.20190314142316-8dce728c572d
 	github.com/pkg/errors v0.8.1
 	github.com/stretchr/testify v1.3.0
 	github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f // indirect

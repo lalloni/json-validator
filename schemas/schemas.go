@@ -5,14 +5,14 @@ import (
 	"log"
 
 	"github.com/gobuffalo/packr/v2"
-	"github.com/pkg/errors"
 	"github.com/lalloni/gojsonschema"
+	"github.com/pkg/errors"
 
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/convert"
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/formats"
 )
 
-var fs = packr.New("schemas", "./")
+var fs = packr.New("schemas", "")
 
 func init() {
 	gojsonschema.Locale = locale{}

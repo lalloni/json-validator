@@ -8,7 +8,7 @@ import (
 
 	"github.com/Masterminds/sprig"
 	"github.com/bitly/go-simplejson"
-	"github.com/evanphx/json-patch"
+	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/ghodss/yaml"
 )
 
