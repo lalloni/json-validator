@@ -1,0 +1,255 @@
+$schema: http://json-schema.org/draft-07/schema#
+
+x-commonproperties: &commonproperties
+  id:
+    $ref: '#/definitions/cuit'
+  tipoid:
+    type: string
+    const: C
+  nuevoid:
+    $ref: '#/definitions/cuit'
+  estado:
+    type: string
+    enum: [ A, I ]
+  pais:
+    type: integer
+  inscripcion:
+    $ref: '#/definitions/fecha'
+  ch:
+    $ref: '#/definitions/ch'
+  ds:
+    $ref: '#/definitions/fecha'
+  actividades:
+    type: array
+    $key: [ actividad, nomenclador ]
+    items:
+      $ref: '#/definitions/actividad'
+  impuestos:
+    type: array
+    patternProperties:
+      '^[0-9]+(\.[0-9]+)*$':
+        $ref: '#/definitions/impuesto'
+    additionalProperties: false
+  domicilios:
+    type: object
+    patternProperties:
+      '^[0-9]+(\.[0-9]+)*$':
+        $ref: '#/definitions/domicilio'
+    additionalProperties: false
+  telefonos:
+    type: object
+    patternProperties:
+      '^[0-9]+(\.[0-9]+)*$':
+        $ref: '#/definitions/telefono'
+
+    additionalProperties: false
+
+################################
+# Esquema principal de Persona #
+################################
+
+oneOf:
+
+  - type: object
+    title: personafisica
+    properties:
+      <<: *commonproperties
+      personafisica:
+        $ref: '#/definitions/personafisica'
+    additionalProperties: false
+    required:
+      - id
+
+  - type: object
+    title: personajuridica
+    properties:
+      <<: *commonproperties
+      personajuridica:
+        $ref: '#/definitions/personajuridica'
+    additionalProperties: false
+    required:
+      - id
+
+################################
+
+definitions:
+
+  personafisica:
+    type: object
+    properties:
+      documento:
+        $ref: '#/definitions/documento'
+      nombre:
+        type: string
+      apellido:
+        type: string
+      materno:
+        type: string
+      sexo:
+        type: string
+        enum: [ M, F ]
+      nacimiento:
+        $ref: '#/definitions/fecha'
+      fallecimiento:
+        $ref: '#/definitions/fecha'
+    additionalProperties: false
+
+  personajuridica:
+    type: object
+    properties:
+      razonsocial:
+        type: string
+      formajuridica:
+        type: integer
+      mescierre:
+        type: integer
+        minimum: 1
+        maximum: 12
+    additionalProperties: false
+
+  cuit:
+    type: integer
+    format: cuit
+
+  estado:
+    type: string
+    enum: [ AC, NA, BD, BP, EX ]
+
+  nomenclador:
+    type: integer
+
+  fecha:
+    type: string
+    format: date
+
+  añomesdia:
+    type: string
+    pattern: '^[0-9]{8}$'
+
+  añomes:
+    type: string
+    pattern: '^[0-9]{6}$'
+
+  año:
+    type: string
+    pattern: '^[0-9]{4}$'
+
+  actividad:
+    type: object
+    properties:
+      actividad:
+        type: string
+        pattern: '^883-[0-9]{5..6}$'
+      orden:
+        type: integer
+      periodo:
+        $ref: '#/definitions/añomes'
+      estado:
+        $ref: '#/definitions/estado'
+      ds:
+        $ref: '#/definitions/fecha'
+    additionalProperties: false
+
+  domicilio:
+    type: object
+    required:
+      - orden
+      - tipo
+    properties:
+      orden:
+        type: integer
+      tipo:
+        type: integer
+      estado:
+        type: integer
+      calle:
+        type: string
+      numero:
+        type: string
+      piso:
+        type: string
+      oficina:
+        type: string
+      provincia:
+        type: integer
+        minimum: 0
+        maximum: 24
+      localidad:
+        type: string
+      cp:
+        type: string
+      nomenclador:
+        $ref: '#/definitions/nomenclador'
+      ds:
+        $ref: '#/definitions/fecha'
+    additionalProperties: false
+
+  impuesto:
+    type: object
+    properties:
+      impuesto:
+        type: integer
+        minimum: 1
+        maximum: 9999
+      inscripcion:
+        $ref: '#/definitions/fecha'
+      estado:
+        $ref: '#/definitions/estado'
+      periodo:
+        $ref: '#/definitions/añomesdia'
+      motivo:
+        type: integer
+      ds:
+        $ref: '#/definitions/fecha'
+    additionalProperties: false
+    required:
+      - impuesto
+      - periodo
+      - estado
+
+  telefono:
+    type: object
+    properties:
+      numero:
+        type: string
+      estado:
+        type: integer
+      ds:
+        $ref: '#/definitions/fecha'
+    additionalProperties: false
+    required:
+      - numero
+
+  documento:
+    type: object
+    properties:
+      tipo:
+        type: integer
+      numero:
+        type: string
+    additionalProperties: false
+    required:
+      - tipo
+      - numero
+
+  ch:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      enum:
+        - nombre
+        - apellido
+        - materno
+        - razonsocial
+        - tipo
+        - estado
+        - formajuridica
+        - documento
+        - sexo
+        - mescierre
+        - nacimiento
+        - fallecimiento
+        - inscripcion
+        - pais
+        - nuevacuit
