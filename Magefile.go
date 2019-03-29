@@ -53,7 +53,7 @@ func Compile() error {
 }
 
 func Convey() error {
-	return sh.RunV("goconvey", "-port=9999", "-watchedSuffixes=.go,.yaml")
+	return sh.RunV("goconvey", "-port=9999", "-watchedSuffixes=.go,.yaml", "-packages=1")
 }
 
 func Release() error {
