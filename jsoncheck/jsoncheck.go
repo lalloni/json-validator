@@ -5,7 +5,7 @@ import "strconv"
 func Check(data []byte) error {
 	scan := &scanner{}
 	scan.reset()
-	keys := make(map[string]struct{})
+	stack := &flagstack{}
 	str := []byte{}
 	in := false
 	for _, c := range data {
@@ -28,15 +28,19 @@ func Check(data []byte) error {
 			str = str[:len(str)-1] // drop last (it's a ")
 		}
 		if s == scanBeginObject {
-			keys = make(map[string]struct{})
+			stack.push()
+			continue
+		}
+		if s == scanEndObject {
+			stack.pop()
 			continue
 		}
 		if s == scanObjectKey {
 			key := string(str)
-			if _, ok := keys[key]; ok {
+			if stack.get(key) {
 				return &SyntaxError{"duplicate key " + strconv.Quote(key), scan.bytes}
 			}
-			keys[key] = struct{}{}
+			stack.set(key)
 		}
 	}
 	if scan.eof() == scanError {
@@ -559,4 +563,34 @@ func quoteChar(c byte) string {
 	// use quoted string with different quotation marks
 	s := strconv.Quote(string(c))
 	return "'" + s[1:len(s)-1] + "'"
+}
+
+type flagstack struct {
+	data []map[string]struct{}
+}
+
+func (s *flagstack) get(key string) bool {
+	if len(s.data) == 0 {
+		return false
+	}
+	_, ok := s.data[0][key]
+	return ok
+}
+
+func (s *flagstack) set(key string) {
+	if len(s.data) == 0 {
+		s.push()
+	}
+	s.data[0][key] = struct{}{}
+}
+
+func (s *flagstack) push() {
+	s.data = append([]map[string]struct{}{make(map[string]struct{})}, s.data...)
+}
+
+func (s *flagstack) pop() {
+	if len(s.data) == 0 {
+		return
+	}
+	s.data = s.data[1:]
 }
