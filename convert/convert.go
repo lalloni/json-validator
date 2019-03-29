@@ -43,8 +43,8 @@ func FromYAML(bs []byte, opts Options) ([]byte, error) {
 const p = `
 {
 	"$meta": {
-		{{ if .Source }}"source": "{{ .Source | clean | base }}",{{ end }}
-		"comment": "ARCHIVO GENERADO AUTOMÁTICAMENTE (NO MODIFICAR)"
+		{{ if .Source }}"source": "{{ .Source }}",{{ end }}
+		"comment": "SCHEMA GENERADO AUTOMÁTICAMENTE (NO MODIFICAR)"
 	}
 }`
 
