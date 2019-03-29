@@ -3,20 +3,20 @@ schema: persona
 document:
   id: 20242643772
   tipoid: C
+  tipo: F
   nuevoid: 20111111112
   pais: 21
   estado: A
   inscripcion: "2018-10-20"
-  personafisica:
-    nombre: Pablo
-    apellido: Lalloni
-    materno: Barrera
-    sexo: M
-    nacimiento: "1975-01-10"
-    fallecimiento: "2050-05-05"
-    documento:
-      tipo: 1
-      numero: "24264377"
+  nombre: Pablo
+  apellido: Lalloni
+  materno: Barrera
+  sexo: M
+  nacimiento: "1975-01-10"
+  fallecimiento: "2050-05-05"
+  documento:
+    tipo: 1
+    numero: "24264377"
   ch:
     - pais
     - estado
@@ -29,14 +29,14 @@ schema: persona
 document:
   id: 33693450239
   tipoid: C
+  tipo: J
   nuevoid: 20111111112
   estado: A
   pais: 21
   inscripcion: "2018-10-20"
-  personajuridica:
-    razonsocial: AFIP
-    formajuridica: 2
-    mescierre: 5
+  razonsocial: AFIP
+  formajuridica: 2
+  mescierre: 5
   ch:
     - pais
     - estado

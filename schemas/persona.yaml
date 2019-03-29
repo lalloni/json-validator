@@ -1,6 +1,6 @@
 $schema: http://json-schema.org/draft-07/schema#
 
-x-commonproperties: &commonproperties
+x-common-properties: &common-properties
   id:
     $ref: '#/definitions/cuit'
   tipoid:
@@ -44,6 +44,33 @@ x-commonproperties: &commonproperties
 
     additionalProperties: false
 
+x-personafisica-properties: &personafisica-properties
+  documento:
+    $ref: '#/definitions/documento'
+  nombre:
+    type: string
+  apellido:
+    type: string
+  materno:
+    type: string
+  sexo:
+    type: string
+    enum: [ M, F ]
+  nacimiento:
+    $ref: '#/definitions/fecha'
+  fallecimiento:
+    $ref: '#/definitions/fecha'
+
+x-personajuridica-properties: &personajuridica-properties
+  razonsocial:
+    type: string
+  formajuridica:
+    type: integer
+  mescierre:
+    type: integer
+    minimum: 1
+    maximum: 12
+
 ################################
 # Esquema principal de Persona #
 ################################
@@ -53,59 +80,30 @@ oneOf:
   - type: object
     title: personafisica
     properties:
-      <<: *commonproperties
-      personafisica:
-        $ref: '#/definitions/personafisica'
+      tipo:
+        const: F
+      <<: *common-properties
+      <<: *personafisica-properties
     additionalProperties: false
     required:
       - id
+      - tipo
 
   - type: object
     title: personajuridica
     properties:
-      <<: *commonproperties
-      personajuridica:
-        $ref: '#/definitions/personajuridica'
+      tipo:
+        const: J
+      <<: *common-properties
+      <<: *personajuridica-properties
     additionalProperties: false
     required:
       - id
+      - tipo
 
 ################################
 
 definitions:
-
-  personafisica:
-    type: object
-    properties:
-      documento:
-        $ref: '#/definitions/documento'
-      nombre:
-        type: string
-      apellido:
-        type: string
-      materno:
-        type: string
-      sexo:
-        type: string
-        enum: [ M, F ]
-      nacimiento:
-        $ref: '#/definitions/fecha'
-      fallecimiento:
-        $ref: '#/definitions/fecha'
-    additionalProperties: false
-
-  personajuridica:
-    type: object
-    properties:
-      razonsocial:
-        type: string
-      formajuridica:
-        type: integer
-      mescierre:
-        type: integer
-        minimum: 1
-        maximum: 12
-    additionalProperties: false
 
   cuit:
     type: integer
