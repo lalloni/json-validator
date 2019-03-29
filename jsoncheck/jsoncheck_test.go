@@ -19,6 +19,7 @@ func TestCheck(t *testing.T) {
 		{"dup array nested key", args{`{"a":1,"b":2,"c":[{"a":1,"b":2,"c":3},{"a":1,"b":2,"a":3}]}`}, true},
 	}
 	for _, tt := range tests {
+		tt := tt // fix range scope
 		t.Run(tt.name, func(t *testing.T) {
 			if err := Check([]byte(tt.args.data)); (err != nil) != tt.wantErr {
 				t.Errorf("Check() error = %v, wantErr %v", err, tt.wantErr)
