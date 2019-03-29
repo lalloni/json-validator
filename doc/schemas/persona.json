@@ -1,7 +1,7 @@
 {
   "$meta": {
-    "comment": "ARCHIVO GENERADO AUTOMÁTICAMENTE (NO MODIFICAR)",
-    "source": "persona.yaml"
+    "comment": "SCHEMA GENERADO AUTOMÁTICAMENTE (NO MODIFICAR)",
+    "source": "schemas/resources/persona.yaml"
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
@@ -179,54 +179,6 @@
     "nomenclador": {
       "type": "integer"
     },
-    "personafisica": {
-      "additionalProperties": false,
-      "properties": {
-        "apellido": {
-          "type": "string"
-        },
-        "documento": {
-          "$ref": "#/definitions/documento"
-        },
-        "fallecimiento": {
-          "$ref": "#/definitions/fecha"
-        },
-        "materno": {
-          "type": "string"
-        },
-        "nacimiento": {
-          "$ref": "#/definitions/fecha"
-        },
-        "nombre": {
-          "type": "string"
-        },
-        "sexo": {
-          "enum": [
-            "M",
-            "F"
-          ],
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "personajuridica": {
-      "additionalProperties": false,
-      "properties": {
-        "formajuridica": {
-          "type": "integer"
-        },
-        "mescierre": {
-          "maximum": 12,
-          "minimum": 1,
-          "type": "integer"
-        },
-        "razonsocial": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "telefono": {
       "additionalProperties": false,
       "properties": {
@@ -260,8 +212,14 @@
           },
           "type": "array"
         },
+        "apellido": {
+          "type": "string"
+        },
         "ch": {
           "$ref": "#/definitions/ch"
+        },
+        "documento": {
+          "$ref": "#/definitions/documento"
         },
         "domicilios": {
           "additionalProperties": false,
@@ -282,6 +240,9 @@
           ],
           "type": "string"
         },
+        "fallecimiento": {
+          "$ref": "#/definitions/fecha"
+        },
         "id": {
           "$ref": "#/definitions/cuit"
         },
@@ -297,14 +258,27 @@
         "inscripcion": {
           "$ref": "#/definitions/fecha"
         },
+        "materno": {
+          "type": "string"
+        },
+        "nacimiento": {
+          "$ref": "#/definitions/fecha"
+        },
+        "nombre": {
+          "type": "string"
+        },
         "nuevoid": {
           "$ref": "#/definitions/cuit"
         },
         "pais": {
           "type": "integer"
         },
-        "personafisica": {
-          "$ref": "#/definitions/personafisica"
+        "sexo": {
+          "enum": [
+            "M",
+            "F"
+          ],
+          "type": "string"
         },
         "telefonos": {
           "additionalProperties": false,
@@ -315,13 +289,17 @@
           },
           "type": "object"
         },
+        "tipo": {
+          "const": "F"
+        },
         "tipoid": {
           "const": "C",
           "type": "string"
         }
       },
       "required": [
-        "id"
+        "id",
+        "tipo"
       ],
       "title": "personafisica",
       "type": "object"
@@ -361,6 +339,9 @@
           ],
           "type": "string"
         },
+        "formajuridica": {
+          "type": "integer"
+        },
         "id": {
           "$ref": "#/definitions/cuit"
         },
@@ -376,14 +357,19 @@
         "inscripcion": {
           "$ref": "#/definitions/fecha"
         },
+        "mescierre": {
+          "maximum": 12,
+          "minimum": 1,
+          "type": "integer"
+        },
         "nuevoid": {
           "$ref": "#/definitions/cuit"
         },
         "pais": {
           "type": "integer"
         },
-        "personajuridica": {
-          "$ref": "#/definitions/personajuridica"
+        "razonsocial": {
+          "type": "string"
         },
         "telefonos": {
           "additionalProperties": false,
@@ -394,13 +380,17 @@
           },
           "type": "object"
         },
+        "tipo": {
+          "const": "J"
+        },
         "tipoid": {
           "const": "C",
           "type": "string"
         }
       },
       "required": [
-        "id"
+        "id",
+        "tipo"
       ],
       "title": "personajuridica",
       "type": "object"

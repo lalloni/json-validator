@@ -12,7 +12,7 @@ import (
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/formats"
 )
 
-var fs = packr.New("schemas", "")
+var fs = packr.New("schemas/resources", "resources")
 
 func init() {
 	gojsonschema.Locale = locale{}
@@ -51,7 +51,7 @@ func loaderFromYAML(name string) (gojsonschema.JSONLoader, error) {
 	if err != nil {
 		return nil, errors.Wrapf(err, "converting '%s' to JSON", name)
 	}
-	log.Printf("loaded json schema from '%s':\n%s", name, string(schema) )
+	log.Printf("loaded json schema from '%s':\n%s", name, string(schema))
 	loader := gojsonschema.NewBytesLoader(schema)
 	_, err = loader.LoadJSON() // for checking json
 	if err != nil {
