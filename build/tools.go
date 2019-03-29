@@ -4,50 +4,57 @@ import (
 	"log"
 	"os/exec"
 
+	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 	"github.com/pkg/errors"
 )
 
-func RunTool(command string, args []string, env map[string]string, installer func() error) error {
-	path, err := exec.LookPath(command)
+func CheckInstall(cmd string, install func() error) error {
+	_, err := exec.LookPath(cmd)
 	if err != nil {
-		if installer == nil {
-			return errors.Errorf("running %s: not found", command)
-		}
-		log.Printf("running installer for %s", command)
-		err := installer()
+		log.Printf("running installer for %s", cmd)
+		err := install()
 		if err != nil {
 			return err
 		}
-		path, err = exec.LookPath(command)
+		_, err = exec.LookPath(cmd)
 		if err != nil {
-			return errors.Errorf("installing %s: not found after running installer", command)
+			return errors.Errorf("installing %s: not found after running installer", cmd)
 		}
 	}
-	return sh.RunWith(env, path, args...)
+	return nil
 }
 
 func RunPackr(args ...string) error {
+	mg.Deps(CheckInstallPackr)
 	env := map[string]string{"GO111MODULE": "on"}
-	return RunTool("packr2", args, env, InstallPackr)
+	return sh.RunWith(env, "packr2", args...)
 }
 
-func InstallPackr() error {
-	return sh.Run("go", "get", "github.com/gobuffalo/packr/v2/packr2")
+func CheckInstallPackr() error {
+	return CheckInstall("packr2", func() error {
+		return sh.Run("go", "get", "github.com/gobuffalo/packr/v2/packr2")
+	})
 }
 
 func RunLinter(args ...string) error {
-	return RunTool("golangci-lint", args, nil, InstallLinter)
+	mg.Deps(CheckInstallLinter)
+	return sh.RunV("golangci-lint", args...)
 }
 
-func InstallLinter() error {
-	return sh.Run("go", "get", "github.com/golangci/golangci-lint/cmd/golangci-lint")
+func CheckInstallLinter() error {
+	return CheckInstall("golangci-lint", func() error {
+		return sh.Run("go", "get", "github.com/golangci/golangci-lint/cmd/golangci-lint")
+	})
 }
 
 func RunGoConvey(args ...string) error {
-	return RunTool("goconvey", args, nil, InstallGoConvey)
+	mg.Deps(CheckInstallGoConvey)
+	return sh.RunV("goconvey", args...)
 }
 
-func InstallGoConvey() error {
-	return sh.Run("go", "get", "github.com/smartystreets/goconvey")
+func CheckInstallGoConvey() error {
+	return CheckInstall("goconvey", func() error {
+		return sh.Run("go", "get", "github.com/smartystreets/goconvey")
+	})
 }

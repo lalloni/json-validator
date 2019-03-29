@@ -10,11 +10,6 @@ import (
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/build"
 )
 
-// Genera directorio vendor con las dependencias
-func Genvendor() error {
-	return sh.Run("go", "mod", "vendor")
-}
-
 // Genera JSON Schema
 func Genschema() error {
 	return build.Convert("schemas/resources", "doc/schemas")
@@ -22,19 +17,19 @@ func Genschema() error {
 
 // Genera recursos embebidos en código fuente
 func Genpack() error {
-	return build.RunPackr("-v")
+	return build.RunPackr()
 }
 
 // Genera todos los "generables"
 func Genall() error {
-	mg.Deps(Genschema, Genpack, Genvendor)
+	mg.Deps(Genschema, Genpack)
 	return nil
 }
 
 // Ejecuta tests
 func Test() error {
 	mg.Deps(Genall)
-	return sh.RunV("go", "test", "-mod=vendor", "./...")
+	return sh.RunV("go", "test", "./...")
 }
 
 // Ejecuta análisis estático de código fuente
@@ -45,7 +40,7 @@ func Check() error {
 // Ejecuta compilación de código fuente
 func Compile() error {
 	mg.Deps(Genall)
-	return sh.Run("go", "build", "-mod=vendor")
+	return sh.Run("go", "build", "./...")
 }
 
 // Lanza GoConvey (http://goconvey.co/)
@@ -55,7 +50,7 @@ func Convey() error {
 
 // Ejecuta el proceso de release
 func Release() error {
-	mg.Deps(Genall, Compile, Test, Check)
+	mg.SerialDeps(Genall, Check, Compile, Test)
 	return errors.New("not implemented")
 }
 
