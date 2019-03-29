@@ -3,6 +3,9 @@
 package main
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 	"github.com/pkg/errors"
@@ -50,8 +53,16 @@ func Convey() error {
 
 // Ejecuta el proceso de release
 func Release() error {
+	version := os.Getenv("version")
+	if version == "" {
+		return errors.New(`Version is required for release.
+You must set the version to be released using the environment variable 'version'.
+On unix-like shells you could do something like:
+    env version=1.2.3 mage release`)
+	}
+	fmt.Printf("Releasing version: %s\n", version)
 	mg.SerialDeps(Genall, Check, Compile, Test)
-	return errors.New("not implemented")
+	return errors.New("still not implemented")
 }
 
 // Construye un binario estático de este build
