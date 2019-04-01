@@ -64,6 +64,9 @@
         "impuesto": {
           "$ref": "#/definitions/codigoimpuesto"
         },
+        "motivo": {
+          "type": "integer"
+        },
         "periodo": {
           "$ref": "#/definitions/periodomensual"
         }
@@ -167,13 +170,13 @@
           "type": "string"
         },
         "nomenclador": {
-          "$ref": "#/definitions/nomenclador"
+          "type": "string"
         },
         "nota": {
           "type": "string"
         },
         "numero": {
-          "type": "string"
+          "type": "integer"
         },
         "orden": {
           "type": "integer"
@@ -310,6 +313,9 @@
         "ds": {
           "$ref": "#/definitions/fecha"
         },
+        "hasta": {
+          "$ref": "#/definitions/fecha"
+        },
         "provincia": {
           "$ref": "#/definitions/provincia"
         },
@@ -325,9 +331,6 @@
     },
     "natural": {
       "minimum": 0,
-      "type": "integer"
-    },
-    "nomenclador": {
       "type": "integer"
     },
     "periododiario": {
@@ -523,6 +526,9 @@
         "pais": {
           "type": "integer"
         },
+        "persona": {
+          "const": "F"
+        },
         "sexo": {
           "enum": [
             "M",
@@ -538,9 +544,6 @@
             }
           },
           "type": "object"
-        },
-        "tipo": {
-          "const": "F"
         },
         "tipoid": {
           "const": "C",
@@ -684,6 +687,9 @@
         "pais": {
           "type": "integer"
         },
+        "persona": {
+          "const": "J"
+        },
         "razonsocial": {
           "type": "string"
         },
@@ -695,9 +701,6 @@
             }
           },
           "type": "object"
-        },
-        "tipo": {
-          "const": "J"
         },
         "tipoid": {
           "const": "C",

@@ -122,7 +122,7 @@ oneOf:
   - type: object
     title: personafisica
     properties:
-      tipo:
+      persona:
         const: F
       <<: *common-properties
       <<: *personafisica-properties
@@ -134,7 +134,7 @@ oneOf:
   - type: object
     title: personajuridica
     properties:
-      tipo:
+      persona:
         const: J
       <<: *common-properties
       <<: *personajuridica-properties
@@ -157,9 +157,6 @@ definitions:
   estado:
     type: string
     enum: [AC, NA, BD, BP, EX]
-
-  nomenclador:
-    type: integer
 
   fecha:
     type: string
@@ -215,7 +212,7 @@ definitions:
       calle:
         type: string
       numero:
-        type: string
+        type: integer
       piso:
         type: string
       sector:
@@ -233,7 +230,7 @@ definitions:
       cp:
         type: string
       nomenclador:
-        $ref: "#/definitions/nomenclador"
+        type: string
       adicional:
         type: object
         properties:
@@ -326,6 +323,8 @@ definitions:
         $ref: "#/definitions/provincia"
       desde:
         $ref: "#/definitions/fecha"
+      hasta:
+        $ref: "#/definitions/fecha"
       sede:
         type: boolean
       ds:
@@ -374,6 +373,8 @@ definitions:
     type: object
     properties:
       categoria:
+        type: integer
+      motivo:
         type: integer
       estado:
         $ref: "#/definitions/estado"
