@@ -11,15 +11,15 @@ func (l locale) InvalidType() string {
 }
 
 func (l locale) NumberAnyOf() string {
-	return `Debe cumplir al menos un sub esquema{{ if .subtitles }} de{{ range .subtitles }} "{{ . }}"{{ end }}{{ else }} (anyOf){{ end }}`
+	return `Debe cumplir al menos un sub esquema{{ if .subtitles }} {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}"{{ . }}"{{ end }}{{ else }} (oneOf){{ end }}`
 }
 
 func (l locale) NumberOneOf() string {
-	return `Debe cumplir un y solo un sub esquema{{ if .subtitles }} de{{ range .subtitles }} "{{ . }}"{{ end }}{{ else }} (oneOf){{ end }}`
+	return `Debe cumplir un y sólo un sub esquema{{ if .subtitles }} {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}"{{ . }}"{{ end }}{{ else }} (oneOf){{ end }}`
 }
 
 func (l locale) NumberAllOf() string {
-	return `Debe cumplir todos los sub esquemas{{ if .subtitles }} de{{ range .subtitles }} "{{ . }}"{{ end }}{{ else }} (allOf){{ end }}`
+	return `Debe cumplir todos los sub esquemas{{ if .subtitles }} {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}"{{ . }}"{{ end }}{{ else }} (oneOf){{ end }}`
 }
 
 func (l locale) NumberNot() string {
