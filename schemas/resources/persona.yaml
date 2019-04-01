@@ -2,51 +2,94 @@ $schema: http://json-schema.org/draft-07/schema#
 
 x-common-properties: &common-properties
   id:
-    $ref: '#/definitions/cuit'
+    $ref: "#/definitions/cuit"
   tipoid:
     type: string
     const: C
   nuevoid:
-    $ref: '#/definitions/cuit'
+    $ref: "#/definitions/cuit"
   estado:
     type: string
-    enum: [ A, I ]
+    enum: [A, I]
   pais:
     type: integer
   inscripcion:
-    $ref: '#/definitions/fecha'
+    type: object
+    properties:
+      fecha:
+        type: string
+        format: date
+      numero:
+        type: integer
+      registro:
+        type: integer
+    additionalProperties: false
+    minProperties: 1
+    dependencies:
+      registro: [numero]
+      numero: [registro]
   ch:
-    $ref: '#/definitions/ch'
+    $ref: "#/definitions/ch"
   ds:
-    $ref: '#/definitions/fecha'
+    $ref: "#/definitions/fecha"
   actividades:
-    type: array
-    $key: [ actividad, nomenclador ]
-    items:
-      $ref: '#/definitions/actividad'
-  impuestos:
-    type: array
+    type: object
     patternProperties:
-      '^[0-9]+(\.[0-9]+)*$':
-        $ref: '#/definitions/impuesto'
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/actividad"
+    additionalProperties: false
+  impuestos:
+    type: object
+    patternProperties:
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/impuesto"
     additionalProperties: false
   domicilios:
     type: object
     patternProperties:
-      '^[0-9]+(\.[0-9]+)*$':
-        $ref: '#/definitions/domicilio'
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/domicilio"
     additionalProperties: false
   telefonos:
     type: object
     patternProperties:
-      '^[0-9]+(\.[0-9]+)*$':
-        $ref: '#/definitions/telefono'
-
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/telefono"
+    additionalProperties: false
+  jurisdicciones:
+    type: object
+    patternProperties:
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/jurisdiccion"
+    additionalProperties: false
+  emails:
+    type: object
+    patternProperties:
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/email"
+    additionalProperties: false
+  archivos:
+    type: object
+    patternProperties:
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/archivo"
+    additionalProperties: false
+  categorias:
+    type: object
+    patternProperties:
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/categoria"
+    additionalProperties: false
+  etiquetas:
+    type: object
+    patternProperties:
+      '^[-0-9]+(\.[-0-9]+)*$':
+        $ref: "#/definitions/etiqueta"
     additionalProperties: false
 
 x-personafisica-properties: &personafisica-properties
   documento:
-    $ref: '#/definitions/documento'
+    $ref: "#/definitions/documento"
   nombre:
     type: string
   apellido:
@@ -55,11 +98,11 @@ x-personafisica-properties: &personafisica-properties
     type: string
   sexo:
     type: string
-    enum: [ M, F ]
+    enum: [M, F]
   nacimiento:
-    $ref: '#/definitions/fecha'
+    $ref: "#/definitions/fecha"
   fallecimiento:
-    $ref: '#/definitions/fecha'
+    $ref: "#/definitions/fecha"
 
 x-personajuridica-properties: &personajuridica-properties
   razonsocial:
@@ -76,7 +119,6 @@ x-personajuridica-properties: &personajuridica-properties
 ################################
 
 oneOf:
-
   - type: object
     title: personafisica
     properties:
@@ -104,6 +146,9 @@ oneOf:
 ################################
 
 definitions:
+  natural:
+    type: integer
+    minimum: 0
 
   cuit:
     type: integer
@@ -111,7 +156,7 @@ definitions:
 
   estado:
     type: string
-    enum: [ AC, NA, BD, BP, EX ]
+    enum: [AC, NA, BD, BP, EX]
 
   nomenclador:
     type: integer
@@ -120,39 +165,46 @@ definitions:
     type: string
     format: date
 
-  añomesdia:
-    type: string
-    pattern: '^[0-9]{8}$'
+  provincia:
+    type: integer
+    min: 0
+    max: 24
 
-  añomes:
-    type: string
-    pattern: '^[0-9]{6}$'
+  periodomensual:
+    type: integer
+    minimum: 100000
+    maximum: 999912
+    format: periodomensual
 
-  año:
-    type: string
-    pattern: '^[0-9]{4}$'
+  periododiario:
+    type: integer
+    minimum: 10000000
+    maximum: 99991231
+    format: periododiario
+
+  codigoimpuesto:
+    type: integer
+    minimum: 1
+    maximum: 9999
 
   actividad:
     type: object
     properties:
       actividad:
         type: string
-        pattern: '^883-[0-9]{5..6}$'
+        pattern: "^883-[0-9]{5,6}$"
       orden:
         type: integer
       periodo:
-        $ref: '#/definitions/añomes'
+        $ref: "#/definitions/periodomensual"
       estado:
-        $ref: '#/definitions/estado'
+        $ref: "#/definitions/estado"
       ds:
-        $ref: '#/definitions/fecha'
+        $ref: "#/definitions/fecha"
     additionalProperties: false
 
   domicilio:
     type: object
-    required:
-      - orden
-      - tipo
     properties:
       orden:
         type: integer
@@ -166,40 +218,66 @@ definitions:
         type: string
       piso:
         type: string
-      oficina:
+      sector:
+        type: string
+      manzana:
+        type: string
+      torre:
+        type: string
+      unidad:
         type: string
       provincia:
-        type: integer
-        minimum: 0
-        maximum: 24
+        $ref: "#/definitions/provincia"
       localidad:
         type: string
       cp:
         type: string
       nomenclador:
-        $ref: '#/definitions/nomenclador'
+        $ref: "#/definitions/nomenclador"
+      adicional:
+        type: object
+        properties:
+          tipo:
+            type: integer
+          dato:
+            type: string
+          additionalProperties: false
+        required:
+          - tipo
+          - dato
+      nota:
+        type: string
+      baja:
+        $ref: "#/definitions/fecha"
       ds:
-        $ref: '#/definitions/fecha'
+        $ref: "#/definitions/fecha"
     additionalProperties: false
+    minProperties: 3
+    required:
+      - orden
+      - tipo
 
   impuesto:
     type: object
     properties:
       impuesto:
+        $ref: "#/definitions/codigoimpuesto"
+      inscripcion:
+        $ref: "#/definitions/fecha"
+      estado:
+        $ref: "#/definitions/estado"
+      dia:
         type: integer
         minimum: 1
-        maximum: 9999
-      inscripcion:
-        $ref: '#/definitions/fecha'
-      estado:
-        $ref: '#/definitions/estado'
+        maximum: 31
       periodo:
-        $ref: '#/definitions/añomesdia'
+        $ref: "#/definitions/periodomensual"
       motivo:
         type: integer
       ds:
-        $ref: '#/definitions/fecha'
+        $ref: "#/definitions/fecha"
     additionalProperties: false
+    minProperties: 4
     required:
       - impuesto
       - periodo
@@ -208,14 +286,25 @@ definitions:
   telefono:
     type: object
     properties:
+      orden:
+        type: integer
+      pais:
+        type: integer
+      area:
+        type: integer
       numero:
-        type: string
+        type: integer
+      tipo:
+        type: integer
+      linea:
+        type: integer
       estado:
         type: integer
       ds:
-        $ref: '#/definitions/fecha'
+        $ref: "#/definitions/fecha"
     additionalProperties: false
     required:
+      - orden
       - numero
 
   documento:
@@ -229,6 +318,94 @@ definitions:
     required:
       - tipo
       - numero
+
+  jurisdiccion:
+    type: object
+    properties:
+      provincia:
+        $ref: "#/definitions/provincia"
+      desde:
+        $ref: "#/definitions/fecha"
+      sede:
+        type: boolean
+      ds:
+        $ref: "#/definitions/fecha"
+    additionalProperties: false
+    required:
+      - provincia
+      - desde
+
+  email:
+    type: object
+    properties:
+      direccion:
+        type: string
+        format: email
+      orden:
+        type: integer
+      tipo:
+        type: integer
+      estado:
+        type: integer
+      ds:
+        $ref: "#/definitions/fecha"
+    additionalProperties: false
+    required:
+      - orden
+      - direccion
+
+  archivo:
+    type: object
+    properties:
+      descripcion:
+        type: string
+      orden:
+        type: integer
+      tipo:
+        type: integer
+      ds:
+        $ref: "#/definitions/fecha"
+    additionalProperties: false
+    required:
+      - orden
+      - tipo
+
+  categoria:
+    type: object
+    properties:
+      categoria:
+        type: integer
+      estado:
+        $ref: "#/definitions/estado"
+      impuesto:
+        $ref: "#/definitions/codigoimpuesto"
+      periodo:
+        $ref: "#/definitions/periodomensual"
+      ds:
+        $ref: "#/definitions/fecha"
+    additionalProperties: false
+    required:
+      - categoria
+      - impuesto
+      - periodo
+      - estado
+
+  etiqueta:
+    type: object
+    properties:
+      etiqueta:
+        type: integer
+      periodo:
+        $ref: "#/definitions/periododiario"
+      estado:
+        $ref: "#/definitions/estado"
+      ds:
+        $ref: "#/definitions/fecha"
+    additionalProperties: false
+    required:
+      - etiqueta
+      - periodo
+      - estado
 
   ch:
     type: array

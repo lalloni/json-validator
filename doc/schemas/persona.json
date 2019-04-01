@@ -9,7 +9,7 @@
       "additionalProperties": false,
       "properties": {
         "actividad": {
-          "pattern": "^883-[0-9]{5..6}$",
+          "pattern": "^883-[0-9]{5,6}$",
           "type": "string"
         },
         "ds": {
@@ -22,22 +22,59 @@
           "type": "integer"
         },
         "periodo": {
-          "$ref": "#/definitions/añomes"
+          "$ref": "#/definitions/periodomensual"
         }
       },
       "type": "object"
     },
-    "año": {
-      "pattern": "^[0-9]{4}$",
-      "type": "string"
+    "archivo": {
+      "additionalProperties": false,
+      "properties": {
+        "descripcion": {
+          "type": "string"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "orden": {
+          "type": "integer"
+        },
+        "tipo": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "orden",
+        "tipo"
+      ],
+      "type": "object"
     },
-    "añomes": {
-      "pattern": "^[0-9]{6}$",
-      "type": "string"
-    },
-    "añomesdia": {
-      "pattern": "^[0-9]{8}$",
-      "type": "string"
+    "categoria": {
+      "additionalProperties": false,
+      "properties": {
+        "categoria": {
+          "type": "integer"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "estado": {
+          "$ref": "#/definitions/estado"
+        },
+        "impuesto": {
+          "$ref": "#/definitions/codigoimpuesto"
+        },
+        "periodo": {
+          "$ref": "#/definitions/periodomensual"
+        }
+      },
+      "required": [
+        "categoria",
+        "impuesto",
+        "periodo",
+        "estado"
+      ],
+      "type": "object"
     },
     "ch": {
       "items": {
@@ -63,6 +100,11 @@
       "type": "array",
       "uniqueItems": true
     },
+    "codigoimpuesto": {
+      "maximum": 9999,
+      "minimum": 1,
+      "type": "integer"
+    },
     "cuit": {
       "format": "cuit",
       "type": "integer"
@@ -85,7 +127,27 @@
     },
     "domicilio": {
       "additionalProperties": false,
+      "minProperties": 3,
       "properties": {
+        "adicional": {
+          "properties": {
+            "additionalProperties": false,
+            "dato": {
+              "type": "string"
+            },
+            "tipo": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "tipo",
+            "dato"
+          ],
+          "type": "object"
+        },
+        "baja": {
+          "$ref": "#/definitions/fecha"
+        },
         "calle": {
           "type": "string"
         },
@@ -101,13 +163,16 @@
         "localidad": {
           "type": "string"
         },
+        "manzana": {
+          "type": "string"
+        },
         "nomenclador": {
           "$ref": "#/definitions/nomenclador"
         },
-        "numero": {
+        "nota": {
           "type": "string"
         },
-        "oficina": {
+        "numero": {
           "type": "string"
         },
         "orden": {
@@ -117,8 +182,41 @@
           "type": "string"
         },
         "provincia": {
-          "maximum": 24,
-          "minimum": 0,
+          "$ref": "#/definitions/provincia"
+        },
+        "sector": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "integer"
+        },
+        "torre": {
+          "type": "string"
+        },
+        "unidad": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "orden",
+        "tipo"
+      ],
+      "type": "object"
+    },
+    "email": {
+      "additionalProperties": false,
+      "properties": {
+        "direccion": {
+          "format": "email",
+          "type": "string"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "estado": {
+          "type": "integer"
+        },
+        "orden": {
           "type": "integer"
         },
         "tipo": {
@@ -127,7 +225,7 @@
       },
       "required": [
         "orden",
-        "tipo"
+        "direccion"
       ],
       "type": "object"
     },
@@ -141,11 +239,7 @@
       ],
       "type": "string"
     },
-    "fecha": {
-      "format": "date",
-      "type": "string"
-    },
-    "impuesto": {
+    "etiqueta": {
       "additionalProperties": false,
       "properties": {
         "ds": {
@@ -154,10 +248,41 @@
         "estado": {
           "$ref": "#/definitions/estado"
         },
-        "impuesto": {
-          "maximum": 9999,
+        "etiqueta": {
+          "type": "integer"
+        },
+        "periodo": {
+          "$ref": "#/definitions/periododiario"
+        }
+      },
+      "required": [
+        "etiqueta",
+        "periodo",
+        "estado"
+      ],
+      "type": "object"
+    },
+    "fecha": {
+      "format": "date",
+      "type": "string"
+    },
+    "impuesto": {
+      "additionalProperties": false,
+      "minProperties": 4,
+      "properties": {
+        "dia": {
+          "maximum": 31,
           "minimum": 1,
           "type": "integer"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "estado": {
+          "$ref": "#/definitions/estado"
+        },
+        "impuesto": {
+          "$ref": "#/definitions/codigoimpuesto"
         },
         "inscripcion": {
           "$ref": "#/definitions/fecha"
@@ -166,7 +291,7 @@
           "type": "integer"
         },
         "periodo": {
-          "$ref": "#/definitions/añomesdia"
+          "$ref": "#/definitions/periodomensual"
         }
       },
       "required": [
@@ -176,23 +301,82 @@
       ],
       "type": "object"
     },
+    "jurisdiccion": {
+      "additionalProperties": false,
+      "properties": {
+        "desde": {
+          "$ref": "#/definitions/fecha"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "provincia": {
+          "$ref": "#/definitions/provincia"
+        },
+        "sede": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "provincia",
+        "desde"
+      ],
+      "type": "object"
+    },
+    "natural": {
+      "minimum": 0,
+      "type": "integer"
+    },
     "nomenclador": {
+      "type": "integer"
+    },
+    "periododiario": {
+      "format": "periododiario",
+      "maximum": 99991231,
+      "minimum": 10000000,
+      "type": "integer"
+    },
+    "periodomensual": {
+      "format": "periodomensual",
+      "maximum": 999912,
+      "minimum": 100000,
+      "type": "integer"
+    },
+    "provincia": {
+      "max": 24,
+      "min": 0,
       "type": "integer"
     },
     "telefono": {
       "additionalProperties": false,
       "properties": {
+        "area": {
+          "type": "integer"
+        },
         "ds": {
           "$ref": "#/definitions/fecha"
         },
         "estado": {
           "type": "integer"
         },
+        "linea": {
+          "type": "integer"
+        },
         "numero": {
-          "type": "string"
+          "type": "integer"
+        },
+        "orden": {
+          "type": "integer"
+        },
+        "pais": {
+          "type": "integer"
+        },
+        "tipo": {
+          "type": "integer"
         }
       },
       "required": [
+        "orden",
         "numero"
       ],
       "type": "object"
@@ -203,17 +387,34 @@
       "additionalProperties": false,
       "properties": {
         "actividades": {
-          "$key": [
-            "actividad",
-            "nomenclador"
-          ],
-          "items": {
-            "$ref": "#/definitions/actividad"
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/actividad"
+            }
           },
-          "type": "array"
+          "type": "object"
         },
         "apellido": {
           "type": "string"
+        },
+        "archivos": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/archivo"
+            }
+          },
+          "type": "object"
+        },
+        "categorias": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/categoria"
+            }
+          },
+          "type": "object"
         },
         "ch": {
           "$ref": "#/definitions/ch"
@@ -224,7 +425,7 @@
         "domicilios": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[0-9]+(\\.[0-9]+)*$": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
               "$ref": "#/definitions/domicilio"
             }
           },
@@ -233,12 +434,30 @@
         "ds": {
           "$ref": "#/definitions/fecha"
         },
+        "emails": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/email"
+            }
+          },
+          "type": "object"
+        },
         "estado": {
           "enum": [
             "A",
             "I"
           ],
           "type": "string"
+        },
+        "etiquetas": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/etiqueta"
+            }
+          },
+          "type": "object"
         },
         "fallecimiento": {
           "$ref": "#/definitions/fecha"
@@ -249,14 +468,45 @@
         "impuestos": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[0-9]+(\\.[0-9]+)*$": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
               "$ref": "#/definitions/impuesto"
             }
           },
-          "type": "array"
+          "type": "object"
         },
         "inscripcion": {
-          "$ref": "#/definitions/fecha"
+          "additionalProperties": false,
+          "dependencies": {
+            "numero": [
+              "registro"
+            ],
+            "registro": [
+              "numero"
+            ]
+          },
+          "minProperties": 1,
+          "properties": {
+            "fecha": {
+              "format": "date",
+              "type": "string"
+            },
+            "numero": {
+              "type": "integer"
+            },
+            "registro": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "jurisdicciones": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/jurisdiccion"
+            }
+          },
+          "type": "object"
         },
         "materno": {
           "type": "string"
@@ -283,7 +533,7 @@
         "telefonos": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[0-9]+(\\.[0-9]+)*$": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
               "$ref": "#/definitions/telefono"
             }
           },
@@ -308,14 +558,31 @@
       "additionalProperties": false,
       "properties": {
         "actividades": {
-          "$key": [
-            "actividad",
-            "nomenclador"
-          ],
-          "items": {
-            "$ref": "#/definitions/actividad"
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/actividad"
+            }
           },
-          "type": "array"
+          "type": "object"
+        },
+        "archivos": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/archivo"
+            }
+          },
+          "type": "object"
+        },
+        "categorias": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/categoria"
+            }
+          },
+          "type": "object"
         },
         "ch": {
           "$ref": "#/definitions/ch"
@@ -323,7 +590,7 @@
         "domicilios": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[0-9]+(\\.[0-9]+)*$": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
               "$ref": "#/definitions/domicilio"
             }
           },
@@ -332,12 +599,30 @@
         "ds": {
           "$ref": "#/definitions/fecha"
         },
+        "emails": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/email"
+            }
+          },
+          "type": "object"
+        },
         "estado": {
           "enum": [
             "A",
             "I"
           ],
           "type": "string"
+        },
+        "etiquetas": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/etiqueta"
+            }
+          },
+          "type": "object"
         },
         "formajuridica": {
           "type": "integer"
@@ -348,14 +633,45 @@
         "impuestos": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[0-9]+(\\.[0-9]+)*$": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
               "$ref": "#/definitions/impuesto"
             }
           },
-          "type": "array"
+          "type": "object"
         },
         "inscripcion": {
-          "$ref": "#/definitions/fecha"
+          "additionalProperties": false,
+          "dependencies": {
+            "numero": [
+              "registro"
+            ],
+            "registro": [
+              "numero"
+            ]
+          },
+          "minProperties": 1,
+          "properties": {
+            "fecha": {
+              "format": "date",
+              "type": "string"
+            },
+            "numero": {
+              "type": "integer"
+            },
+            "registro": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "jurisdicciones": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/jurisdiccion"
+            }
+          },
+          "type": "object"
         },
         "mescierre": {
           "maximum": 12,
@@ -374,7 +690,7 @@
         "telefonos": {
           "additionalProperties": false,
           "patternProperties": {
-            "^[0-9]+(\\.[0-9]+)*$": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
               "$ref": "#/definitions/telefono"
             }
           },
