@@ -81,7 +81,43 @@ for _, e := range res.Errors {
 
 - [Go](https://golang.org/dl/) v1.11.0 o posterior
 
+#### Mage
+
+El proyecto adopta [Mage](https://magefile.org/) como herramienta de ejecución de tareas pero no lo requiere preinstalado gracias a que al ser código Go se puede invocar directamente con `go run`.
+
+Para explotar esta posibilidad se incorpora el archivo [mage.go](mage.go) en el raíz del proyecto que incluye el poquísimo código necesario para hacerlo.
+
+De aquí en adelante se documentan todas las tareas utilizando esta característica.
+
+Todos los comandos tendrán la forma:
+
+```sh
+go run mage.go ...
+```
+
+Por otro lado, si se [instaló Mage](https://magefile.org/#installation) en el entorno del usuario, se podrán ejecutar todas las tareas invocando directamente al mismo, para hacerlo de esta manera se debe reemplazar `go run mage.go` por `mage` en todos los comandos documentados.
+
+En este caso, los comandos tendrán la forma:
+
+```sh
+mage ...
+```
+
+Siendo esta forma de ejecución marginalmente más eficiente.
+
+### Tareas disponibles
+
+Ver salida de:
+
+```sh
+go run mage.go
+```
+
 ### Correr tests
+
+Ejecuta los tests del proyecto informando fallos.
+
+Ejecutar con:
 
 ```sh
 go run mage.go test
@@ -117,5 +153,5 @@ Dado que el proyecto es una librería Go su proceso de release es:
 6. Publicación del nuevo tag a GitLab
 
 ```sh
-go run mage.go release
+env version=1.2.3 go run mage.go release
 ```
