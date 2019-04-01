@@ -32,7 +32,7 @@ func FromYAML(bs []byte, opts Options) ([]byte, error) {
 		return nil, err
 	}
 	if opts.Pretty {
-		bs, err = pretty(bs)
+		bs, err = Pretty(bs)
 		if err != nil {
 			return nil, err
 		}
@@ -82,7 +82,7 @@ func filter(v *simplejson.Json) {
 	}
 }
 
-func pretty(bs []byte) ([]byte, error) {
+func Pretty(bs []byte) ([]byte, error) {
 	b := bytes.Buffer{}
 	err := json.Indent(&b, bs, "", "  ")
 	if err != nil {
