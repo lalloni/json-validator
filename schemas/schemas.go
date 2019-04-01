@@ -2,7 +2,6 @@ package schemas
 
 import (
 	"io/ioutil"
-	"log"
 
 	"github.com/gobuffalo/packr/v2"
 	"github.com/lalloni/gojsonschema"
@@ -12,7 +11,7 @@ import (
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/formats"
 )
 
-var fs = packr.New("schemas/resources", "resources")
+var fs = packr.New("schemas", "resources")
 
 func init() {
 	gojsonschema.Locale = locale{}
@@ -22,8 +21,8 @@ func init() {
 	gojsonschema.FormatCheckers.Add("periodoanual", formats.PeriodoAnual)
 }
 
-func Persona() (*gojsonschema.Schema, error) {
-	jsonloader, err := loaderFromYAML("persona.yaml")
+func PersonaSchema() (*gojsonschema.Schema, error) {
+	jsonloader, err := PersonaSchemaJSONLoader()
 	if err != nil {
 		return nil, errors.Wrap(err, "building loader for persona json schema")
 	}
@@ -38,6 +37,10 @@ func Persona() (*gojsonschema.Schema, error) {
 	return schema, nil
 }
 
+func PersonaSchemaJSONLoader() (gojsonschema.JSONLoader, error) {
+	return loaderFromYAML("persona.yaml")
+}
+
 func loaderFromYAML(name string) (gojsonschema.JSONLoader, error) {
 	f, err := fs.Open(name)
 	if err != nil {
@@ -47,11 +50,10 @@ func loaderFromYAML(name string) (gojsonschema.JSONLoader, error) {
 	if err != nil {
 		return nil, errors.Wrapf(err, "reading '%s'", name)
 	}
-	schema, err := convert.FromYAML(bs, convert.Options{Source: name})
+	schema, err := convert.FromYAML(bs, convert.Options{Source: name, Pretty: true})
 	if err != nil {
 		return nil, errors.Wrapf(err, "converting '%s' to JSON", name)
 	}
-	log.Printf("loaded json schema from '%s':\n%s", name, string(schema))
 	loader := gojsonschema.NewBytesLoader(schema)
 	_, err = loader.LoadJSON() // for checking json
 	if err != nil {

@@ -1,6 +1,7 @@
 package schemas_test
 
 import (
+	"strings"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -13,6 +14,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v2"
 
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/convert"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/schemas"
 	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator"
 )
 
@@ -27,6 +30,20 @@ type TestCase struct {
 }
 
 func TestPersonaSchema(t *testing.T) {
+
+	loader, err := schemas.PersonaSchemaJSONLoader()
+	if err!=nil{
+		t.Fatalf("getting JSON schema: %v", err)
+	}
+	bs,ok := loader.JsonSource().([]byte)
+	if !ok{
+		t.Fatal("getting JSON schema source: was not []byte")
+	}
+	bs, err = convert.Pretty(bs)
+	if err!=nil{
+		t.Fatalf("prettifyin JSON schema source: %v", err)
+	}
+	t.Logf("using JSON schema:\n%s", string(bs))
 
 	v, err := validator.New()
 	if err != nil {
@@ -69,8 +86,11 @@ func TestPersonaSchema(t *testing.T) {
 					if err != nil {
 						a.FailNow("marshaling document", err)
 					}
-
-					t.Logf("validating: %s", string(bs))
+					pbs,err:=convert.Pretty(bs)
+					if err!=nil{
+						t.Errorf("prettifying document: %v", err)
+					}
+					t.Logf("validating: %s", string(pbs))
 					var vr *validator.ValidationResult
 					switch tc.Schema {
 					case "personas":
@@ -83,7 +103,15 @@ func TestPersonaSchema(t *testing.T) {
 					if err != nil {
 						a.FailNow("validating document", err)
 					}
-					//t.Logf("result: %+v", vr)
+					sb := strings.Builder{}
+					for _,e:=range vr.Errors {
+						sb.WriteString("    ")
+						sb.WriteString(e.Field)
+						sb.WriteString(": ")
+						sb.WriteString(e.Description)
+						sb.WriteString("\n")
+					}
+					t.Logf("validation result:\n%s", sb.String())
 
 					missing, lacking := match(tc.Assert.Errors, vr.Errors)
 					report := inform(missing, lacking)

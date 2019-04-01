@@ -12,7 +12,7 @@ type Validator interface {
 }
 
 func New() (Validator, error) {
-	schema, err := schemas.Persona()
+	schema, err := schemas.PersonaSchema()
 	if err != nil {
 		return nil, errors.Wrap(err, "getting persona schema")
 	}
