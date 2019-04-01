@@ -50,8 +50,8 @@ github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORN
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0 h1:45sCR5RtlFHMR4UwH9sdQ5TC8v0qDQCHnXt+kaKSTVE=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
-github.com/lalloni/afip v1.1.0 h1:LUY4z+kaffwi/DuJy9YcawAvIkdhFuyH78fe121zZVQ=
-github.com/lalloni/afip v1.1.0/go.mod h1:1kWJdB8gSoTnRtYSTC2+pT4KalPL+KT1i7S++DXVixE=
+github.com/lalloni/afip v1.2.0 h1:ijCY6/wn4MJMA+aEx5bgYlObAM3JcjLijma1y9kEWWk=
+github.com/lalloni/afip v1.2.0/go.mod h1:1kWJdB8gSoTnRtYSTC2+pT4KalPL+KT1i7S++DXVixE=
 github.com/lalloni/gojsonschema v1.1.1-0.20190328194815-d8f6c0272505 h1:K+I1SpQoQ2QzVp6ogVzWk5YqA70cOoyCHH85S3jI6Zc=
 github.com/lalloni/gojsonschema v1.1.1-0.20190328194815-d8f6c0272505/go.mod h1:booBaA00DfddFHdbQGjROj8emtf1bPavYaIlmiJ4NkE=
 github.com/magefile/mage v1.8.1-0.20190314142316-8dce728c572d h1:9B94w7V0dTEeyVbfhmSddncd7arG9V1SWNy5I1A+0SE=
