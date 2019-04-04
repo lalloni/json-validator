@@ -108,6 +108,37 @@
       "minimum": 1,
       "type": "integer"
     },
+    "contribucionmunicipal": {
+      "additionalProperties": false,
+      "properties": {
+        "desde": {
+          "$ref": "#/definitions/fecha"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "hasta": {
+          "$ref": "#/definitions/fecha"
+        },
+        "impuesto": {
+          "$ref": "#/definitions/codigoimpuesto"
+        },
+        "municipio": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "provincia": {
+          "$ref": "#/definitions/provincia"
+        }
+      },
+      "required": [
+        "impuesto",
+        "municipio",
+        "provincia",
+        "desde"
+      ],
+      "type": "object"
+    },
     "cuit": {
       "format": "cuit",
       "type": "integer"
@@ -167,6 +198,9 @@
           "type": "string"
         },
         "manzana": {
+          "type": "string"
+        },
+        "nombre": {
           "type": "string"
         },
         "nomenclador": {
@@ -350,6 +384,33 @@
       "min": 0,
       "type": "integer"
     },
+    "relacion": {
+      "additionalProperties": false,
+      "properties": {
+        "desde": {
+          "$ref": "#/definitions/fecha"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "persona": {
+          "$ref": "#/definitions/cuit"
+        },
+        "subtipo": {
+          "type": "integer"
+        },
+        "tipo": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "persona",
+        "tipo",
+        "subtipo",
+        "desde"
+      ],
+      "type": "object"
+    },
     "telefono": {
       "additionalProperties": false,
       "properties": {
@@ -398,6 +459,9 @@
           },
           "type": "object"
         },
+        "activoid": {
+          "$ref": "#/definitions/cuit"
+        },
         "apellido": {
           "type": "string"
         },
@@ -421,6 +485,15 @@
         },
         "ch": {
           "$ref": "#/definitions/ch"
+        },
+        "contribmunis": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/contribucionmunicipal"
+            }
+          },
+          "type": "object"
         },
         "documento": {
           "$ref": "#/definitions/documento"
@@ -520,9 +593,6 @@
         "nombre": {
           "type": "string"
         },
-        "nuevoid": {
-          "$ref": "#/definitions/cuit"
-        },
         "pais": {
           "type": "integer"
         },
@@ -552,7 +622,7 @@
       },
       "required": [
         "id",
-        "tipo"
+        "persona"
       ],
       "title": "personafisica",
       "type": "object"
@@ -568,6 +638,9 @@
             }
           },
           "type": "object"
+        },
+        "activoid": {
+          "$ref": "#/definitions/cuit"
         },
         "archivos": {
           "additionalProperties": false,
@@ -589,6 +662,18 @@
         },
         "ch": {
           "$ref": "#/definitions/ch"
+        },
+        "contratosocial": {
+          "$ref": "#/definitions/fecha"
+        },
+        "contribmunis": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/contribucionmunicipal"
+            }
+          },
+          "type": "object"
         },
         "domicilios": {
           "additionalProperties": false,
@@ -681,9 +766,6 @@
           "minimum": 1,
           "type": "integer"
         },
-        "nuevoid": {
-          "$ref": "#/definitions/cuit"
-        },
         "pais": {
           "type": "integer"
         },
@@ -692,6 +774,15 @@
         },
         "razonsocial": {
           "type": "string"
+        },
+        "relaciones": {
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[-0-9]+(\\.[-0-9]+)*$": {
+              "$ref": "#/definitions/relacion"
+            }
+          },
+          "type": "object"
         },
         "telefonos": {
           "additionalProperties": false,
@@ -709,7 +800,7 @@
       },
       "required": [
         "id",
-        "tipo"
+        "persona"
       ],
       "title": "personajuridica",
       "type": "object"
