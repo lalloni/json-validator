@@ -6,38 +6,78 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
+
+	"github.com/pkg/errors"
 
 	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator"
 )
 
 func main() {
-	v, err := validator.New()
+	val, err := validator.New()
 	if err != nil {
 		log.Fatalf("error creating validator: %v", err)
 	}
-	data := make(map[string]interface{})
 	dec := json.NewDecoder(os.Stdin)
 	for {
-		err = dec.Decode(&data)
+		data, err := next(dec)
 		if err == io.EOF {
-			break
+			return
 		}
 		if err != nil {
-			log.Fatalf("error decoding next: %v", err)
+			fatal("reading next document: %v", err)
 		}
-		bs, err := json.Marshal(&data)
+		report, err := validate(data, val)
 		if err != nil {
-			log.Fatalf("error encoding next: %v", err)
+			fatal("validating document: %v", err)
 		}
-		res, err := v.ValidatePersonaJSON(bs)
+		err = print(report)
 		if err != nil {
-			log.Fatalf("error validating json document: %v", err)
-		}
-		if res.Valid() {
-			fmt.Println("valid")
-		}
-		for _, problem := range res.Errors {
-			fmt.Printf("%s: %s\n", problem.Field, problem.Description)
+			fatal("printing validation report: %v", err)
 		}
 	}
+}
+
+func next(dec *json.Decoder) (map[string]interface{}, error) {
+	data := map[string]interface{}{}
+	err := dec.Decode(&data)
+	return data, err
+}
+
+func validate(data map[string]interface{}, v validator.Validator) (map[string]interface{}, error) {
+	report := make(map[string]interface{})
+	if id, ok := data["id"]; ok {
+		report["id"] = id
+	}
+	bs, err := json.Marshal(&data)
+	if err != nil {
+		return report, errors.Wrapf(err, "error encoding next: %v", err)
+	}
+	res, err := v.ValidatePersonaJSON(bs)
+	if err != nil {
+		return report, errors.Wrapf(err, "error validating json document: %v", err)
+	}
+	report["valid"] = res.Valid()
+	if !res.Valid() {
+		report["errors"] = res.Errors
+	}
+	return report, nil
+}
+
+func print(r map[string]interface{}) error {
+	bs, err := json.Marshal(r)
+	if err != nil {
+		return errors.Wrap(err, "marshalling report for printing")
+	}
+	_, err = fmt.Println(string(bs))
+	return err
+}
+
+func fatal(f string, arg ...interface{}) {
+	f = "fatal: " + f
+	if !strings.HasSuffix(f, "\n") {
+		f += "\n"
+	}
+	fmt.Fprintf(os.Stderr, f, arg...)
+	os.Exit(1)
 }
