@@ -3,7 +3,7 @@ schema: persona
 document:
   id: 33693450239
   tipoid: C
-  tipo: J
+  persona: J
   nuevoid: 20111111112
   estado: A
   pais: 21
@@ -70,7 +70,7 @@ document:
       orden: 1
       tipo: 1
       calle: "9 de Julio"
-      numero: "1000"
+      numero: 1000
       provincia: 0
     2.2:
       orden: 2
@@ -81,7 +81,7 @@ document:
       baja: "2019-12-12"
       nota: "asdasda sdas dasd as das ds dasd as"
       calle: "Corrientes"
-      numero: "348"
+      numero: 348
       provincia: 1
   telefonos:
     1:
@@ -120,5 +120,33 @@ document:
       impuesto: 20
       periodo: 201010
       ds: "2019-01-10"
+  contribmunis:
+    20.1:
+      impuesto: 20
+      municipio: 1
+      provincia: 0
+      desde: "2010-01-01"
+      hasta: "2015-01-01"
+      ds: "2019-01-31"
+    20.10:
+      impuesto: 20
+      municipio: 10
+      provincia: 1
+      desde: "2010-01-01"
+      hasta: "2015-01-01"
+      ds: "2019-01-31"
+  relaciones:
+    20111111112.1.2:
+      persona: 20111111112
+      tipo: 1
+      subtipo: 1
+      desde: "2010-01-01"
+      ds: "2019-01-01"
+    20111111112.1.4:
+      persona: 20111111112
+      tipo: 1
+      subtipo: 4
+      desde: "2010-01-01"
+      ds: "2019-01-01"
 assert:
   match: valid
