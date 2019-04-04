@@ -13,6 +13,7 @@ require (
 	github.com/huandu/xstrings v1.2.0 // indirect
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/lalloni/afip v1.2.0
+	github.com/lalloni/go-archiver v0.0.0-20190403175244-e10b574c02e4
 	github.com/lalloni/gojsonschema v1.1.1-0.20190328194815-d8f6c0272505
 	github.com/magefile/mage v1.8.1-0.20190314142316-8dce728c572d
 	github.com/pkg/errors v0.8.1
