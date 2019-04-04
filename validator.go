@@ -38,6 +38,6 @@ func (r *ValidationResult) Valid() bool {
 }
 
 type ValidationError struct {
-	Field       string
-	Description string
+	Field       string `json:"field,omitempty"`
+	Description string `json:"description,omitempty"`
 }
