@@ -8,7 +8,6 @@ document:
   estado: A
   pais: 21
   inscripcion:
-    fecha: "2018-10-20"
     registro: 1
     numero: 1
   razonsocial: AFIP

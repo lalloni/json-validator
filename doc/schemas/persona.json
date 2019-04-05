@@ -1,4 +1,5 @@
 {
+  "$id": "https://metadata.afip.gob.ar/json-schemas/persona-v1.0.0#",
   "$meta": {
     "comment": "SCHEMA GENERADO AUTOMÁTICAMENTE (NO MODIFICAR)",
     "source": "schemas/resources/persona.yaml"
@@ -552,20 +553,7 @@
         },
         "inscripcion": {
           "additionalProperties": false,
-          "dependencies": {
-            "numero": [
-              "registro"
-            ],
-            "registro": [
-              "numero"
-            ]
-          },
-          "minProperties": 1,
           "properties": {
-            "fecha": {
-              "format": "date",
-              "type": "string"
-            },
             "numero": {
               "type": "integer"
             },
@@ -573,6 +561,10 @@
               "type": "integer"
             }
           },
+          "required": [
+            "registro",
+            "numero"
+          ],
           "type": "object"
         },
         "jurisdicciones": {
@@ -729,20 +721,7 @@
         },
         "inscripcion": {
           "additionalProperties": false,
-          "dependencies": {
-            "numero": [
-              "registro"
-            ],
-            "registro": [
-              "numero"
-            ]
-          },
-          "minProperties": 1,
           "properties": {
-            "fecha": {
-              "format": "date",
-              "type": "string"
-            },
             "numero": {
               "type": "integer"
             },
@@ -750,6 +729,10 @@
               "type": "integer"
             }
           },
+          "required": [
+            "registro",
+            "numero"
+          ],
           "type": "object"
         },
         "jurisdicciones": {
