@@ -21,6 +21,30 @@ func init() {
 	gojsonschema.FormatCheckers.Add("periodoanual", formats.PeriodoAnual)
 }
 
+func PersonaListSchema() (*gojsonschema.Schema, error) {
+	personaSchemaLoader, err := PersonaSchemaJSONLoader()
+	if err != nil {
+		return nil, errors.Wrap(err, "building loader for persona json schema")
+	}
+	personaListSchemaloader, err := PersonaListSchemaJSONLoader()
+	if err != nil {
+		return nil, errors.Wrap(err, "building loader for persona list json schema")
+	}
+	schemaloader := gojsonschema.NewSchemaLoader()
+	schemaloader.Validate = true // validate schema
+	schemaloader.Draft = gojsonschema.Draft7
+	err = schemaloader.AddSchemas(personaSchemaLoader)
+	if err != nil {
+		return nil, errors.Wrap(err, "adding referenced json schemas")
+	}
+	schema, err := schemaloader.Compile(personaListSchemaloader)
+	if err != nil {
+		return nil, errors.Wrap(err, "building json schema for persona list")
+	}
+	schema.SetRootSchemaName("(persona list)")
+	return schema, nil
+}
+
 func PersonaSchema() (*gojsonschema.Schema, error) {
 	jsonloader, err := PersonaSchemaJSONLoader()
 	if err != nil {
@@ -39,6 +63,10 @@ func PersonaSchema() (*gojsonschema.Schema, error) {
 
 func PersonaSchemaJSONLoader() (gojsonschema.JSONLoader, error) {
 	return loaderFromYAML("persona.yaml")
+}
+
+func PersonaListSchemaJSONLoader() (gojsonschema.JSONLoader, error) {
+	return loaderFromYAML("persona-list.yaml")
 }
 
 func loaderFromYAML(name string) (gojsonschema.JSONLoader, error) {

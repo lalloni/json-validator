@@ -10,13 +10,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v2"
 
 	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/convert"
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/schemas"
 )
 
 type TestCase struct {
@@ -29,21 +27,7 @@ type TestCase struct {
 	}
 }
 
-func TestPersonaSchema(t *testing.T) {
-
-	loader, err := schemas.PersonaSchemaJSONLoader()
-	if err != nil {
-		t.Fatalf("getting JSON schema: %v", err)
-	}
-	bs, ok := loader.JsonSource().([]byte)
-	if !ok {
-		t.Fatal("getting JSON schema source: was not []byte")
-	}
-	bs, err = convert.Pretty(bs)
-	if err != nil {
-		t.Fatalf("prettifyin JSON schema source: %v", err)
-	}
-	t.Logf("using JSON schema:\n%s", string(bs))
+func TestSchemas(t *testing.T) {
 
 	v, err := validator.New()
 	if err != nil {
@@ -93,8 +77,8 @@ func TestPersonaSchema(t *testing.T) {
 					t.Logf("validating: %s", string(pbs))
 					var vr *validator.ValidationResult
 					switch tc.Schema {
-					case "personas":
-						err = errors.New("not implemented yet")
+					case "personalist":
+						vr, err = v.ValidatePersonaListJSON(bs)
 					case "persona":
 						vr, err = v.ValidatePersonaJSON(bs)
 					default:

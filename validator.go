@@ -8,25 +8,36 @@ import (
 )
 
 type Validator interface {
-	ValidatePersonaJSON(persona []byte) (*ValidationResult, error)
+	ValidatePersonaJSON(bs []byte) (*ValidationResult, error)
+	ValidatePersonaListJSON(bs []byte) (*ValidationResult, error)
 }
 
 func New() (Validator, error) {
-	schema, err := schemas.PersonaSchema()
+	personaSchema, err := schemas.PersonaSchema()
+	if err != nil {
+		return nil, errors.Wrap(err, "getting persona schema")
+	}
+	personaListSchema, err := schemas.PersonaListSchema()
 	if err != nil {
 		return nil, errors.Wrap(err, "getting persona schema")
 	}
 	return &validator{
-		schema: schema,
+		personaSchema:     personaSchema,
+		personaListSchema: personaListSchema,
 	}, nil
 }
 
 type validator struct {
-	schema *gojsonschema.Schema
+	personaSchema     *gojsonschema.Schema
+	personaListSchema *gojsonschema.Schema
 }
 
-func (v *validator) ValidatePersonaJSON(persona []byte) (*ValidationResult, error) {
-	return ValidateJSON(v.schema, persona)
+func (v *validator) ValidatePersonaJSON(bs []byte) (*ValidationResult, error) {
+	return ValidateJSON(v.personaSchema, bs)
+}
+
+func (v *validator) ValidatePersonaListJSON(bs []byte) (*ValidationResult, error) {
+	return ValidateJSON(v.personaListSchema, bs)
 }
 
 type ValidationResult struct {

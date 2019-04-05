@@ -1,0 +1,10 @@
+name: Lista básica
+schema: personalist
+document:
+  personas:
+    - tipo: F
+      id: 20111111112
+    - tipo: J
+      id: 20242643772
+assert:
+  match: valid
