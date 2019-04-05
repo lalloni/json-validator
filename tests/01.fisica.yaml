@@ -3,7 +3,7 @@ schema: persona
 document:
   id: 20242643772
   tipoid: C
-  persona: F
+  tipo: F
   activoid: 20111111112
   pais: 21
   estado: A

@@ -588,9 +588,6 @@
         "pais": {
           "type": "integer"
         },
-        "persona": {
-          "const": "F"
-        },
         "sexo": {
           "enum": [
             "M",
@@ -607,6 +604,9 @@
           },
           "type": "object"
         },
+        "tipo": {
+          "const": "F"
+        },
         "tipoid": {
           "const": "C",
           "type": "string"
@@ -614,7 +614,7 @@
       },
       "required": [
         "id",
-        "persona"
+        "tipo"
       ],
       "title": "personafisica",
       "type": "object"
@@ -752,9 +752,6 @@
         "pais": {
           "type": "integer"
         },
-        "persona": {
-          "const": "J"
-        },
         "razonsocial": {
           "type": "string"
         },
@@ -776,6 +773,9 @@
           },
           "type": "object"
         },
+        "tipo": {
+          "const": "J"
+        },
         "tipoid": {
           "const": "C",
           "type": "string"
@@ -783,7 +783,7 @@
       },
       "required": [
         "id",
-        "persona"
+        "tipo"
       ],
       "title": "personajuridica",
       "type": "object"

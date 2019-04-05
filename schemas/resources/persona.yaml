@@ -134,26 +134,26 @@ oneOf:
   - type: object
     title: personafisica
     properties:
-      persona:
+      tipo:
         const: F
       <<: *common-properties
       <<: *personafisica-properties
     additionalProperties: false
     required:
       - id
-      - persona
+      - tipo
 
   - type: object
     title: personajuridica
     properties:
-      persona:
+      tipo:
         const: J
       <<: *common-properties
       <<: *personajuridica-properties
     additionalProperties: false
     required:
       - id
-      - persona
+      - tipo
 
 ################################
 
