@@ -5,4 +5,4 @@
 // and any other packr generated files.
 package schemas
 
-import _ "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/packrd"
+import _ "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/packrd"

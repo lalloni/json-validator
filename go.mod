@@ -1,4 +1,4 @@
-module gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator
+module gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git
 
 require (
 	github.com/Masterminds/goutils v1.1.0 // indirect

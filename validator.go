@@ -4,7 +4,7 @@ import (
 	"github.com/lalloni/gojsonschema"
 	"github.com/pkg/errors"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/schemas"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/schemas"
 )
 
 type Validator interface {

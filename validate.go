@@ -4,7 +4,7 @@ import (
 	"github.com/lalloni/gojsonschema"
 	"github.com/pkg/errors"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/jsoncheck"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/jsoncheck"
 )
 
 func ValidateJSON(schema *gojsonschema.Schema, json []byte) (*ValidationResult, error) {

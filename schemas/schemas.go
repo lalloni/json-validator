@@ -7,8 +7,8 @@ import (
 	"github.com/lalloni/gojsonschema"
 	"github.com/pkg/errors"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/convert"
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/formats"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/convert"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/formats"
 )
 
 var fs = packr.New("schemas", "resources")

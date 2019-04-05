@@ -10,7 +10,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator"
+	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
 )
 
 func main() {

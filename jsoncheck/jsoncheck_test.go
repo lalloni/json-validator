@@ -1,6 +1,10 @@
-package jsoncheck
+package jsoncheck_test
 
-import "testing"
+import (
+	"testing"
+
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/jsoncheck"
+)
 
 func TestCheck(t *testing.T) {
 	type args struct {
@@ -21,7 +25,7 @@ func TestCheck(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt // fix range scope
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Check([]byte(tt.args.data)); (err != nil) != tt.wantErr {
+			if err := jsoncheck.Check([]byte(tt.args.data)); (err != nil) != tt.wantErr {
 				t.Errorf("Check() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

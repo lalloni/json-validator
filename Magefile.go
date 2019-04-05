@@ -13,7 +13,7 @@ import (
 	"github.com/magefile/mage/sh"
 	"github.com/pkg/errors"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/build"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/build"
 )
 
 // Limpia directorio de proyecto de artefactos temporales generados
@@ -114,7 +114,7 @@ func Package() error {
 // Lanza GoConvey (http://goconvey.co/)
 func Convey() error {
 	err := build.RunPackr("clean")
-	if err!=nil {
+	if err != nil {
 		return err
 	}
 	return build.RunGoConvey("-port=9999", "-watchedSuffixes=.go,.yaml", "-packages=1")

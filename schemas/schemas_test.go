@@ -1,22 +1,22 @@
 package schemas_test
 
 import (
-	"strings"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v2"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/convert"
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator/schemas"
-	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator"
+	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/convert"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/schemas"
 )
 
 type TestCase struct {
@@ -32,15 +32,15 @@ type TestCase struct {
 func TestPersonaSchema(t *testing.T) {
 
 	loader, err := schemas.PersonaSchemaJSONLoader()
-	if err!=nil{
+	if err != nil {
 		t.Fatalf("getting JSON schema: %v", err)
 	}
-	bs,ok := loader.JsonSource().([]byte)
-	if !ok{
+	bs, ok := loader.JsonSource().([]byte)
+	if !ok {
 		t.Fatal("getting JSON schema source: was not []byte")
 	}
 	bs, err = convert.Pretty(bs)
-	if err!=nil{
+	if err != nil {
 		t.Fatalf("prettifyin JSON schema source: %v", err)
 	}
 	t.Logf("using JSON schema:\n%s", string(bs))
@@ -86,8 +86,8 @@ func TestPersonaSchema(t *testing.T) {
 					if err != nil {
 						a.FailNow("marshaling document", err)
 					}
-					pbs,err:=convert.Pretty(bs)
-					if err!=nil{
+					pbs, err := convert.Pretty(bs)
+					if err != nil {
 						t.Errorf("prettifying document: %v", err)
 					}
 					t.Logf("validating: %s", string(pbs))
@@ -104,7 +104,7 @@ func TestPersonaSchema(t *testing.T) {
 						a.FailNow("validating document", err)
 					}
 					sb := strings.Builder{}
-					for _,e:=range vr.Errors {
+					for _, e := range vr.Errors {
 						sb.WriteString("    ")
 						sb.WriteString(e.Field)
 						sb.WriteString(": ")
