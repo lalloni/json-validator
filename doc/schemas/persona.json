@@ -306,7 +306,6 @@
     },
     "impuesto": {
       "additionalProperties": false,
-      "minProperties": 4,
       "properties": {
         "dia": {
           "maximum": 31,
