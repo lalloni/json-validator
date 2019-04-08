@@ -3,8 +3,6 @@ $schema: http://json-schema.org/draft-07/schema#
 $id: https://metadata.afip.gob.ar/json-schemas/persona-v1.0.0#
 
 x-common-properties: &common-properties
-  id:
-    $ref: "#/definitions/cuit"
   tipoid:
     type: string
     const: C
@@ -92,14 +90,21 @@ x-common-properties: &common-properties
     additionalProperties: false
 
 x-personafisica-properties: &personafisica-properties
+  tipo:
+    const: F
+  id:
+    $ref: "#/definitions/cuitfisica"
   documento:
     $ref: "#/definitions/documento"
   nombre:
     type: string
+    minLength: 1
   apellido:
     type: string
+    minLength: 1
   materno:
     type: string
+    minLength: 1
   sexo:
     type: string
     enum: [M, F]
@@ -109,10 +114,17 @@ x-personafisica-properties: &personafisica-properties
     $ref: "#/definitions/fecha"
 
 x-personajuridica-properties: &personajuridica-properties
+  tipo:
+    const: J
+  id:
+    $ref: "#/definitions/cuitjuridica"
   razonsocial:
     type: string
+    minLength: 1
   formajuridica:
     type: integer
+    minimum: 1
+    maximum: 999
   mescierre:
     type: integer
     minimum: 1
@@ -134,8 +146,6 @@ oneOf:
   - type: object
     title: personafisica
     properties:
-      tipo:
-        const: F
       <<: *common-properties
       <<: *personafisica-properties
     additionalProperties: false
@@ -146,8 +156,6 @@ oneOf:
   - type: object
     title: personajuridica
     properties:
-      tipo:
-        const: J
       <<: *common-properties
       <<: *personajuridica-properties
     additionalProperties: false
@@ -165,6 +173,18 @@ definitions:
   cuit:
     type: integer
     format: cuit
+
+  cuitfisica:
+    type: integer
+    format: cuit
+    minimum: 20000000000
+    maximum: 29999999999
+
+  cuitjuridica:
+    type: integer
+    format: cuit
+    minimum: 30000000000
+    maximum: 39999999999
 
   estado:
     type: string
@@ -322,8 +342,11 @@ definitions:
     properties:
       tipo:
         type: integer
+        minimum: 1
+        maximum: 99
       numero:
         type: string
+        minLength: 1
     additionalProperties: false
     required:
       - tipo

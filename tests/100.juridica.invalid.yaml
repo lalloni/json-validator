@@ -1,0 +1,11 @@
+name: Jurídica con CUIT de física
+schema: persona
+document:
+  tipo: J
+  id: 20242643772
+  razonsocial: "Jurídica SA"
+assert:
+  match: include
+  errors:
+    - field: id
+      description: "Debe ser mayor o igual que 30000000000/1"

@@ -144,13 +144,28 @@
       "format": "cuit",
       "type": "integer"
     },
+    "cuitfisica": {
+      "format": "cuit",
+      "maximum": 29999999999,
+      "minimum": 20000000000,
+      "type": "integer"
+    },
+    "cuitjuridica": {
+      "format": "cuit",
+      "maximum": 39999999999,
+      "minimum": 30000000000,
+      "type": "integer"
+    },
     "documento": {
       "additionalProperties": false,
       "properties": {
         "numero": {
+          "minLength": 1,
           "type": "string"
         },
         "tipo": {
+          "maximum": 99,
+          "minimum": 1,
           "type": "integer"
         }
       },
@@ -463,6 +478,7 @@
           "$ref": "#/definitions/cuit"
         },
         "apellido": {
+          "minLength": 1,
           "type": "string"
         },
         "archivos": {
@@ -539,7 +555,7 @@
           "$ref": "#/definitions/fecha"
         },
         "id": {
-          "$ref": "#/definitions/cuit"
+          "$ref": "#/definitions/cuitfisica"
         },
         "impuestos": {
           "additionalProperties": false,
@@ -576,12 +592,14 @@
           "type": "object"
         },
         "materno": {
+          "minLength": 1,
           "type": "string"
         },
         "nacimiento": {
           "$ref": "#/definitions/fecha"
         },
         "nombre": {
+          "minLength": 1,
           "type": "string"
         },
         "pais": {
@@ -704,10 +722,12 @@
           "type": "object"
         },
         "formajuridica": {
+          "maximum": 999,
+          "minimum": 1,
           "type": "integer"
         },
         "id": {
-          "$ref": "#/definitions/cuit"
+          "$ref": "#/definitions/cuitjuridica"
         },
         "impuestos": {
           "additionalProperties": false,
@@ -752,6 +772,7 @@
           "type": "integer"
         },
         "razonsocial": {
+          "minLength": 1,
           "type": "string"
         },
         "relaciones": {

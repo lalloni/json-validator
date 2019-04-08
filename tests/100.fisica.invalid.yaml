@@ -1,0 +1,10 @@
+name: Física con CUIT de jurídica
+schema: persona
+document:
+  tipo: F
+  id: 33693450239
+assert:
+  match: include
+  errors:
+    - field: id
+      description: "Debe ser menor o igual que 29999999999/1"
