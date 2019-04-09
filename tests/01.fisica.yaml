@@ -7,9 +7,6 @@ document:
   activoid: 20111111112
   pais: 21
   estado: A
-  inscripcion:
-    registro: 1
-    numero: 1
   nombre: Pablo
   apellido: Lalloni
   materno: Barrera

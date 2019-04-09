@@ -566,22 +566,6 @@
           },
           "type": "object"
         },
-        "inscripcion": {
-          "additionalProperties": false,
-          "properties": {
-            "numero": {
-              "type": "integer"
-            },
-            "registro": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "registro",
-            "numero"
-          ],
-          "type": "object"
-        },
         "jurisdicciones": {
           "additionalProperties": false,
           "patternProperties": {

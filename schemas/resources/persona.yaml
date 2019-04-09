@@ -13,17 +13,6 @@ x-common-properties: &common-properties
     enum: [A, I]
   pais:
     type: integer
-  inscripcion:
-    type: object
-    properties:
-      numero:
-        type: integer
-      registro:
-        type: integer
-    additionalProperties: false
-    required:
-      - registro
-      - numero
   ch:
     $ref: "#/definitions/ch"
   ds:
@@ -131,6 +120,17 @@ x-personajuridica-properties: &personajuridica-properties
     maximum: 12
   contratosocial:
     $ref: "#/definitions/fecha"
+  inscripcion:
+    type: object
+    properties:
+      numero:
+        type: integer
+      registro:
+        type: integer
+    additionalProperties: false
+    required:
+      - registro
+      - numero
   relaciones:
     type: object
     patternProperties:

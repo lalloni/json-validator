@@ -8,3 +8,14 @@ assert:
   errors:
     - field: id
       description: "Debe ser menor o igual que 29999999999/1"
+---
+name: Física no debe tener inscripcion
+schema: persona
+document:
+  tipo: F
+  id: 20242643772
+  inscripcion:
+    registro: 1
+    numero: 1
+assert:
+  match: invalid
