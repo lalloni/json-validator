@@ -246,6 +246,10 @@ definitions:
       ds:
         $ref: "#/definitions/fecha"
     additionalProperties: false
+    required:
+      - actividad
+      - orden
+      - desde
 
   domicilio:
     type: object

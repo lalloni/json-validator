@@ -27,6 +27,11 @@
           "type": "integer"
         }
       },
+      "required": [
+        "actividad",
+        "orden",
+        "desde"
+      ],
       "type": "object"
     },
     "archivo": {
