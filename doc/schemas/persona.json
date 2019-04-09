@@ -5,6 +5,7 @@
     "source": "schemas/resources/persona.yaml"
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
   "definitions": {
     "actividad": {
       "additionalProperties": false,
@@ -83,21 +84,25 @@
     "ch": {
       "items": {
         "enum": [
-          "nombre",
+          "activoid",
           "apellido",
-          "materno",
-          "razonsocial",
-          "tipo",
-          "estado",
-          "formajuridica",
+          "contratosocial",
           "documento",
-          "sexo",
+          "ds",
+          "estado",
+          "fallecimiento",
+          "formajuridica",
+          "id",
+          "inscripcion",
+          "materno",
           "mescierre",
           "nacimiento",
-          "fallecimiento",
-          "inscripcion",
+          "nombre",
           "pais",
-          "nuevacuit"
+          "razonsocial",
+          "sexo",
+          "tipo",
+          "tipoid"
         ],
         "type": "string"
       },
@@ -378,10 +383,6 @@
       ],
       "type": "object"
     },
-    "natural": {
-      "minimum": 0,
-      "type": "integer"
-    },
     "periododiario": {
       "format": "periododiario",
       "maximum": 99991231,
@@ -461,336 +462,277 @@
       "type": "object"
     }
   },
-  "oneOf": [
-    {
+  "minProperties": 2,
+  "properties": {
+    "actividades": {
       "additionalProperties": false,
-      "properties": {
-        "actividades": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/actividad"
-            }
-          },
-          "type": "object"
-        },
-        "activoid": {
-          "$ref": "#/definitions/cuit"
-        },
-        "apellido": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "archivos": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/archivo"
-            }
-          },
-          "type": "object"
-        },
-        "categorias": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/categoria"
-            }
-          },
-          "type": "object"
-        },
-        "ch": {
-          "$ref": "#/definitions/ch"
-        },
-        "contribmunis": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/contribucionmunicipal"
-            }
-          },
-          "type": "object"
-        },
-        "documento": {
-          "$ref": "#/definitions/documento"
-        },
-        "domicilios": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/domicilio"
-            }
-          },
-          "type": "object"
-        },
-        "ds": {
-          "$ref": "#/definitions/fecha"
-        },
-        "emails": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/email"
-            }
-          },
-          "type": "object"
-        },
-        "estado": {
-          "enum": [
-            "A",
-            "I"
-          ],
-          "type": "string"
-        },
-        "etiquetas": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/etiqueta"
-            }
-          },
-          "type": "object"
-        },
-        "fallecimiento": {
-          "$ref": "#/definitions/fecha"
-        },
-        "id": {
-          "$ref": "#/definitions/cuitfisica"
-        },
-        "impuestos": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/impuesto"
-            }
-          },
-          "type": "object"
-        },
-        "jurisdicciones": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/jurisdiccion"
-            }
-          },
-          "type": "object"
-        },
-        "materno": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "nacimiento": {
-          "$ref": "#/definitions/fecha"
-        },
-        "nombre": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "pais": {
-          "type": "integer"
-        },
-        "sexo": {
-          "enum": [
-            "M",
-            "F"
-          ],
-          "type": "string"
-        },
-        "telefonos": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/telefono"
-            }
-          },
-          "type": "object"
-        },
-        "tipo": {
-          "const": "F"
-        },
-        "tipoid": {
-          "const": "C",
-          "type": "string"
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/actividad"
         }
       },
-      "required": [
-        "id",
-        "tipo"
-      ],
-      "title": "personafisica",
       "type": "object"
     },
-    {
+    "archivos": {
       "additionalProperties": false,
-      "properties": {
-        "actividades": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/actividad"
-            }
-          },
-          "type": "object"
-        },
-        "activoid": {
-          "$ref": "#/definitions/cuit"
-        },
-        "archivos": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/archivo"
-            }
-          },
-          "type": "object"
-        },
-        "categorias": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/categoria"
-            }
-          },
-          "type": "object"
-        },
-        "ch": {
-          "$ref": "#/definitions/ch"
-        },
-        "contratosocial": {
-          "$ref": "#/definitions/fecha"
-        },
-        "contribmunis": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/contribucionmunicipal"
-            }
-          },
-          "type": "object"
-        },
-        "domicilios": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/domicilio"
-            }
-          },
-          "type": "object"
-        },
-        "ds": {
-          "$ref": "#/definitions/fecha"
-        },
-        "emails": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/email"
-            }
-          },
-          "type": "object"
-        },
-        "estado": {
-          "enum": [
-            "A",
-            "I"
-          ],
-          "type": "string"
-        },
-        "etiquetas": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/etiqueta"
-            }
-          },
-          "type": "object"
-        },
-        "formajuridica": {
-          "maximum": 999,
-          "minimum": 1,
-          "type": "integer"
-        },
-        "id": {
-          "$ref": "#/definitions/cuitjuridica"
-        },
-        "impuestos": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/impuesto"
-            }
-          },
-          "type": "object"
-        },
-        "inscripcion": {
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/archivo"
+        }
+      },
+      "type": "object"
+    },
+    "categorias": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/categoria"
+        }
+      },
+      "type": "object"
+    },
+    "contribmunis": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/contribucionmunicipal"
+        }
+      },
+      "type": "object"
+    },
+    "domicilios": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/domicilio"
+        }
+      },
+      "type": "object"
+    },
+    "emails": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/email"
+        }
+      },
+      "type": "object"
+    },
+    "etiquetas": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/etiqueta"
+        }
+      },
+      "type": "object"
+    },
+    "id": {
+      "$ref": "#/definitions/cuit"
+    },
+    "impuestos": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/impuesto"
+        }
+      },
+      "type": "object"
+    },
+    "jurisdicciones": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/jurisdiccion"
+        }
+      },
+      "type": "object"
+    },
+    "persona": {
+      "oneOf": [
+        {
           "additionalProperties": false,
           "properties": {
-            "numero": {
+            "activoid": {
+              "$ref": "#/definitions/cuit"
+            },
+            "apellido": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "ch": {
+              "$ref": "#/definitions/ch"
+            },
+            "documento": {
+              "$ref": "#/definitions/documento"
+            },
+            "ds": {
+              "$ref": "#/definitions/fecha"
+            },
+            "estado": {
+              "enum": [
+                "A",
+                "I"
+              ],
+              "type": "string"
+            },
+            "fallecimiento": {
+              "$ref": "#/definitions/fecha"
+            },
+            "id": {
+              "$ref": "#/definitions/cuitfisica"
+            },
+            "materno": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "nacimiento": {
+              "$ref": "#/definitions/fecha"
+            },
+            "nombre": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "pais": {
               "type": "integer"
             },
-            "registro": {
-              "type": "integer"
+            "sexo": {
+              "enum": [
+                "M",
+                "F"
+              ],
+              "type": "string"
+            },
+            "tipo": {
+              "const": "F"
+            },
+            "tipoid": {
+              "enum": [
+                "C",
+                "E",
+                "I",
+                "L"
+              ],
+              "type": "string"
             }
           },
           "required": [
-            "registro",
-            "numero"
+            "tipo",
+            "id",
+            "tipoid",
+            "estado",
+            "ds",
+            "apellido"
           ],
+          "title": "personafisica",
           "type": "object"
         },
-        "jurisdicciones": {
+        {
           "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/jurisdiccion"
+          "properties": {
+            "activoid": {
+              "$ref": "#/definitions/cuit"
+            },
+            "ch": {
+              "$ref": "#/definitions/ch"
+            },
+            "contratosocial": {
+              "$ref": "#/definitions/fecha"
+            },
+            "ds": {
+              "$ref": "#/definitions/fecha"
+            },
+            "estado": {
+              "enum": [
+                "A",
+                "I"
+              ],
+              "type": "string"
+            },
+            "formajuridica": {
+              "maximum": 999,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "id": {
+              "$ref": "#/definitions/cuitjuridica"
+            },
+            "inscripcion": {
+              "additionalProperties": false,
+              "properties": {
+                "numero": {
+                  "type": "integer"
+                },
+                "registro": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "registro",
+                "numero"
+              ],
+              "type": "object"
+            },
+            "mescierre": {
+              "maximum": 12,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "pais": {
+              "type": "integer"
+            },
+            "razonsocial": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "tipo": {
+              "const": "J"
+            },
+            "tipoid": {
+              "enum": [
+                "C",
+                "E",
+                "I",
+                "L"
+              ],
+              "type": "string"
             }
           },
+          "required": [
+            "tipo",
+            "id",
+            "tipoid",
+            "estado",
+            "ds",
+            "razonsocial"
+          ],
+          "title": "personajuridica",
           "type": "object"
-        },
-        "mescierre": {
-          "maximum": 12,
-          "minimum": 1,
-          "type": "integer"
-        },
-        "pais": {
-          "type": "integer"
-        },
-        "razonsocial": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "relaciones": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/relacion"
-            }
-          },
-          "type": "object"
-        },
-        "telefonos": {
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[-0-9]+(\\.[-0-9]+)*$": {
-              "$ref": "#/definitions/telefono"
-            }
-          },
-          "type": "object"
-        },
-        "tipo": {
-          "const": "J"
-        },
-        "tipoid": {
-          "const": "C",
-          "type": "string"
+        }
+      ],
+      "type": "object"
+    },
+    "relaciones": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/relacion"
         }
       },
-      "required": [
-        "id",
-        "tipo"
-      ],
-      "title": "personajuridica",
+      "type": "object"
+    },
+    "telefonos": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "$ref": "#/definitions/telefono"
+        }
+      },
       "type": "object"
     }
-  ]
+  },
+  "required": [
+    "id"
+  ],
+  "type": "object"
 }

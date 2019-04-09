@@ -2,24 +2,26 @@ name: Física Completa
 schema: persona
 document:
   id: 20242643772
-  tipoid: C
-  tipo: F
-  activoid: 20111111112
-  pais: 21
-  estado: A
-  nombre: Pablo
-  apellido: Lalloni
-  materno: Barrera
-  sexo: M
-  nacimiento: "1975-01-10"
-  fallecimiento: "2050-05-05"
-  documento:
-    tipo: 1
-    numero: "24264377"
-  ch:
-    - pais
-    - estado
-  ds: "2019-03-25"
+  persona:
+    tipo: F
+    id: 20242643772
+    tipoid: C
+    activoid: 20111111112
+    pais: 21
+    estado: A
+    nombre: Pablo
+    apellido: Lalloni
+    materno: Barrera
+    sexo: M
+    nacimiento: "1975-01-10"
+    fallecimiento: "2050-05-05"
+    documento:
+      tipo: 1
+      numero: "24264377"
+    ch:
+      - pais
+      - estado
+    ds: "2019-03-25"
   actividades:
     883-12345:
       actividad: "883-12345"

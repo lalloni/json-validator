@@ -2,21 +2,23 @@ name: Jurídica Completa
 schema: persona
 document:
   id: 33693450239
-  tipoid: C
-  tipo: J
-  activoid: 20111111112
-  estado: A
-  pais: 21
-  inscripcion:
-    registro: 1
-    numero: 1
-  razonsocial: AFIP
-  formajuridica: 2
-  mescierre: 5
-  ch:
-    - pais
-    - estado
-  ds: "2019-03-25"
+  persona:
+    tipo: J
+    id: 33693450239
+    tipoid: C
+    activoid: 20111111112
+    estado: A
+    pais: 21
+    inscripcion:
+      registro: 1
+      numero: 1
+    razonsocial: AFIP
+    formajuridica: 2
+    mescierre: 5
+    ch:
+      - pais
+      - estado
+    ds: "2019-03-25"
   jurisdicciones:
     0:
       provincia: 0

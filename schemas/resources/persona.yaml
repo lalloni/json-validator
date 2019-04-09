@@ -5,7 +5,7 @@ $id: https://metadata.afip.gob.ar/json-schemas/persona-v1.0.0#
 x-common-properties: &common-properties
   tipoid:
     type: string
-    const: C
+    enum: [C, E, I, L]
   activoid:
     $ref: "#/definitions/cuit"
   estado:
@@ -17,6 +17,62 @@ x-common-properties: &common-properties
     $ref: "#/definitions/ch"
   ds:
     $ref: "#/definitions/fecha"
+
+x-personafisica-properties: &personafisica-properties
+  tipo:
+    const: F
+  id:
+    $ref: "#/definitions/cuitfisica"
+  documento:
+    $ref: "#/definitions/documento"
+  nombre:
+    type: string
+    minLength: 1
+  apellido:
+    type: string
+    minLength: 1
+  materno:
+    type: string
+    minLength: 1
+  sexo:
+    type: string
+    enum: [M, F]
+  nacimiento:
+    $ref: "#/definitions/fecha"
+  fallecimiento:
+    $ref: "#/definitions/fecha"
+
+x-personajuridica-properties: &personajuridica-properties
+  tipo:
+    const: J
+  id:
+    $ref: "#/definitions/cuitjuridica"
+  razonsocial:
+    type: string
+    minLength: 1
+  formajuridica:
+    type: integer
+    minimum: 1
+    maximum: 999
+  mescierre:
+    type: integer
+    minimum: 1
+    maximum: 12
+  contratosocial:
+    $ref: "#/definitions/fecha"
+  inscripcion:
+    type: object
+    properties:
+      numero:
+        type: integer
+      registro:
+        type: integer
+    additionalProperties: false
+    required:
+      - registro
+      - numero
+
+x-common-collections: &common-collections
   actividades:
     type: object
     patternProperties:
@@ -77,60 +133,6 @@ x-common-properties: &common-properties
       '^[-0-9]+(\.[-0-9]+)*$':
         $ref: "#/definitions/contribucionmunicipal"
     additionalProperties: false
-
-x-personafisica-properties: &personafisica-properties
-  tipo:
-    const: F
-  id:
-    $ref: "#/definitions/cuitfisica"
-  documento:
-    $ref: "#/definitions/documento"
-  nombre:
-    type: string
-    minLength: 1
-  apellido:
-    type: string
-    minLength: 1
-  materno:
-    type: string
-    minLength: 1
-  sexo:
-    type: string
-    enum: [M, F]
-  nacimiento:
-    $ref: "#/definitions/fecha"
-  fallecimiento:
-    $ref: "#/definitions/fecha"
-
-x-personajuridica-properties: &personajuridica-properties
-  tipo:
-    const: J
-  id:
-    $ref: "#/definitions/cuitjuridica"
-  razonsocial:
-    type: string
-    minLength: 1
-  formajuridica:
-    type: integer
-    minimum: 1
-    maximum: 999
-  mescierre:
-    type: integer
-    minimum: 1
-    maximum: 12
-  contratosocial:
-    $ref: "#/definitions/fecha"
-  inscripcion:
-    type: object
-    properties:
-      numero:
-        type: integer
-      registro:
-        type: integer
-    additionalProperties: false
-    required:
-      - registro
-      - numero
   relaciones:
     type: object
     patternProperties:
@@ -138,38 +140,51 @@ x-personajuridica-properties: &personajuridica-properties
         $ref: "#/definitions/relacion"
     additionalProperties: false
 
-################################
-# Esquema principal de Persona #
-################################
+#####################
+# Esquema principal #
+#####################
 
-oneOf:
-  - type: object
-    title: personafisica
-    properties:
-      <<: *common-properties
-      <<: *personafisica-properties
-    additionalProperties: false
-    required:
-      - id
-      - tipo
-
-  - type: object
-    title: personajuridica
-    properties:
-      <<: *common-properties
-      <<: *personajuridica-properties
-    additionalProperties: false
-    required:
-      - id
-      - tipo
+type: object
+additionalProperties: false
+required: [id]
+minProperties: 2
+properties:
+  id:
+    $ref: "#/definitions/cuit"
+  persona:
+    type: object
+    oneOf:
+      - type: object
+        title: personafisica
+        properties:
+          <<: *common-properties
+          <<: *personafisica-properties
+        additionalProperties: false
+        required:
+          - tipo
+          - id
+          - tipoid
+          - estado
+          - ds
+          - apellido
+      - type: object
+        title: personajuridica
+        properties:
+          <<: *common-properties
+          <<: *personajuridica-properties
+        additionalProperties: false
+        required:
+          - tipo
+          - id
+          - tipoid
+          - estado
+          - ds
+          - razonsocial
+  <<: *common-collections
 
 ################################
 
 definitions:
-  natural:
-    type: integer
-    minimum: 0
-
   cuit:
     type: integer
     format: cuit
@@ -487,24 +502,28 @@ definitions:
       - subtipo
       - desde
 
-  ch:
+  ch: # TODO ¿distinguir ch-fisica de ch-juridica para que no se permitan campos de persona fisica en un ch de persona jurídica y viceversa?
     type: array
     uniqueItems: true
     items:
       type: string
       enum:
-        - nombre
+        - activoid
         - apellido
-        - materno
-        - razonsocial
-        - tipo
-        - estado
-        - formajuridica
+        - contratosocial
         - documento
-        - sexo
+        - ds
+        - estado
+        - fallecimiento
+        - formajuridica
+        - id
+        - inscripcion
+        - materno
         - mescierre
         - nacimiento
-        - fallecimiento
-        - inscripcion
+        - nombre
         - pais
-        - nuevacuit
+        - razonsocial
+        - sexo
+        - tipo
+        - tipoid
