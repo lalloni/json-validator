@@ -239,10 +239,10 @@ definitions:
         pattern: "^883-[0-9]{5,6}$"
       orden:
         type: integer
-      periodo:
+      desde:
         $ref: "#/definitions/periodomensual"
-      estado:
-        $ref: "#/definitions/estado"
+      hasta:
+        $ref: "#/definitions/periodomensual"
       ds:
         $ref: "#/definitions/fecha"
     additionalProperties: false

@@ -14,17 +14,17 @@
           "pattern": "^883-[0-9]{5,6}$",
           "type": "string"
         },
+        "desde": {
+          "$ref": "#/definitions/periodomensual"
+        },
         "ds": {
           "$ref": "#/definitions/fecha"
         },
-        "estado": {
-          "$ref": "#/definitions/estado"
+        "hasta": {
+          "$ref": "#/definitions/periodomensual"
         },
         "orden": {
           "type": "integer"
-        },
-        "periodo": {
-          "$ref": "#/definitions/periodomensual"
         }
       },
       "type": "object"

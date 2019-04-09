@@ -40,14 +40,14 @@ document:
     883-12345:
       actividad: "883-12345"
       orden: 1
-      periodo: 200112
-      estado: AC
+      desde: 200112
+      hasta: 200404
       ds: "2001-03-11"
     883-56789:
       actividad: "883-56789"
       orden: 2
-      periodo: 200205
-      estado: AC
+      desde: 200205
+      hasta: 200404
       ds: "2001-12-21"
   impuestos:
     20:
