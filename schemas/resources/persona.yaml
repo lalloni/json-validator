@@ -190,7 +190,6 @@ properties:
           - id
           - tipoid
           - estado
-          - ds
           - apellido
       - type: object
         title: personajuridica
@@ -203,7 +202,6 @@ properties:
           - id
           - tipoid
           - estado
-          - ds
           - razonsocial
   <<: *common-collections
 
