@@ -60,6 +60,10 @@ x-personajuridica-properties: &personajuridica-properties
     maximum: 12
   contratosocial:
     $ref: "#/definitions/fecha"
+  duracion:
+    type: integer
+    minimum: 1
+    maximum: 999
   inscripcion:
     type: object
     properties:
@@ -69,7 +73,6 @@ x-personajuridica-properties: &personajuridica-properties
         type: integer
     additionalProperties: false
     required:
-      - registro
       - numero
 
 x-common-collections: &common-collections

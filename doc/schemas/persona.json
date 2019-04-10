@@ -710,6 +710,11 @@
             "ds": {
               "$ref": "#/definitions/fecha"
             },
+            "duracion": {
+              "maximum": 999,
+              "minimum": 1,
+              "type": "integer"
+            },
             "estado": {
               "enum": [
                 "A",
@@ -736,7 +741,6 @@
                 }
               },
               "required": [
-                "registro",
                 "numero"
               ],
               "type": "object"
