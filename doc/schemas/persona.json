@@ -473,7 +473,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/actividad"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/actividad"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -482,7 +489,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/archivo"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/archivo"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -491,7 +505,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/categoria"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/categoria"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -500,7 +521,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/contribucionmunicipal"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/contribucionmunicipal"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -509,7 +537,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/domicilio"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/domicilio"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -518,7 +553,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/email"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/email"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -527,7 +569,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/etiqueta"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/etiqueta"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -539,7 +588,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/impuesto"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/impuesto"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -548,7 +604,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/jurisdiccion"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/jurisdiccion"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -721,7 +784,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/relacion"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/relacion"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
@@ -730,7 +800,14 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "$ref": "#/definitions/telefono"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/telefono"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
