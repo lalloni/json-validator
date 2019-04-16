@@ -401,8 +401,8 @@
       "type": "integer"
     },
     "provincia": {
-      "max": 24,
-      "min": 0,
+      "maximum": 24,
+      "minimum": 0,
       "type": "integer"
     },
     "relacion": {
