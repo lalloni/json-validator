@@ -314,7 +314,7 @@ definitions:
       cp:
         type: string
       nomenclador:
-        type: string
+        type: integer
       adicional:
         type: object
         properties:
@@ -326,8 +326,6 @@ definitions:
         required:
           - tipo
           - dato
-      nota:
-        type: string
       baja:
         $ref: "#/definitions/fecha"
       ds:
