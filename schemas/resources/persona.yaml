@@ -403,14 +403,17 @@ definitions:
         $ref: "#/definitions/fecha"
       hasta:
         $ref: "#/definitions/fecha"
-      sede:
-        type: boolean
+      orgrec:
+        type: integer
+        minimum: 900
+        maximum: 924
       ds:
         $ref: "#/definitions/fecha"
     additionalProperties: false
     required:
       - provincia
       - desde
+      - orgrec
 
   email:
     type: object
