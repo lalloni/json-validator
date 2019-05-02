@@ -114,6 +114,28 @@
       "type": "array",
       "uniqueItems": true
     },
+    "cmsede": {
+      "additionalProperties": false,
+      "properties": {
+        "desde": {
+          "$ref": "#/definitions/fecha"
+        },
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "hasta": {
+          "$ref": "#/definitions/fecha"
+        },
+        "provincia": {
+          "$ref": "#/definitions/provincia"
+        }
+      },
+      "required": [
+        "provincia",
+        "desde"
+      ],
+      "type": "object"
+    },
     "codigoimpuesto": {
       "maximum": 9999,
       "minimum": 1,
@@ -230,9 +252,7 @@
           "type": "string"
         },
         "nomenclador": {
-          "type": "string"
-        },
-        "nota": {
+          "maxLength": 9,
           "type": "string"
         },
         "numero": {
@@ -375,16 +395,19 @@
         "hasta": {
           "$ref": "#/definitions/fecha"
         },
+        "org": {
+          "maximum": 924,
+          "minimum": 900,
+          "type": "integer"
+        },
         "provincia": {
           "$ref": "#/definitions/provincia"
-        },
-        "sede": {
-          "type": "boolean"
         }
       },
       "required": [
         "provincia",
-        "desde"
+        "desde",
+        "org"
       ],
       "type": "object"
     },
@@ -508,6 +531,22 @@
           "oneOf": [
             {
               "$ref": "#/definitions/categoria"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "cmsedes": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/cmsede"
             },
             {
               "type": "null"
