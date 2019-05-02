@@ -314,7 +314,8 @@ definitions:
       cp:
         type: string
       nomenclador:
-        type: integer
+        type: string
+        maxLength: 9
       adicional:
         type: object
         properties:
@@ -409,7 +410,7 @@ definitions:
         $ref: "#/definitions/fecha"
       hasta:
         $ref: "#/definitions/fecha"
-      orgrec:
+      org:
         type: integer
         minimum: 900
         maximum: 924
@@ -419,7 +420,7 @@ definitions:
     required:
       - provincia
       - desde
-      - orgrec
+      - org
 
   email:
     type: object

@@ -38,7 +38,7 @@ document:
   jurisdicciones:
     0:
       provincia: 0
-      orgrec: 900
+      org: 900
       desde: "2018-04-01"
       ds: "2019-01-10"
     1: null
@@ -84,9 +84,9 @@ document:
       ds: "2019-01-01"
   cmsedes: 
     1: 
-      provincia: 0,
-      desde: "2019-06-23",
-      hasta: "2019-04-14",
+      provincia: 0
+      desde: "2019-06-23"
+      hasta: "2019-04-14"
       ds: "2019-04-14"
     2: null
 assert:

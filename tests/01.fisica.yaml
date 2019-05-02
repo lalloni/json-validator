@@ -83,7 +83,7 @@ document:
   jurisdicciones:
     0:
       provincia: 0
-      orgrec: 900
+      org: 900
       desde: "2018-04-01"
       ds: "2019-01-10"
   emails:
