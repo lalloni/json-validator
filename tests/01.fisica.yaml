@@ -63,7 +63,6 @@ document:
         tipo: 1
         dato: "asda das das das dasd asd a sd"
       baja: "2019-12-12"
-      nota: "asdasda sdas dasd as das ds dasd as"
     2.2:
       orden: 2
       tipo: 2
@@ -84,7 +83,7 @@ document:
   jurisdicciones:
     0:
       provincia: 0
-      sede: true
+      orgrec: 900
       desde: "2018-04-01"
       ds: "2019-01-10"
   emails:
