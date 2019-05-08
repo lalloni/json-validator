@@ -80,7 +80,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/actividad"
           - type: "null"
     additionalProperties: false
@@ -88,7 +88,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/impuesto"
           - type: "null"
     additionalProperties: false
@@ -96,7 +96,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/domicilio"
           - type: "null"
     additionalProperties: false
@@ -104,7 +104,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/telefono"
           - type: "null"
     additionalProperties: false
@@ -112,7 +112,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/jurisdiccion"
           - type: "null"
     additionalProperties: false
@@ -120,7 +120,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/email"
           - type: "null"
     additionalProperties: false
@@ -128,7 +128,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/archivo"
           - type: "null"
     additionalProperties: false
@@ -136,7 +136,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/categoria"
           - type: "null"
     additionalProperties: false
@@ -144,7 +144,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/etiqueta"
           - type: "null"
     additionalProperties: false
@@ -152,7 +152,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/contribucionmunicipal"
           - type: "null"
     additionalProperties: false
@@ -160,7 +160,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/relacion"
           - type: "null"
     additionalProperties: false
@@ -168,7 +168,7 @@ x-common-collections: &common-collections
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
-        oneOf:
+        anyOf:
           - $ref: "#/definitions/cmsede"
           - type: "null"
     additionalProperties: false
@@ -186,7 +186,7 @@ properties:
     $ref: "#/definitions/cuit"
   persona:
     type: object
-    oneOf:
+    anyOf:
       - type: object
         title: personafisica
         properties:
