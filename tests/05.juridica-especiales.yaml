@@ -8,7 +8,7 @@ document:
     tipoid: C
     activoid: 20111111112
     estado: A
-    pais: 21
+    pais: 443
     inscripcion:
       numero: 1
     razonsocial: AFIP
@@ -29,7 +29,7 @@ document:
     tipoid: C
     activoid: 20111111112
     estado: A
-    pais: 21
+    pais: 343
     inscripcion:
       registro: 10
     razonsocial: AFIP
