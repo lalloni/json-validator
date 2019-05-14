@@ -21,6 +21,7 @@ type TestCase struct {
 	Name     string
 	Schema   string
 	Document map[interface{}]interface{}
+	List     []interface{}
 	Assert   struct {
 		Match  string
 		Errors []validator.ValidationError
@@ -65,22 +66,34 @@ func TestSchemas(t *testing.T) {
 
 				t.Run(tc.Name, func(t *testing.T) {
 					a := assert.New(t)
-
-					bs, err := json.Marshal(cleanupMap(tc.Document))
-					if err != nil {
-						a.FailNow("marshaling document", err)
-					}
-					pbs, err := convert.Pretty(bs)
-					if err != nil {
-						t.Errorf("prettifying document: %v", err)
-					}
-					t.Logf("validating: %s", string(pbs))
-					var vr *validator.ValidationResult
+					var (
+						bs, pbs []byte
+						err     error
+						vr      *validator.ValidationResult
+					)
 					switch tc.Schema {
-					case "personalist":
-						vr, err = v.ValidatePersonaListJSON(bs)
 					case "persona":
+						bs, err = json.Marshal(cleanupMap(tc.Document))
+						if err != nil {
+							a.FailNow("marshaling document", err)
+						}
+						pbs, err = convert.Pretty(bs)
+						if err != nil {
+							t.Errorf("prettifying document: %v", err)
+						}
+						t.Logf("validating: %s", string(pbs))
 						vr, err = v.ValidatePersonaJSON(bs)
+					case "personalist":
+						bs, err = json.Marshal(cleanupArray(tc.List))
+						if err != nil {
+							a.FailNow("marshaling list", err)
+						}
+						pbs, err = convert.Pretty(bs)
+						if err != nil {
+							t.Errorf("prettifying list: %v", err)
+						}
+						t.Logf("validating: %s", string(pbs))
+						vr, err = v.ValidatePersonaListJSON(bs)
 					default:
 						t.Fatalf("unkown schema %q", tc.Schema)
 					}
