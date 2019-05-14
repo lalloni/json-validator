@@ -563,7 +563,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/actividad"
             },
@@ -579,7 +579,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/archivo"
             },
@@ -595,7 +595,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/categoria"
             },
@@ -611,7 +611,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/cmsede"
             },
@@ -627,7 +627,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/contribucionmunicipal"
             },
@@ -643,7 +643,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/domicilio"
             },
@@ -659,7 +659,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/email"
             },
@@ -675,7 +675,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/etiqueta"
             },
@@ -694,7 +694,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/impuesto"
             },
@@ -710,7 +710,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/jurisdiccion"
             },
@@ -723,7 +723,7 @@
       "type": "object"
     },
     "persona": {
-      "oneOf": [
+      "anyOf": [
         {
           "additionalProperties": false,
           "properties": {
@@ -904,7 +904,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/relacion"
             },
@@ -920,7 +920,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/telefono"
             },
