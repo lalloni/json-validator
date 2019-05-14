@@ -5,13 +5,8 @@
     "source": "schemas/resources/persona-list.yaml"
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "properties": {
-    "personas": {
-      "items": {
-        "$ref": "https://metadata.afip.gob.ar/json-schemas/persona-v1.0.0#"
-      },
-      "type": "array"
-    }
+  "items": {
+    "$ref": "https://metadata.afip.gob.ar/json-schemas/persona-v1.0.0#"
   },
-  "type": "object"
+  "type": "array"
 }
