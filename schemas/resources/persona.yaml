@@ -262,14 +262,14 @@ definitions:
 
   periodomensual:
     type: integer
-    minimum: 100000
-    maximum: 999912
+    minimum: 190000
+    maximum: 210012
     format: periodomensual
 
   periododiario:
     type: integer
-    minimum: 10000000
-    maximum: 99991231
+    minimum: 19000000
+    maximum: 21001231
     format: periododiario
 
   codigoimpuesto:
