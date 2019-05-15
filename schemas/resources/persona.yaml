@@ -13,6 +13,8 @@ x-common-properties: &common-properties
     enum: [A, I]
   pais:
     type: integer
+    minimum: 100
+    maximum: 999
   ch:
     $ref: "#/definitions/ch"
   ds:
@@ -28,12 +30,15 @@ x-personafisica-properties: &personafisica-properties
   nombre:
     type: string
     minLength: 1
+    maxLength: 200
   apellido:
     type: string
     minLength: 1
+    maxLength: 200
   materno:
     type: string
     minLength: 1
+    maxLength: 200
   sexo:
     type: string
     enum: [M, F]
@@ -50,6 +55,7 @@ x-personajuridica-properties: &personajuridica-properties
   razonsocial:
     type: string
     minLength: 1
+    maxLength: 200
   formajuridica:
     type: integer
     minimum: 1
@@ -69,8 +75,12 @@ x-personajuridica-properties: &personajuridica-properties
     properties:
       numero:
         type: integer
+        minimum: 1
+        maximum: 999999999999
       registro:
         type: integer
+        minimum: 1
+        maximum: 99
     additionalProperties: false
     required:
       - numero
@@ -245,16 +255,21 @@ definitions:
     minimum: 0
     maximum: 24
 
+  motivo:
+    type: integer
+    minimum: 1
+    maximum: 999999
+
   periodomensual:
     type: integer
-    minimum: 100000
-    maximum: 999912
+    minimum: 190000
+    maximum: 210012
     format: periodomensual
 
   periododiario:
     type: integer
-    minimum: 10000000
-    maximum: 99991231
+    minimum: 19000000
+    maximum: 21001231
     format: periododiario
 
   codigoimpuesto:
@@ -267,9 +282,11 @@ definitions:
     properties:
       actividad:
         type: string
-        pattern: "^883-[0-9]{5,6}$"
+        pattern: "^883-[0-9]{3,8}$"
       orden:
         type: integer
+        minimum: 1
+        maximum: 999
       desde:
         $ref: "#/definitions/periodomensual"
       hasta:
@@ -287,32 +304,49 @@ definitions:
     properties:
       nombre:
         type: string
+        maxLength: 200
       orden:
         type: integer
+        minimum: 1
+        maximum: 9999
       tipo:
         type: integer
+        minimum: 1
+        maximum: 3
       estado:
         type: integer
+        minimum: 1
+        maximum: 99
       calle:
         type: string
+        maxLength: 200
       numero:
         type: integer
+        minimum: 1
+        maximum: 999999
       piso:
         type: string
+        maxLength: 5
       sector:
         type: string
+        maxLength: 200
       manzana:
         type: string
+        maxLength: 200
       torre:
         type: string
+        maxLength: 200
       unidad:
         type: string
+        maxLength: 5
       provincia:
         $ref: "#/definitions/provincia"
       localidad:
         type: string
+        maxLength: 200
       cp:
         type: string
+        maxLength: 8
       nomenclador:
         type: string
         maxLength: 9
@@ -321,12 +355,23 @@ definitions:
         properties:
           tipo:
             type: integer
+            minimum: 1
+            maximum: 99
           dato:
             type: string
+            maxLength: 200
           additionalProperties: false
         required:
           - tipo
           - dato
+      partido:
+        type: integer
+        minimum: 1
+        maximum: 999
+      partida:
+        type: integer
+        minimum: 1
+        maximum: 9999999
       baja:
         $ref: "#/definitions/fecha"
       ds:
@@ -353,7 +398,7 @@ definitions:
       periodo:
         $ref: "#/definitions/periodomensual"
       motivo:
-        type: integer
+        $ref: "#/definitions/motivo"
       ds:
         $ref: "#/definitions/fecha"
     additionalProperties: false
@@ -367,18 +412,32 @@ definitions:
     properties:
       orden:
         type: integer
+        minimum: 1
+        maximum: 999999
       pais:
         type: integer
+        minimum: 1
+        maximum: 9999
       area:
         type: integer
+        minimum: 1
+        maximum: 9999
       numero:
         type: integer
+        minimum: 1
+        maximum: 999999999999999
       tipo:
         type: integer
+        minimum: 1
+        maximum: 99
       linea:
         type: integer
+        minimum: 1
+        maximum: 999
       estado:
         type: integer
+        minimum: 1
+        maximum: 99
       ds:
         $ref: "#/definitions/fecha"
     additionalProperties: false
@@ -428,12 +487,19 @@ definitions:
       direccion:
         type: string
         format: email
+        maxLength: 100
       orden:
         type: integer
+        minimum: 1
+        maximum: 999
       tipo:
         type: integer
+        minimum: 1
+        maximum: 99
       estado:
         type: integer
+        minimum: 1
+        maximum: 99
       ds:
         $ref: "#/definitions/fecha"
     additionalProperties: false
@@ -462,8 +528,10 @@ definitions:
     properties:
       categoria:
         type: integer
+        minimum: 1
+        maximum: 999
       motivo:
-        type: integer
+        $ref: "#/definitions/motivo"
       estado:
         $ref: "#/definitions/estado"
       impuesto:
@@ -484,6 +552,8 @@ definitions:
     properties:
       etiqueta:
         type: integer
+        minimum: 1
+        maximum: 9999
       periodo:
         $ref: "#/definitions/periododiario"
       estado:
@@ -504,6 +574,7 @@ definitions:
       municipio:
         type: integer
         minimum: 1
+        maximum: 9999
       provincia:
         $ref: "#/definitions/provincia"
       desde:
@@ -526,8 +597,12 @@ definitions:
         $ref: "#/definitions/cuit"
       tipo:
         type: integer
+        minimum: 1
+        maximum: 999
       subtipo:
         type: integer
+        minimum: 1
+        maximum: 999
       desde:
         $ref: "#/definitions/fecha"
       ds:

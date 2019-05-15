@@ -1,0 +1,2186 @@
+<!DOCTYPE html><html><head>
+      <title>MODEL</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({"extensions":["tex2jax.js"],"jax":["input/TeX","output/HTML-CSS"],"messageStyle":"none","tex2jax":{"processEnvironments":false,"processEscapes":true,"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"TeX":{"extensions":["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]},"HTML-CSS":{"availableFonts":["TeX"]}});
+        </script>
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h1 class="mume-header" id="modelo-de-datos-padfed">Modelo de Datos PADFED</h1>
+
+<p>Especificaci&#xF3;n del modelo de datos de la implementaci&#xF3;n basada en blockchain de Padr&#xF3;n Federal.</p>
+<h2 class="mume-header" id="contenido">Contenido</h2>
+
+<div class="code-chunk" data-id="code-chunk-id-0" data-cmd="toc"><div class="input-div"><div class="btn-group"><div class="run-btn btn"><span>&#x25B6;&#xFE0E;</span></div><div class="run-all-btn btn">all</div></div><div class="status">running...</div></div><div class="output-div"></div></div><ul>
+<li><a href="#modelo-de-datos-padfed">Modelo de Datos PADFED</a>
+<ul>
+<li><a href="#contenido">Contenido</a></li>
+<li><a href="#registro-de-cambios">Registro de cambios</a></li>
+<li><a href="#convenciones-generales">Convenciones generales</a>
+<ul>
+<li><a href="#campos">Campos</a></li>
+<li><a href="#formatos">Formatos</a></li>
+</ul>
+</li>
+<li><a href="#diagrama-general">Diagrama general</a></li>
+<li><a href="#objeto-persona---persona">Objeto: Persona - Persona</a>
+<ul>
+<li><a href="#datos-comunes">Datos comunes</a></li>
+<li><a href="#datos-de-personas-f%C3%ADsicas">Datos de personas f&#xED;sicas</a></li>
+<li><a href="#datos-de-personas-jur%C3%ADdicas">Datos de personas jur&#xED;dicas</a></li>
+<li><a href="#key">Key</a></li>
+<li><a href="#ejemplos">Ejemplos</a>
+<ul>
+<li><a href="#persona-f%C3%ADsica-ignoretrue">Persona F&#xED;sica {ignore=true}</a></li>
+<li><a href="#persona-jur%C3%ADdica-ignoretrue">Persona Jur&#xED;dica {ignore=true}</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---impuesto">Colecci&#xF3;n: Persona - Impuesto</a>
+<ul>
+<li><a href="#ejemplos-1">Ejemplos</a>
+<ul>
+<li><a href="#impuesto-activo-estado-ac-ignoretrue">Impuesto Activo (estado AC) {ignore=true}</a></li>
+<li><a href="#impuesto-con-baja-definitiva-estado-bd-ignoretrue">Impuesto con baja definitiva (estado BD) {ignore=true}</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---domicilio">Colecci&#xF3;n: Persona - Domicilio</a>
+<ul>
+<li><a href="#key-1">Key</a></li>
+<li><a href="#ejemplos-2">Ejemplos</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---categor%C3%ADa">Colecci&#xF3;n: Persona - Categor&#xED;a</a>
+<ul>
+<li><a href="#key-2">Key</a></li>
+<li><a href="#ejemplos-3">Ejemplos</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---contribuci%C3%B3n-municipal">Colecci&#xF3;n: Persona - Contribuci&#xF3;n Municipal</a>
+<ul>
+<li><a href="#key-3">Key</a></li>
+<li><a href="#ejemplos-4">Ejemplos</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---actividad">Colecci&#xF3;n: Persona - Actividad</a>
+<ul>
+<li><a href="#key-4">Key</a></li>
+<li><a href="#ejemplos-5">Ejemplos</a>
+<ul>
+<li><a href="#actividad-primaria-orden-1-ignoretrue">Actividad primaria (orden 1) {ignore=true}</a></li>
+<li><a href="#actividad-secundaria-orden--1-ignoretrue">Actividad secundaria (orden &gt; 1) {ignore=true}</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---etiqueta">Colecci&#xF3;n: Persona - Etiqueta</a>
+<ul>
+<li><a href="#key-5">Key</a></li>
+<li><a href="#ejemplos-6">Ejemplos</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---tel%C3%A9fono">Colecci&#xF3;n: Persona - Tel&#xE9;fono</a>
+<ul>
+<li><a href="#key-6">Key</a></li>
+</ul>
+</li>
+<li><a href="#coleccci%C3%B3n-persona---email">Coleccci&#xF3;n: Persona - Email</a>
+<ul>
+<li><a href="#key-7">Key</a></li>
+<li><a href="#ejemplos-7">Ejemplos</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---relaci%C3%B3n">Colecci&#xF3;n: Persona - Relaci&#xF3;n</a>
+<ul>
+<li><a href="#key-8">Key</a></li>
+<li><a href="#ejemplos-8">Ejemplos</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---jurisdiccion-new">Colecci&#xF3;n: Persona - Jurisdiccion &#x1F195;</a>
+<ul>
+<li><a href="#key-9">Key</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---sede-convenio-multilateral-new">Colecci&#xF3;n: Persona - Sede Convenio Multilateral &#x1F195;</a>
+<ul>
+<li><a href="#key-10">Key</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---actividad-jurisdiccional-soon">Colecci&#xF3;n: Persona - Actividad Jurisdiccional &#x1F51C;</a>
+<ul>
+<li><a href="#key-11">Key</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---domicilio-jurisdiccional-soon">Colecci&#xF3;n: Persona - Domicilio Jurisdiccional &#x1F51C;</a>
+<ul>
+<li><a href="#key-12">Key</a></li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---domicilio---rol-soon">Colecci&#xF3;n: Persona - Domicilio - Rol &#x1F51C;</a>
+<ul>
+<li><a href="#key-13">Key</a></li>
+<li><a href="#ejemplos-9">Ejemplos</a>
+<ul>
+<li><a href="#rol-%22fiscal-jurisdiccional%22-ignoretrue">Rol &#x201C;Fiscal Jurisdiccional&#x201D; {ignore=true}</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#colecci%C3%B3n-persona---archivo-soon">Colecci&#xF3;n: Persona - Archivo &#x1F51C;</a></li>
+<li><a href="#colecci%C3%B3n-persona---fusion-soon">Colecci&#xF3;n: Persona - Fusion &#x1F51C;</a></li>
+<li><a href="#colecci%C3%B3n-persona---transferencia-soon">Colecci&#xF3;n: Persona - Transferencia &#x1F51C;</a></li>
+<li><a href="#colecci%C3%B3n-persona---escision-soon">Colecci&#xF3;n: Persona - Escision &#x1F51C;</a></li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="registro-de-cambios">Registro de cambios</h2>
+
+<table>
+<thead>
+<tr>
+<th>Author</th>
+<th>Date</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pablo Lalloni</td>
+<td>2019-05-08</td>
+<td>Revisi&#xF3;n de m&#xE1;ximos, m&#xED;nimos y ajustes generales, diagrama</td>
+</tr>
+<tr>
+<td>Fabian Varisco</td>
+<td>2019-05-07</td>
+<td>Versi&#xF3;n inicial</td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="convenciones-generales">Convenciones generales</h2>
+
+<h3 class="mume-header" id="campos">Campos</h3>
+
+<ul>
+<li><strong>min</strong> y <strong>max</strong>: Para los strings son longitudes y para los integers son valores.</li>
+<li><strong>ds</strong>: Fecha de la m&#xE1;s reciente modificaci&#xF3;n del registro en la base de datos de AFIP.</li>
+<li><strong>org</strong>: Es el c&#xF3;digo de organismo. <code>1</code> es AFIP.</li>
+</ul>
+<h3 class="mume-header" id="formatos">Formatos</h3>
+
+<ul>
+<li><strong>#fecha</strong>: Es la representaci&#xF3;n textual de una fecha con formato <code>YYYY-MM-DD</code> y los valores de <code>DD</code>, <code>MM</code> y <code>YYYY</code> deben cumplir las reglas de fechas de calendario est&#xE1;ndar.</li>
+<li>Per&#xED;odos:
+<ul>
+<li><strong>#periodomensual</strong>: Formato <code>YYYYMM</code>, donde <code>MM</code> debe estar en rango [<code>00</code>, <code>12</code>] e <code>YYYY</code> debe estar en el rango [<code>1000</code>,<code>9999</code>].</li>
+<li><strong>#periododiario</strong>: Formato <code>YYYYMMDD</code>, donde <code>MM</code> debe estar en rango [<code>00</code>, <code>12</code>] y <code>DD</code> puede debe ser <code>00</code> si el <code>MM</code> es <code>00</code> o bien estar en el rango [<code>01</code>,<code>NN</code>] donde <code>NN</code> es la cantidad de d&#xED;as correspondiente al mes <code>MM</code> e <code>YYYY</code> debe estar en el rango [<code>1000</code>,<code>9999</code>].</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="diagrama-general">Diagrama general</h2>
+
+<p><img src="data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U2NyaXB0VHlwZT0iYXBwbGljYXRpb24vZWNtYXNjcmlwdCIgY29udGVudFN0eWxlVHlwZT0idGV4dC9jc3MiIGhlaWdodD0iMjA2MnB4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBzdHlsZT0id2lkdGg6MTQ4OHB4O2hlaWdodDoyMDYycHg7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxNDg4IDIwNjIiIHdpZHRoPSIxNDg4cHgiIHpvb21BbmRQYW49Im1hZ25pZnkiPjxkZWZzPjxmaWx0ZXIgaGVpZ2h0PSIzMDAlIiBpZD0iZjEwaXh5YWQzNmU0Y3giIHdpZHRoPSIzMDAlIiB4PSItMSIgeT0iLTEiPjxmZUdhdXNzaWFuQmx1ciByZXN1bHQ9ImJsdXJPdXQiIHN0ZERldmlhdGlvbj0iMi4wIi8+PGZlQ29sb3JNYXRyaXggaW49ImJsdXJPdXQiIHJlc3VsdD0iYmx1ck91dDIiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAuNCAwIi8+PGZlT2Zmc2V0IGR4PSI0LjAiIGR5PSI0LjAiIGluPSJibHVyT3V0MiIgcmVzdWx0PSJibHVyT3V0MyIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9ImJsdXJPdXQzIiBtb2RlPSJub3JtYWwiLz48L2ZpbHRlcj48L2RlZnM+PGc+PCEtLWNsYXNzIFBlcnNvbmEtLT48cmVjdCBmaWxsPSIjRkVGRUNFIiBmaWx0ZXI9InVybCgjZjEwaXh5YWQzNmU0Y3gpIiBoZWlnaHQ9IjUyLjgwNDciIGlkPSJQZXJzb25hIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuNTsiIHdpZHRoPSI4NCIgeD0iNjAwLjUiIHk9IjgiLz48ZWxsaXBzZSBjeD0iNjE1LjUiIGN5PSIyNCIgZmlsbD0iI0FERDFCMiIgcng9IjExIiByeT0iMTEiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwYXRoIGQ9Ik02MTguNDY4OCwyOS42NDA2IFE2MTcuODkwNiwyOS45Mzc1IDYxNy4yNSwzMC4wODU5IFE2MTYuNjA5NCwzMC4yMzQ0IDYxNS45MDYzLDMwLjIzNDQgUTYxMy40MDYzLDMwLjIzNDQgNjEyLjA4NTksMjguNTg1OSBRNjEwLjc2NTYsMjYuOTM3NSA2MTAuNzY1NiwyMy44MTI1IFE2MTAuNzY1NiwyMC42ODc1IDYxMi4wODU5LDE5LjAzMTMgUTYxMy40MDYzLDE3LjM3NSA2MTUuOTA2MywxNy4zNzUgUTYxNi42MDk0LDE3LjM3NSA2MTcuMjU3OCwxNy41MzEzIFE2MTcuOTA2MywxNy42ODc1IDYxOC40Njg4LDE3Ljk4NDQgTDYxOC40Njg4LDIwLjcwMzEgUTYxNy44NDM4LDIwLjEyNSA2MTcuMjUsMTkuODUxNiBRNjE2LjY1NjMsMTkuNTc4MSA2MTYuMDMxMywxOS41NzgxIFE2MTQuNjg3NSwxOS41NzgxIDYxNCwyMC42NDg0IFE2MTMuMzEyNSwyMS43MTg4IDYxMy4zMTI1LDIzLjgxMjUgUTYxMy4zMTI1LDI1LjkwNjMgNjE0LDI2Ljk3NjYgUTYxNC42ODc1LDI4LjA0NjkgNjE2LjAzMTMsMjguMDQ2OSBRNjE2LjY1NjMsMjguMDQ2OSA2MTcuMjUsMjcuNzczNCBRNjE3Ljg0MzgsMjcuNSA2MTguNDY4OCwyNi45MjE5IEw2MTguNDY4OCwyOS42NDA2IFogIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNTIiIHg9IjYyOS41IiB5PSIyOC4xNTQzIj5QZXJzb25hPC90ZXh0PjxsaW5lIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS41OyIgeDE9IjYwMS41IiB4Mj0iNjgzLjUiIHkxPSI0MCIgeTI9IjQwIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iMTAiIHg9IjYwNi41IiB5PSI1NC4yMTA0Ij5pZDwvdGV4dD48IS0tY2xhc3MgUGVyc29uYVBlcnNvbmEtLT48cmVjdCBmaWxsPSIjRkVGRUNFIiBmaWx0ZXI9InVybCgjZjEwaXh5YWQzNmU0Y3gpIiBoZWlnaHQ9IjUyLjgwNDciIGlkPSJQZXJzb25hUGVyc29uYSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB3aWR0aD0iMTMyIiB4PSIxMTA5LjUiIHk9IjgiLz48ZWxsaXBzZSBjeD0iMTEyNC41IiBjeT0iMjQiIGZpbGw9IiNBOURDREYiIHJ4PSIxMSIgcnk9IjExIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cGF0aCBkPSJNMTEyNC42MDk0LDE5LjM0MzggTDExMjMuNDUzMSwyNC40MjE5IEwxMTI1Ljc4MTMsMjQuNDIxOSBMMTEyNC42MDk0LDE5LjM0MzggWiBNMTEyMy4xMjUsMTcuMTA5NCBMMTEyNi4xMDk0LDE3LjEwOTQgTDExMjkuNDY4OCwyOS41IEwxMTI3LjAxNTYsMjkuNSBMMTEyNi4yNSwyNi40Mzc1IEwxMTIyLjk2ODgsMjYuNDM3NSBMMTEyMi4yMTg4LDI5LjUgTDExMTkuNzgxMywyOS41IEwxMTIzLjEyNSwxNy4xMDk0IFogIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtc3R5bGU9Iml0YWxpYyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSIxMDAiIHg9IjExMzguNSIgeT0iMjguMTU0MyI+UGVyc29uYVBlcnNvbmE8L3RleHQ+PGxpbmUgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB4MT0iMTExMC41IiB4Mj0iMTI0MC41IiB5MT0iNDAiIHkyPSI0MCIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjEwIiB4PSIxMTE1LjUiIHk9IjU0LjIxMDQiPmlkPC90ZXh0PjwhLS1jbGFzcyBQZXJzb25hUGVyc29uYUbDrXNpY2EtLT48cmVjdCBmaWxsPSIjRkVGRUNFIiBmaWx0ZXI9InVybCgjZjEwaXh5YWQzNmU0Y3gpIiBoZWlnaHQ9IjMyIiBpZD0iUGVyc29uYVBlcnNvbmFGw61zaWNhIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuNTsiIHdpZHRoPSIxNzEiIHg9IjEwOTAiIHk9IjEzOCIvPjxlbGxpcHNlIGN4PSIxMTA1IiBjeT0iMTU0IiBmaWxsPSIjQUREMUIyIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBhdGggZD0iTTExMDcuOTY4OCwxNTkuNjQwNiBRMTEwNy4zOTA2LDE1OS45Mzc1IDExMDYuNzUsMTYwLjA4NTkgUTExMDYuMTA5NCwxNjAuMjM0NCAxMTA1LjQwNjMsMTYwLjIzNDQgUTExMDIuOTA2MywxNjAuMjM0NCAxMTAxLjU4NTksMTU4LjU4NTkgUTExMDAuMjY1NiwxNTYuOTM3NSAxMTAwLjI2NTYsMTUzLjgxMjUgUTExMDAuMjY1NiwxNTAuNjg3NSAxMTAxLjU4NTksMTQ5LjAzMTMgUTExMDIuOTA2MywxNDcuMzc1IDExMDUuNDA2MywxNDcuMzc1IFExMTA2LjEwOTQsMTQ3LjM3NSAxMTA2Ljc1NzgsMTQ3LjUzMTMgUTExMDcuNDA2MywxNDcuNjg3NSAxMTA3Ljk2ODgsMTQ3Ljk4NDQgTDExMDcuOTY4OCwxNTAuNzAzMSBRMTEwNy4zNDM4LDE1MC4xMjUgMTEwNi43NSwxNDkuODUxNiBRMTEwNi4xNTYzLDE0OS41NzgxIDExMDUuNTMxMywxNDkuNTc4MSBRMTEwNC4xODc1LDE0OS41NzgxIDExMDMuNSwxNTAuNjQ4NCBRMTEwMi44MTI1LDE1MS43MTg4IDExMDIuODEyNSwxNTMuODEyNSBRMTEwMi44MTI1LDE1NS45MDYzIDExMDMuNSwxNTYuOTc2NiBRMTEwNC4xODc1LDE1OC4wNDY5IDExMDUuNTMxMywxNTguMDQ2OSBRMTEwNi4xNTYzLDE1OC4wNDY5IDExMDYuNzUsMTU3Ljc3MzQgUTExMDcuMzQzOCwxNTcuNSAxMTA3Ljk2ODgsMTU2LjkyMTkgTDExMDcuOTY4OCwxNTkuNjQwNiBaICIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjEzOSIgeD0iMTExOSIgeT0iMTU4LjE1NDMiPlBlcnNvbmFQZXJzb25hRsOtc2ljYTwvdGV4dD48IS0tY2xhc3MgUGVyc29uYVBlcnNvbmFKdXLDrWRpY2EtLT48cmVjdCBmaWxsPSIjRkVGRUNFIiBmaWx0ZXI9InVybCgjZjEwaXh5YWQzNmU0Y3gpIiBoZWlnaHQ9IjMyIiBpZD0iUGVyc29uYVBlcnNvbmFKdXLDrWRpY2EiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS41OyIgd2lkdGg9IjE4MSIgeD0iMTI5NiIgeT0iMTM4Ii8+PGVsbGlwc2UgY3g9IjEzMTEiIGN5PSIxNTQiIGZpbGw9IiNBREQxQjIiIHJ4PSIxMSIgcnk9IjExIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cGF0aCBkPSJNMTMxMy45Njg4LDE1OS42NDA2IFExMzEzLjM5MDYsMTU5LjkzNzUgMTMxMi43NSwxNjAuMDg1OSBRMTMxMi4xMDk0LDE2MC4yMzQ0IDEzMTEuNDA2MywxNjAuMjM0NCBRMTMwOC45MDYzLDE2MC4yMzQ0IDEzMDcuNTg1OSwxNTguNTg1OSBRMTMwNi4yNjU2LDE1Ni45Mzc1IDEzMDYuMjY1NiwxNTMuODEyNSBRMTMwNi4yNjU2LDE1MC42ODc1IDEzMDcuNTg1OSwxNDkuMDMxMyBRMTMwOC45MDYzLDE0Ny4zNzUgMTMxMS40MDYzLDE0Ny4zNzUgUTEzMTIuMTA5NCwxNDcuMzc1IDEzMTIuNzU3OCwxNDcuNTMxMyBRMTMxMy40MDYzLDE0Ny42ODc1IDEzMTMuOTY4OCwxNDcuOTg0NCBMMTMxMy45Njg4LDE1MC43MDMxIFExMzEzLjM0MzgsMTUwLjEyNSAxMzEyLjc1LDE0OS44NTE2IFExMzEyLjE1NjMsMTQ5LjU3ODEgMTMxMS41MzEzLDE0OS41NzgxIFExMzEwLjE4NzUsMTQ5LjU3ODEgMTMwOS41LDE1MC42NDg0IFExMzA4LjgxMjUsMTUxLjcxODggMTMwOC44MTI1LDE1My44MTI1IFExMzA4LjgxMjUsMTU1LjkwNjMgMTMwOS41LDE1Ni45NzY2IFExMzEwLjE4NzUsMTU4LjA0NjkgMTMxMS41MzEzLDE1OC4wNDY5IFExMzEyLjE1NjMsMTU4LjA0NjkgMTMxMi43NSwxNTcuNzczNCBRMTMxMy4zNDM4LDE1Ny41IDEzMTMuOTY4OCwxNTYuOTIxOSBMMTMxMy45Njg4LDE1OS42NDA2IFogIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iMTQ5IiB4PSIxMzI1IiB5PSIxNTguMTU0MyI+UGVyc29uYVBlcnNvbmFKdXLDrWRpY2E8L3RleHQ+PCEtLWNsYXNzIFBlcnNvbmFDYXRlZ29yw61hLS0+PHJlY3QgZmlsbD0iI0ZFRkVDRSIgZmlsdGVyPSJ1cmwoI2YxMGl4eWFkMzZlNGN4KSIgaGVpZ2h0PSIzMiIgaWQ9IlBlcnNvbmFDYXRlZ29yw61hIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuNTsiIHdpZHRoPSIxNDUiIHg9IjYiIHk9IjEzOCIvPjxlbGxpcHNlIGN4PSIyMSIgY3k9IjE1NCIgZmlsbD0iI0FERDFCMiIgcng9IjExIiByeT0iMTEiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwYXRoIGQ9Ik0yMy45Njg4LDE1OS42NDA2IFEyMy4zOTA2LDE1OS45Mzc1IDIyLjc1LDE2MC4wODU5IFEyMi4xMDk0LDE2MC4yMzQ0IDIxLjQwNjMsMTYwLjIzNDQgUTE4LjkwNjMsMTYwLjIzNDQgMTcuNTg1OSwxNTguNTg1OSBRMTYuMjY1NiwxNTYuOTM3NSAxNi4yNjU2LDE1My44MTI1IFExNi4yNjU2LDE1MC42ODc1IDE3LjU4NTksMTQ5LjAzMTMgUTE4LjkwNjMsMTQ3LjM3NSAyMS40MDYzLDE0Ny4zNzUgUTIyLjEwOTQsMTQ3LjM3NSAyMi43NTc4LDE0Ny41MzEzIFEyMy40MDYzLDE0Ny42ODc1IDIzLjk2ODgsMTQ3Ljk4NDQgTDIzLjk2ODgsMTUwLjcwMzEgUTIzLjM0MzgsMTUwLjEyNSAyMi43NSwxNDkuODUxNiBRMjIuMTU2MywxNDkuNTc4MSAyMS41MzEzLDE0OS41NzgxIFEyMC4xODc1LDE0OS41NzgxIDE5LjUsMTUwLjY0ODQgUTE4LjgxMjUsMTUxLjcxODggMTguODEyNSwxNTMuODEyNSBRMTguODEyNSwxNTUuOTA2MyAxOS41LDE1Ni45NzY2IFEyMC4xODc1LDE1OC4wNDY5IDIxLjUzMTMsMTU4LjA0NjkgUTIyLjE1NjMsMTU4LjA0NjkgMjIuNzUsMTU3Ljc3MzQgUTIzLjM0MzgsMTU3LjUgMjMuOTY4OCwxNTYuOTIxOSBMMjMuOTY4OCwxNTkuNjQwNiBaICIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjExMyIgeD0iMzUiIHk9IjE1OC4xNTQzIj5QZXJzb25hQ2F0ZWdvcsOtYTwvdGV4dD48IS0tY2xhc3MgUGVyc29uYUltcHVlc3RvLS0+PHJlY3QgZmlsbD0iI0ZFRkVDRSIgZmlsdGVyPSJ1cmwoI2YxMGl4eWFkMzZlNGN4KSIgaGVpZ2h0PSIzMiIgaWQ9IlBlcnNvbmFJbXB1ZXN0byIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB3aWR0aD0iMTQyIiB4PSIxMDEuNSIgeT0iMzI1Ii8+PGVsbGlwc2UgY3g9IjExNi41IiBjeT0iMzQxIiBmaWxsPSIjQUREMUIyIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBhdGggZD0iTTExOS40Njg4LDM0Ni42NDA2IFExMTguODkwNiwzNDYuOTM3NSAxMTguMjUsMzQ3LjA4NTkgUTExNy42MDk0LDM0Ny4yMzQ0IDExNi45MDYzLDM0Ny4yMzQ0IFExMTQuNDA2MywzNDcuMjM0NCAxMTMuMDg1OSwzNDUuNTg1OSBRMTExLjc2NTYsMzQzLjkzNzUgMTExLjc2NTYsMzQwLjgxMjUgUTExMS43NjU2LDMzNy42ODc1IDExMy4wODU5LDMzNi4wMzEzIFExMTQuNDA2MywzMzQuMzc1IDExNi45MDYzLDMzNC4zNzUgUTExNy42MDk0LDMzNC4zNzUgMTE4LjI1NzgsMzM0LjUzMTMgUTExOC45MDYzLDMzNC42ODc1IDExOS40Njg4LDMzNC45ODQ0IEwxMTkuNDY4OCwzMzcuNzAzMSBRMTE4Ljg0MzgsMzM3LjEyNSAxMTguMjUsMzM2Ljg1MTYgUTExNy42NTYzLDMzNi41NzgxIDExNy4wMzEzLDMzNi41NzgxIFExMTUuNjg3NSwzMzYuNTc4MSAxMTUsMzM3LjY0ODQgUTExNC4zMTI1LDMzOC43MTg4IDExNC4zMTI1LDM0MC44MTI1IFExMTQuMzEyNSwzNDIuOTA2MyAxMTUsMzQzLjk3NjYgUTExNS42ODc1LDM0NS4wNDY5IDExNy4wMzEzLDM0NS4wNDY5IFExMTcuNjU2MywzNDUuMDQ2OSAxMTguMjUsMzQ0Ljc3MzQgUTExOC44NDM4LDM0NC41IDExOS40Njg4LDM0My45MjE5IEwxMTkuNDY4OCwzNDYuNjQwNiBaICIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjExMCIgeD0iMTMwLjUiIHk9IjM0NS4xNTQzIj5QZXJzb25hSW1wdWVzdG88L3RleHQ+PCEtLWNsYXNzIFBlcnNvbmFEb21pY2lsaW8tLT48cmVjdCBmaWxsPSIjRkVGRUNFIiBmaWx0ZXI9InVybCgjZjEwaXh5YWQzNmU0Y3gpIiBoZWlnaHQ9IjMyIiBpZD0iUGVyc29uYURvbWljaWxpbyIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB3aWR0aD0iMTM5IiB4PSIxODUiIHk9IjUxMiIvPjxlbGxpcHNlIGN4PSIyMDAiIGN5PSI1MjgiIGZpbGw9IiNBREQxQjIiIHJ4PSIxMSIgcnk9IjExIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cGF0aCBkPSJNMjAyLjk2ODgsNTMzLjY0MDYgUTIwMi4zOTA2LDUzMy45Mzc1IDIwMS43NSw1MzQuMDg1OSBRMjAxLjEwOTQsNTM0LjIzNDQgMjAwLjQwNjMsNTM0LjIzNDQgUTE5Ny45MDYzLDUzNC4yMzQ0IDE5Ni41ODU5LDUzMi41ODU5IFExOTUuMjY1Niw1MzAuOTM3NSAxOTUuMjY1Niw1MjcuODEyNSBRMTk1LjI2NTYsNTI0LjY4NzUgMTk2LjU4NTksNTIzLjAzMTMgUTE5Ny45MDYzLDUyMS4zNzUgMjAwLjQwNjMsNTIxLjM3NSBRMjAxLjEwOTQsNTIxLjM3NSAyMDEuNzU3OCw1MjEuNTMxMyBRMjAyLjQwNjMsNTIxLjY4NzUgMjAyLjk2ODgsNTIxLjk4NDQgTDIwMi45Njg4LDUyNC43MDMxIFEyMDIuMzQzOCw1MjQuMTI1IDIwMS43NSw1MjMuODUxNiBRMjAxLjE1NjMsNTIzLjU3ODEgMjAwLjUzMTMsNTIzLjU3ODEgUTE5OS4xODc1LDUyMy41NzgxIDE5OC41LDUyNC42NDg0IFExOTcuODEyNSw1MjUuNzE4OCAxOTcuODEyNSw1MjcuODEyNSBRMTk3LjgxMjUsNTI5LjkwNjMgMTk4LjUsNTMwLjk3NjYgUTE5OS4xODc1LDUzMi4wNDY5IDIwMC41MzEzLDUzMi4wNDY5IFEyMDEuMTU2Myw1MzIuMDQ2OSAyMDEuNzUsNTMxLjc3MzQgUTIwMi4zNDM4LDUzMS41IDIwMi45Njg4LDUzMC45MjE5IEwyMDIuOTY4OCw1MzMuNjQwNiBaICIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjEwNyIgeD0iMjE0IiB5PSI1MzIuMTU0MyI+UGVyc29uYURvbWljaWxpbzwvdGV4dD48IS0tY2xhc3MgUGVyc29uYVRlbMOpZm9uby0tPjxyZWN0IGZpbGw9IiNGRUZFQ0UiIGZpbHRlcj0idXJsKCNmMTBpeHlhZDM2ZTRjeCkiIGhlaWdodD0iMzIiIGlkPSJQZXJzb25hVGVsw6lmb25vIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuNTsiIHdpZHRoPSIxMzgiIHg9IjI3MC41IiB5PSI2OTkiLz48ZWxsaXBzZSBjeD0iMjg1LjUiIGN5PSI3MTUiIGZpbGw9IiNBREQxQjIiIHJ4PSIxMSIgcnk9IjExIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cGF0aCBkPSJNMjg4LjQ2ODgsNzIwLjY0MDYgUTI4Ny44OTA2LDcyMC45Mzc1IDI4Ny4yNSw3MjEuMDg1OSBRMjg2LjYwOTQsNzIxLjIzNDQgMjg1LjkwNjMsNzIxLjIzNDQgUTI4My40MDYzLDcyMS4yMzQ0IDI4Mi4wODU5LDcxOS41ODU5IFEyODAuNzY1Niw3MTcuOTM3NSAyODAuNzY1Niw3MTQuODEyNSBRMjgwLjc2NTYsNzExLjY4NzUgMjgyLjA4NTksNzEwLjAzMTMgUTI4My40MDYzLDcwOC4zNzUgMjg1LjkwNjMsNzA4LjM3NSBRMjg2LjYwOTQsNzA4LjM3NSAyODcuMjU3OCw3MDguNTMxMyBRMjg3LjkwNjMsNzA4LjY4NzUgMjg4LjQ2ODgsNzA4Ljk4NDQgTDI4OC40Njg4LDcxMS43MDMxIFEyODcuODQzOCw3MTEuMTI1IDI4Ny4yNSw3MTAuODUxNiBRMjg2LjY1NjMsNzEwLjU3ODEgMjg2LjAzMTMsNzEwLjU3ODEgUTI4NC42ODc1LDcxMC41NzgxIDI4NCw3MTEuNjQ4NCBRMjgzLjMxMjUsNzEyLjcxODggMjgzLjMxMjUsNzE0LjgxMjUgUTI4My4zMTI1LDcxNi45MDYzIDI4NCw3MTcuOTc2NiBRMjg0LjY4NzUsNzE5LjA0NjkgMjg2LjAzMTMsNzE5LjA0NjkgUTI4Ni42NTYzLDcxOS4wNDY5IDI4Ny4yNSw3MTguNzczNCBRMjg3Ljg0MzgsNzE4LjUgMjg4LjQ2ODgsNzE3LjkyMTkgTDI4OC40Njg4LDcyMC42NDA2IFogIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iMTA2IiB4PSIyOTkuNSIgeT0iNzE5LjE1NDMiPlBlcnNvbmFUZWzDqWZvbm88L3RleHQ+PCEtLWNsYXNzIFBlcnNvbmFFbWFpbC0tPjxyZWN0IGZpbGw9IiNGRUZFQ0UiIGZpbHRlcj0idXJsKCNmMTBpeHlhZDM2ZTRjeCkiIGhlaWdodD0iMzIiIGlkPSJQZXJzb25hRW1haWwiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS41OyIgd2lkdGg9IjExNyIgeD0iMzYyIiB5PSI4ODYiLz48ZWxsaXBzZSBjeD0iMzc3IiBjeT0iOTAyIiBmaWxsPSIjQUREMUIyIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBhdGggZD0iTTM3OS45Njg4LDkwNy42NDA2IFEzNzkuMzkwNiw5MDcuOTM3NSAzNzguNzUsOTA4LjA4NTkgUTM3OC4xMDk0LDkwOC4yMzQ0IDM3Ny40MDYzLDkwOC4yMzQ0IFEzNzQuOTA2Myw5MDguMjM0NCAzNzMuNTg1OSw5MDYuNTg1OSBRMzcyLjI2NTYsOTA0LjkzNzUgMzcyLjI2NTYsOTAxLjgxMjUgUTM3Mi4yNjU2LDg5OC42ODc1IDM3My41ODU5LDg5Ny4wMzEzIFEzNzQuOTA2Myw4OTUuMzc1IDM3Ny40MDYzLDg5NS4zNzUgUTM3OC4xMDk0LDg5NS4zNzUgMzc4Ljc1NzgsODk1LjUzMTMgUTM3OS40MDYzLDg5NS42ODc1IDM3OS45Njg4LDg5NS45ODQ0IEwzNzkuOTY4OCw4OTguNzAzMSBRMzc5LjM0MzgsODk4LjEyNSAzNzguNzUsODk3Ljg1MTYgUTM3OC4xNTYzLDg5Ny41NzgxIDM3Ny41MzEzLDg5Ny41NzgxIFEzNzYuMTg3NSw4OTcuNTc4MSAzNzUuNSw4OTguNjQ4NCBRMzc0LjgxMjUsODk5LjcxODggMzc0LjgxMjUsOTAxLjgxMjUgUTM3NC44MTI1LDkwMy45MDYzIDM3NS41LDkwNC45NzY2IFEzNzYuMTg3NSw5MDYuMDQ2OSAzNzcuNTMxMyw5MDYuMDQ2OSBRMzc4LjE1NjMsOTA2LjA0NjkgMzc4Ljc1LDkwNS43NzM0IFEzNzkuMzQzOCw5MDUuNSAzNzkuOTY4OCw5MDQuOTIxOSBMMzc5Ljk2ODgsOTA3LjY0MDYgWiAiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI4NSIgeD0iMzkxIiB5PSI5MDYuMTU0MyI+UGVyc29uYUVtYWlsPC90ZXh0PjwhLS1jbGFzcyBQZXJzb25hSnVyaXNkaWNjacOzbi0tPjxyZWN0IGZpbGw9IiNGRUZFQ0UiIGZpbHRlcj0idXJsKCNmMTBpeHlhZDM2ZTRjeCkiIGhlaWdodD0iMzIiIGlkPSJQZXJzb25hSnVyaXNkaWNjacOzbiIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB3aWR0aD0iMTU0IiB4PSI0MDkuNSIgeT0iMTA3MyIvPjxlbGxpcHNlIGN4PSI0MjQuNSIgY3k9IjEwODkiIGZpbGw9IiNBREQxQjIiIHJ4PSIxMSIgcnk9IjExIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cGF0aCBkPSJNNDI3LjQ2ODgsMTA5NC42NDA2IFE0MjYuODkwNiwxMDk0LjkzNzUgNDI2LjI1LDEwOTUuMDg1OSBRNDI1LjYwOTQsMTA5NS4yMzQ0IDQyNC45MDYzLDEwOTUuMjM0NCBRNDIyLjQwNjMsMTA5NS4yMzQ0IDQyMS4wODU5LDEwOTMuNTg1OSBRNDE5Ljc2NTYsMTA5MS45Mzc1IDQxOS43NjU2LDEwODguODEyNSBRNDE5Ljc2NTYsMTA4NS42ODc1IDQyMS4wODU5LDEwODQuMDMxMyBRNDIyLjQwNjMsMTA4Mi4zNzUgNDI0LjkwNjMsMTA4Mi4zNzUgUTQyNS42MDk0LDEwODIuMzc1IDQyNi4yNTc4LDEwODIuNTMxMyBRNDI2LjkwNjMsMTA4Mi42ODc1IDQyNy40Njg4LDEwODIuOTg0NCBMNDI3LjQ2ODgsMTA4NS43MDMxIFE0MjYuODQzOCwxMDg1LjEyNSA0MjYuMjUsMTA4NC44NTE2IFE0MjUuNjU2MywxMDg0LjU3ODEgNDI1LjAzMTMsMTA4NC41NzgxIFE0MjMuNjg3NSwxMDg0LjU3ODEgNDIzLDEwODUuNjQ4NCBRNDIyLjMxMjUsMTA4Ni43MTg4IDQyMi4zMTI1LDEwODguODEyNSBRNDIyLjMxMjUsMTA5MC45MDYzIDQyMywxMDkxLjk3NjYgUTQyMy42ODc1LDEwOTMuMDQ2OSA0MjUuMDMxMywxMDkzLjA0NjkgUTQyNS42NTYzLDEwOTMuMDQ2OSA0MjYuMjUsMTA5Mi43NzM0IFE0MjYuODQzOCwxMDkyLjUgNDI3LjQ2ODgsMTA5MS45MjE5IEw0MjcuNDY4OCwxMDk0LjY0MDYgWiAiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSIxMjIiIHg9IjQzOC41IiB5PSIxMDkzLjE1NDMiPlBlcnNvbmFKdXJpc2RpY2Npw7NuPC90ZXh0PjwhLS1jbGFzcyBQZXJzb25hQWN0aXZpZGFkLS0+PHJlY3QgZmlsbD0iI0ZFRkVDRSIgZmlsdGVyPSJ1cmwoI2YxMGl4eWFkMzZlNGN4KSIgaGVpZ2h0PSIzMiIgaWQ9IlBlcnNvbmFBY3RpdmlkYWQiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS41OyIgd2lkdGg9IjE0MCIgeD0iNDk0LjUiIHk9IjEyNDQiLz48ZWxsaXBzZSBjeD0iNTA5LjUiIGN5PSIxMjYwIiBmaWxsPSIjQUREMUIyIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBhdGggZD0iTTUxMi40Njg4LDEyNjUuNjQwNiBRNTExLjg5MDYsMTI2NS45Mzc1IDUxMS4yNSwxMjY2LjA4NTkgUTUxMC42MDk0LDEyNjYuMjM0NCA1MDkuOTA2MywxMjY2LjIzNDQgUTUwNy40MDYzLDEyNjYuMjM0NCA1MDYuMDg1OSwxMjY0LjU4NTkgUTUwNC43NjU2LDEyNjIuOTM3NSA1MDQuNzY1NiwxMjU5LjgxMjUgUTUwNC43NjU2LDEyNTYuNjg3NSA1MDYuMDg1OSwxMjU1LjAzMTMgUTUwNy40MDYzLDEyNTMuMzc1IDUwOS45MDYzLDEyNTMuMzc1IFE1MTAuNjA5NCwxMjUzLjM3NSA1MTEuMjU3OCwxMjUzLjUzMTMgUTUxMS45MDYzLDEyNTMuNjg3NSA1MTIuNDY4OCwxMjUzLjk4NDQgTDUxMi40Njg4LDEyNTYuNzAzMSBRNTExLjg0MzgsMTI1Ni4xMjUgNTExLjI1LDEyNTUuODUxNiBRNTEwLjY1NjMsMTI1NS41NzgxIDUxMC4wMzEzLDEyNTUuNTc4MSBRNTA4LjY4NzUsMTI1NS41NzgxIDUwOCwxMjU2LjY0ODQgUTUwNy4zMTI1LDEyNTcuNzE4OCA1MDcuMzEyNSwxMjU5LjgxMjUgUTUwNy4zMTI1LDEyNjEuOTA2MyA1MDgsMTI2Mi45NzY2IFE1MDguNjg3NSwxMjY0LjA0NjkgNTEwLjAzMTMsMTI2NC4wNDY5IFE1MTAuNjU2MywxMjY0LjA0NjkgNTExLjI1LDEyNjMuNzczNCBRNTExLjg0MzgsMTI2My41IDUxMi40Njg4LDEyNjIuOTIxOSBMNTEyLjQ2ODgsMTI2NS42NDA2IFogIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iMTA4IiB4PSI1MjMuNSIgeT0iMTI2NC4xNTQzIj5QZXJzb25hQWN0aXZpZGFkPC90ZXh0PjwhLS1jbGFzcyBQZXJzb25hQ29udHJpYnVjacOzbk11bmljaXBhbC0tPjxyZWN0IGZpbGw9IiNGRUZFQ0UiIGZpbHRlcj0idXJsKCNmMTBpeHlhZDM2ZTRjeCkiIGhlaWdodD0iMzIiIGlkPSJQZXJzb25hQ29udHJpYnVjacOzbk11bmljaXBhbCIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB3aWR0aD0iMjIxIiB4PSI1MDkiIHk9IjEzOTkiLz48ZWxsaXBzZSBjeD0iNTI0IiBjeT0iMTQxNSIgZmlsbD0iI0FERDFCMiIgcng9IjExIiByeT0iMTEiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwYXRoIGQ9Ik01MjYuOTY4OCwxNDIwLjY0MDYgUTUyNi4zOTA2LDE0MjAuOTM3NSA1MjUuNzUsMTQyMS4wODU5IFE1MjUuMTA5NCwxNDIxLjIzNDQgNTI0LjQwNjMsMTQyMS4yMzQ0IFE1MjEuOTA2MywxNDIxLjIzNDQgNTIwLjU4NTksMTQxOS41ODU5IFE1MTkuMjY1NiwxNDE3LjkzNzUgNTE5LjI2NTYsMTQxNC44MTI1IFE1MTkuMjY1NiwxNDExLjY4NzUgNTIwLjU4NTksMTQxMC4wMzEzIFE1MjEuOTA2MywxNDA4LjM3NSA1MjQuNDA2MywxNDA4LjM3NSBRNTI1LjEwOTQsMTQwOC4zNzUgNTI1Ljc1NzgsMTQwOC41MzEzIFE1MjYuNDA2MywxNDA4LjY4NzUgNTI2Ljk2ODgsMTQwOC45ODQ0IEw1MjYuOTY4OCwxNDExLjcwMzEgUTUyNi4zNDM4LDE0MTEuMTI1IDUyNS43NSwxNDEwLjg1MTYgUTUyNS4xNTYzLDE0MTAuNTc4MSA1MjQuNTMxMywxNDEwLjU3ODEgUTUyMy4xODc1LDE0MTAuNTc4MSA1MjIuNSwxNDExLjY0ODQgUTUyMS44MTI1LDE0MTIuNzE4OCA1MjEuODEyNSwxNDE0LjgxMjUgUTUyMS44MTI1LDE0MTYuOTA2MyA1MjIuNSwxNDE3Ljk3NjYgUTUyMy4xODc1LDE0MTkuMDQ2OSA1MjQuNTMxMywxNDE5LjA0NjkgUTUyNS4xNTYzLDE0MTkuMDQ2OSA1MjUuNzUsMTQxOC43NzM0IFE1MjYuMzQzOCwxNDE4LjUgNTI2Ljk2ODgsMTQxNy45MjE5IEw1MjYuOTY4OCwxNDIwLjY0MDYgWiAiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSIxODkiIHg9IjUzOCIgeT0iMTQxOS4xNTQzIj5QZXJzb25hQ29udHJpYnVjacOzbk11bmljaXBhbDwvdGV4dD48IS0tY2xhc3MgUGVyc29uYUFyY2hpdm8tLT48cmVjdCBmaWxsPSIjRkVGRUNFIiBmaWx0ZXI9InVybCgjZjEwaXh5YWQzNmU0Y3gpIiBoZWlnaHQ9IjMyIiBpZD0iUGVyc29uYUFyY2hpdm8iIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS41OyIgd2lkdGg9IjEyOSIgeD0iNjc5IiB5PSIxNTU0Ii8+PGVsbGlwc2UgY3g9IjY5NCIgY3k9IjE1NzAiIGZpbGw9IiNBREQxQjIiIHJ4PSIxMSIgcnk9IjExIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cGF0aCBkPSJNNjk2Ljk2ODgsMTU3NS42NDA2IFE2OTYuMzkwNiwxNTc1LjkzNzUgNjk1Ljc1LDE1NzYuMDg1OSBRNjk1LjEwOTQsMTU3Ni4yMzQ0IDY5NC40MDYzLDE1NzYuMjM0NCBRNjkxLjkwNjMsMTU3Ni4yMzQ0IDY5MC41ODU5LDE1NzQuNTg1OSBRNjg5LjI2NTYsMTU3Mi45Mzc1IDY4OS4yNjU2LDE1NjkuODEyNSBRNjg5LjI2NTYsMTU2Ni42ODc1IDY5MC41ODU5LDE1NjUuMDMxMyBRNjkxLjkwNjMsMTU2My4zNzUgNjk0LjQwNjMsMTU2My4zNzUgUTY5NS4xMDk0LDE1NjMuMzc1IDY5NS43NTc4LDE1NjMuNTMxMyBRNjk2LjQwNjMsMTU2My42ODc1IDY5Ni45Njg4LDE1NjMuOTg0NCBMNjk2Ljk2ODgsMTU2Ni43MDMxIFE2OTYuMzQzOCwxNTY2LjEyNSA2OTUuNzUsMTU2NS44NTE2IFE2OTUuMTU2MywxNTY1LjU3ODEgNjk0LjUzMTMsMTU2NS41NzgxIFE2OTMuMTg3NSwxNTY1LjU3ODEgNjkyLjUsMTU2Ni42NDg0IFE2OTEuODEyNSwxNTY3LjcxODggNjkxLjgxMjUsMTU2OS44MTI1IFE2OTEuODEyNSwxNTcxLjkwNjMgNjkyLjUsMTU3Mi45NzY2IFE2OTMuMTg3NSwxNTc0LjA0NjkgNjk0LjUzMTMsMTU3NC4wNDY5IFE2OTUuMTU2MywxNTc0LjA0NjkgNjk1Ljc1LDE1NzMuNzczNCBRNjk2LjM0MzgsMTU3My41IDY5Ni45Njg4LDE1NzIuOTIxOSBMNjk2Ljk2ODgsMTU3NS42NDA2IFogIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iOTciIHg9IjcwOCIgeT0iMTU3NC4xNTQzIj5QZXJzb25hQXJjaGl2bzwvdGV4dD48IS0tY2xhc3MgUGVyc29uYUV0aXF1ZXRhLS0+PHJlY3QgZmlsbD0iI0ZFRkVDRSIgZmlsdGVyPSJ1cmwoI2YxMGl4eWFkMzZlNGN4KSIgaGVpZ2h0PSIzMiIgaWQ9IlBlcnNvbmFFdGlxdWV0YSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB3aWR0aD0iMTM3IiB4PSI3NTYiIHk9IjE3MDkiLz48ZWxsaXBzZSBjeD0iNzcxIiBjeT0iMTcyNSIgZmlsbD0iI0FERDFCMiIgcng9IjExIiByeT0iMTEiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwYXRoIGQ9Ik03NzMuOTY4OCwxNzMwLjY0MDYgUTc3My4zOTA2LDE3MzAuOTM3NSA3NzIuNzUsMTczMS4wODU5IFE3NzIuMTA5NCwxNzMxLjIzNDQgNzcxLjQwNjMsMTczMS4yMzQ0IFE3NjguOTA2MywxNzMxLjIzNDQgNzY3LjU4NTksMTcyOS41ODU5IFE3NjYuMjY1NiwxNzI3LjkzNzUgNzY2LjI2NTYsMTcyNC44MTI1IFE3NjYuMjY1NiwxNzIxLjY4NzUgNzY3LjU4NTksMTcyMC4wMzEzIFE3NjguOTA2MywxNzE4LjM3NSA3NzEuNDA2MywxNzE4LjM3NSBRNzcyLjEwOTQsMTcxOC4zNzUgNzcyLjc1NzgsMTcxOC41MzEzIFE3NzMuNDA2MywxNzE4LjY4NzUgNzczLjk2ODgsMTcxOC45ODQ0IEw3NzMuOTY4OCwxNzIxLjcwMzEgUTc3My4zNDM4LDE3MjEuMTI1IDc3Mi43NSwxNzIwLjg1MTYgUTc3Mi4xNTYzLDE3MjAuNTc4MSA3NzEuNTMxMywxNzIwLjU3ODEgUTc3MC4xODc1LDE3MjAuNTc4MSA3NjkuNSwxNzIxLjY0ODQgUTc2OC44MTI1LDE3MjIuNzE4OCA3NjguODEyNSwxNzI0LjgxMjUgUTc2OC44MTI1LDE3MjYuOTA2MyA3NjkuNSwxNzI3Ljk3NjYgUTc3MC4xODc1LDE3MjkuMDQ2OSA3NzEuNTMxMywxNzI5LjA0NjkgUTc3Mi4xNTYzLDE3MjkuMDQ2OSA3NzIuNzUsMTcyOC43NzM0IFE3NzMuMzQzOCwxNzI4LjUgNzczLjk2ODgsMTcyNy45MjE5IEw3NzMuOTY4OCwxNzMwLjY0MDYgWiAiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSIxMDUiIHg9Ijc4NSIgeT0iMTcyOS4xNTQzIj5QZXJzb25hRXRpcXVldGE8L3RleHQ+PCEtLWNsYXNzIFBlcnNvbmFSZWxhY2nDs24tLT48cmVjdCBmaWxsPSIjRkVGRUNFIiBmaWx0ZXI9InVybCgjZjEwaXh5YWQzNmU0Y3gpIiBoZWlnaHQ9IjMyIiBpZD0iUGVyc29uYVJlbGFjacOzbiIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjU7IiB3aWR0aD0iMTM3IiB4PSI4NDYiIHk9IjE4NjQiLz48ZWxsaXBzZSBjeD0iODYxIiBjeT0iMTg4MCIgZmlsbD0iI0FERDFCMiIgcng9IjExIiByeT0iMTEiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwYXRoIGQ9Ik04NjMuOTY4OCwxODg1LjY0MDYgUTg2My4zOTA2LDE4ODUuOTM3NSA4NjIuNzUsMTg4Ni4wODU5IFE4NjIuMTA5NCwxODg2LjIzNDQgODYxLjQwNjMsMTg4Ni4yMzQ0IFE4NTguOTA2MywxODg2LjIzNDQgODU3LjU4NTksMTg4NC41ODU5IFE4NTYuMjY1NiwxODgyLjkzNzUgODU2LjI2NTYsMTg3OS44MTI1IFE4NTYuMjY1NiwxODc2LjY4NzUgODU3LjU4NTksMTg3NS4wMzEzIFE4NTguOTA2MywxODczLjM3NSA4NjEuNDA2MywxODczLjM3NSBRODYyLjEwOTQsMTg3My4zNzUgODYyLjc1NzgsMTg3My41MzEzIFE4NjMuNDA2MywxODczLjY4NzUgODYzLjk2ODgsMTg3My45ODQ0IEw4NjMuOTY4OCwxODc2LjcwMzEgUTg2My4zNDM4LDE4NzYuMTI1IDg2Mi43NSwxODc1Ljg1MTYgUTg2Mi4xNTYzLDE4NzUuNTc4MSA4NjEuNTMxMywxODc1LjU3ODEgUTg2MC4xODc1LDE4NzUuNTc4MSA4NTkuNSwxODc2LjY0ODQgUTg1OC44MTI1LDE4NzcuNzE4OCA4NTguODEyNSwxODc5LjgxMjUgUTg1OC44MTI1LDE4ODEuOTA2MyA4NTkuNSwxODgyLjk3NjYgUTg2MC4xODc1LDE4ODQuMDQ2OSA4NjEuNTMxMywxODg0LjA0NjkgUTg2Mi4xNTYzLDE4ODQuMDQ2OSA4NjIuNzUsMTg4My43NzM0IFE4NjMuMzQzOCwxODgzLjUgODYzLjk2ODgsMTg4Mi45MjE5IEw4NjMuOTY4OCwxODg1LjY0MDYgWiAiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSIxMDUiIHg9Ijg3NSIgeT0iMTg4NC4xNTQzIj5QZXJzb25hUmVsYWNpw7NuPC90ZXh0PjwhLS1jbGFzcyBQZXJzb25hU2VkZUNvbnZlbmlvTXVsdGlsYXRlcmFsLS0+PHJlY3QgZmlsbD0iI0ZFRkVDRSIgZmlsdGVyPSJ1cmwoI2YxMGl4eWFkMzZlNGN4KSIgaGVpZ2h0PSIzMiIgaWQ9IlBlcnNvbmFTZWRlQ29udmVuaW9NdWx0aWxhdGVyYWwiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS41OyIgd2lkdGg9IjI0MiIgeD0iODU0LjUiIHk9IjIwMTkiLz48ZWxsaXBzZSBjeD0iODY5LjUiIGN5PSIyMDM1IiBmaWxsPSIjQUREMUIyIiByeD0iMTEiIHJ5PSIxMSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBhdGggZD0iTTg3Mi40Njg4LDIwNDAuNjQwNiBRODcxLjg5MDYsMjA0MC45Mzc1IDg3MS4yNSwyMDQxLjA4NTkgUTg3MC42MDk0LDIwNDEuMjM0NCA4NjkuOTA2MywyMDQxLjIzNDQgUTg2Ny40MDYzLDIwNDEuMjM0NCA4NjYuMDg1OSwyMDM5LjU4NTkgUTg2NC43NjU2LDIwMzcuOTM3NSA4NjQuNzY1NiwyMDM0LjgxMjUgUTg2NC43NjU2LDIwMzEuNjg3NSA4NjYuMDg1OSwyMDMwLjAzMTMgUTg2Ny40MDYzLDIwMjguMzc1IDg2OS45MDYzLDIwMjguMzc1IFE4NzAuNjA5NCwyMDI4LjM3NSA4NzEuMjU3OCwyMDI4LjUzMTMgUTg3MS45MDYzLDIwMjguNjg3NSA4NzIuNDY4OCwyMDI4Ljk4NDQgTDg3Mi40Njg4LDIwMzEuNzAzMSBRODcxLjg0MzgsMjAzMS4xMjUgODcxLjI1LDIwMzAuODUxNiBRODcwLjY1NjMsMjAzMC41NzgxIDg3MC4wMzEzLDIwMzAuNTc4MSBRODY4LjY4NzUsMjAzMC41NzgxIDg2OCwyMDMxLjY0ODQgUTg2Ny4zMTI1LDIwMzIuNzE4OCA4NjcuMzEyNSwyMDM0LjgxMjUgUTg2Ny4zMTI1LDIwMzYuOTA2MyA4NjgsMjAzNy45NzY2IFE4NjguNjg3NSwyMDM5LjA0NjkgODcwLjAzMTMsMjAzOS4wNDY5IFE4NzAuNjU2MywyMDM5LjA0NjkgODcxLjI1LDIwMzguNzczNCBRODcxLjg0MzgsMjAzOC41IDg3Mi40Njg4LDIwMzcuOTIxOSBMODcyLjQ2ODgsMjA0MC42NDA2IFogIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iMjEwIiB4PSI4ODMuNSIgeT0iMjAzOS4xNTQzIj5QZXJzb25hU2VkZUNvbnZlbmlvTXVsdGlsYXRlcmFsPC90ZXh0PjwhLS1saW5rIFBlcnNvbmFQZXJzb25hIHRvIFBlcnNvbmFQZXJzb25hRsOtc2ljYS0tPjxwYXRoIGQ9Ik0xMTc1LjUsODEuMTI0OCBDMTE3NS41LDEwMS4xNjY4IDExNzUuNSwxMjMuMjgxNCAxMTc1LjUsMTM3LjgzMzIgIiBmaWxsPSJub25lIiBpZD0iUGVyc29uYVBlcnNvbmEtUGVyc29uYVBlcnNvbmFGw61zaWNhIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cG9seWdvbiBmaWxsPSJub25lIiBwb2ludHM9IjExNjguNTAwMSw4MS4wMjEsMTE3NS41LDYxLjAyMDksMTE4Mi41MDAxLDgxLjAyMDksMTE2OC41MDAxLDgxLjAyMSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PCEtLWxpbmsgUGVyc29uYVBlcnNvbmEgdG8gUGVyc29uYVBlcnNvbmFKdXLDrWRpY2EtLT48cGF0aCBkPSJNMTIzOS45ODA0LDcxLjAxODUgQzEyNzkuMzg5LDkzLjMzNzYgMTMyNy44NDIyLDEyMC43NzkxIDEzNTcuOTU0NSwxMzcuODMzMiAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hUGVyc29uYS1QZXJzb25hUGVyc29uYUp1csOtZGljYSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBvbHlnb24gZmlsbD0ibm9uZSIgcG9pbnRzPSIxMjM2LjI4MDksNzYuOTY4LDEyMjIuMzI3Nyw2MS4wMjA5LDEyNDMuMTgwMiw2NC43ODYxLDEyMzYuMjgwOSw3Ni45NjgiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjwhLS1saW5rIFBlcnNvbmEgdG8gUGVyc29uYVBlcnNvbmEtLT48cGF0aCBkPSJNNjk3Ljk4NDUsMzQuNSBDNzk2Ljg0MTIsMzQuNSAxMDAzLjAxMTYsMzQuNSAxMTA5LjE3NDEsMzQuNSAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFQZXJzb25hIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cG9seWdvbiBmaWxsPSIjQTgwMDM2IiBwb2ludHM9IjY4NC43NjkxLDM0LjUsNjkwLjc2OTEsMzguNSw2OTYuNzY5MSwzNC41LDY5MC43NjkxLDMwLjUsNjg0Ljc2OTEsMzQuNSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNTIiIHg9Ijg3MSIgeT0iMjcuNTY2OSI+cGVyc29uYTwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI4IiB4PSIxMDkzLjQ4MjIiIHk9IjMwLjc2NDUiPjE8L3RleHQ+PCEtLWxpbmsgUGVyc29uYSB0byBQZXJzb25hQ2F0ZWdvcsOtYS0tPjxwYXRoIGQ9Ik01ODYuNzU4OCwzNy4zNzYgQzQ1OC4wMjM3LDQ0LjQ0NiAxNDguMDU0Miw2NC4wNzg4IDEwOS41LDkxIEM5My44MDg2LDEwMS45NTY4IDg1LjcwNDIsMTIzLjE2OTYgODEuNzgyNiwxMzcuOTM3NyAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFDYXRlZ29yw61hIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cG9seWdvbiBmaWxsPSIjQTgwMDM2IiBwb2ludHM9IjYwMC4wODczLDM2LjY1MzQsNTkzLjg3OTUsMzIuOTg0MSw1ODguMTA0OSwzNy4zMDMxLDU5NC4zMTI3LDQwLjk3MjQsNjAwLjA4NzMsMzYuNjUzNCIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNjciIHg9IjExMC41IiB5PSIxMDQuMDY2OSI+Y2F0ZWdvcsOtYXM8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNyIgeD0iNzQuNzA3OSIgeT0iMTI2LjkyNzkiPio8L3RleHQ+PCEtLWxpbmsgUGVyc29uYSB0byBQZXJzb25hSW1wdWVzdG8tLT48cGF0aCBkPSJNNTg3LjI3OTgsMzcuMzEzMiBDNDk2Ljc0MTEsNDIuODMyNSAzMjEuNjYzMiw1Ny41ODI3IDI3MC41LDkxIEMxODguNTM1OCwxNDQuNTM1MSAxNzUuMDk4NywyNzguNDY3MyAxNzIuOTE2MSwzMjQuODcwNyAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFJbXB1ZXN0byIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBvbHlnb24gZmlsbD0iI0E4MDAzNiIgcG9pbnRzPSI2MDAuMjYzMiwzNi41NDk4LDU5NC4wMzg3LDMyLjkwODksNTg4LjI4MzksMzcuMjU0Miw1OTQuNTA4NCw0MC44OTUxLDYwMC4yNjMyLDM2LjU0OTgiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjY3IiB4PSIxOTYuNSIgeT0iMjEzLjA2NjkiPmltcHVlc3RvczwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI3IiB4PSIxNjQuODU2IiB5PSIzMTMuODM3OCI+KjwvdGV4dD48IS0tbGluayBQZXJzb25hIHRvIFBlcnNvbmFEb21pY2lsaW8tLT48cGF0aCBkPSJNNTg3LjM2MTEsNDEuNTQxMyBDNTE2LjMwOTksNTEuMjgyNSAzOTcuMzA4Miw3MC4wNTU4IDM1OC41LDkxIEMzMjMuOTI4NCwxMDkuNjU3OCAyOTYuNSwxMTQuNzE1IDI5Ni41LDE1NCBDMjk2LjUsMTU0IDI5Ni41LDE1NCAyOTYuNSw0MzQuNSBDMjk2LjUsNDYzLjY4NCAyNzkuMjYzMiw0OTMuODQ4NSAyNjYuODc0Miw1MTEuNzYgIiBmaWxsPSJub25lIiBpZD0iUGVyc29uYS1QZXJzb25hRG9taWNpbGlvIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cG9seWdvbiBmaWxsPSIjQTgwMDM2IiBwb2ludHM9IjYwMC40NjY5LDM5Ljc3MjMsNTkzLjk4NTcsMzYuNjEwOSw1ODguNTc0OCw0MS4zNzc2LDU5NS4wNTU5LDQ0LjUzOSw2MDAuNDY2OSwzOS43NzIzIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI2MyIgeD0iMjk3LjUiIHk9IjI5MS4wNjY5Ij5kb21pY2lsaW9zPC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjciIHg9IjI2Mi44MTM4IiB5PSI1MDAuOTg1Ij4qPC90ZXh0PjwhLS1saW5rIFBlcnNvbmEgdG8gUGVyc29uYVRlbMOpZm9uby0tPjxwYXRoIGQ9Ik01ODcuMjkwNyw0Mi45MTc2IEM1MzMuMjQ0Miw1Mi4yODY2IDQ1Ni4xMDkzLDY5LjA0NDcgNDM1LjUsOTEgQzM0My41NzA2LDE4OC45MzMgMzg4LjEyNTgsMjUzLjM3MjkgMzc0LjUsMzg3IEMzNzIuMzU0Miw0MDguMDQ0MSAzNzcuNSw0MTMuMzQ2OCAzNzcuNSw0MzQuNSBDMzc3LjUsNDM0LjUgMzc3LjUsNDM0LjUgMzc3LjUsNjIxLjUgQzM3Ny41LDY1MC40MTE0IDM2MS43MTQsNjgwLjg5NiAzNTAuNDkxMiw2OTguOTE1NSAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFUZWzDqWZvbm8iIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwb2x5Z29uIGZpbGw9IiNBODAwMzYiIHBvaW50cz0iNjAwLjE0NCw0MC43NTIsNTkzLjU2MjgsMzcuODA0NSw1ODguMzEwOCw0Mi43NDU4LDU5NC44OTIsNDUuNjkzMyw2MDAuMTQ0LDQwLjc1MiIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNTkiIHg9IjM3NS41IiB5PSI0MDAuMDY2OSI+dGVsw6lmb25vczwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI3IiB4PSIzNDYuMDY2MyIgeT0iNjg3Ljg5OCI+KjwvdGV4dD48IS0tbGluayBQZXJzb25hIHRvIFBlcnNvbmFFbWFpbC0tPjxwYXRoIGQ9Ik01ODcuMzQwNSw0Ni4yOTMyIEM1MzQuMDk5OCw2MS4yOTc0IDQ2MS41LDkyLjk1MDEgNDYxLjUsMTU0IEM0NjEuNSwxNTQgNDYxLjUsMTU0IDQ2MS41LDgwOC41IEM0NjEuNSw4MzcuNTY4NSA0NDQuNjczNiw4NjcuNzY1NCA0MzIuNTc5Niw4ODUuNzE1MyAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFFbWFpbCIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBvbHlnb24gZmlsbD0iI0E4MDAzNiIgcG9pbnRzPSI2MDAuMDYzNSw0Mi45MTQyLDU5My4yMzc4LDQwLjU4ODMsNTg4LjQ2NTUsNDUuOTk0NCw1OTUuMjkxMyw0OC4zMjAzLDYwMC4wNjM1LDQyLjkxNDIiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjQyIiB4PSI0NjIuNSIgeT0iNDc4LjA2NjkiPmVtYWlsczwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI3IiB4PSI0MjguNDIxNiIgeT0iODc0LjkyNTUiPio8L3RleHQ+PCEtLWxpbmsgUGVyc29uYSB0byBQZXJzb25hSnVyaXNkaWNjacOzbi0tPjxwYXRoIGQ9Ik01ODkuNTg0Miw2NS42MTY3IEM1NjEuNDA3Myw4Ni41MjU4IDUzMi41LDExNi45OTQ2IDUzMi41LDE1NCBDNTMyLjUsMTU0IDUzMi41LDE1NCA1MzIuNSw5OTUuNSBDNTMyLjUsMTAyNS4xNjg5IDUxMy42MjE2LDEwNTUuMTk3IDUwMC4wNTI3LDEwNzIuOTQ3OSAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFKdXJpc2RpY2Npw7NuIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cG9seWdvbiBmaWxsPSIjQTgwMDM2IiBwb2ludHM9IjYwMC4yODU3LDU4LjA3NzQsNTkzLjA3Nyw1OC4yNjMsNTkwLjQ3NTcsNjQuOTg4Niw1OTcuNjg0NCw2NC44MDMsNjAwLjI4NTcsNTguMDc3NCIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iODUiIHg9IjUzMy41IiB5PSI1ODcuMDY2OSI+anVyaXNkaWNjaW9uZXM8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNyIgeD0iNDk2LjUwODMiIHk9IjEwNjEuOTQxNiI+KjwvdGV4dD48IS0tbGluayBQZXJzb25hIHRvIFBlcnNvbmFBY3RpdmlkYWQtLT48cGF0aCBkPSJNNjQyLjUsNzQuMjYxIEM2NDIuNSw5Ny41MDc0IDY0Mi41LDEyNy40MTY5IDY0Mi41LDE1NCBDNjQyLjUsMTU0IDY0Mi41LDE1NCA2NDIuNSw1MjggQzY0Mi41LDU4NC41OTgyIDYxOS45ODcyLDU5NS43NzQ4IDYxMy41LDY1MiBDNjEyLjYzNCw2NTkuNTA1OCA2MTMuMjU0LDY2MS40NDg0IDYxMy41LDY2OSBDNjE0LjE2Nyw2ODkuNDc3IDYxNi41LDY5NC41MTIxIDYxNi41LDcxNSBDNjE2LjUsNzE1IDYxNi41LDcxNSA2MTYuNSwxMTgyLjUgQzYxNi41LDEyMDYuOTY2NCA1OTguNDA4NCwxMjI5LjUzMzUgNTgzLjU2NzYsMTI0My45Mjk3ICIgZmlsbD0ibm9uZSIgaWQ9IlBlcnNvbmEtUGVyc29uYUFjdGl2aWRhZCIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBvbHlnb24gZmlsbD0iI0E4MDAzNiIgcG9pbnRzPSI2NDIuNSw2MS4wNzksNjM4LjUsNjcuMDc5LDY0Mi41LDczLjA3OSw2NDYuNSw2Ny4wNzksNjQyLjUsNjEuMDc5IiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI3MiIgeD0iNjE0LjUiIHk9IjY2NS4wNjY5Ij5hY3RpdmlkYWRlczwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI3IiB4PSI1ODEuOTE5IiB5PSIxMjMyLjkxNzEiPio8L3RleHQ+PCEtLWxpbmsgUGVyc29uYSB0byBQZXJzb25hQ29udHJpYnVjacOzbk11bmljaXBhbC0tPjxwYXRoIGQ9Ik02NzguMzM4LDcxLjUwNiBDNjk1Ljk3NDYsOTMuNjE1MiA3MTMuNSwxMjMuMzA3IDcxMy41LDE1NCBDNzEzLjUsMTU0IDcxMy41LDE1NCA3MTMuNSw2MjEuNSBDNzEzLjUsNjg0LjgyNTUgNjkwLjk3ODQsNjk4LjAwNjcgNjg0LjUsNzYxIEM2ODIuMzM2LDc4Mi4wNDIyIDY4Ny41LDc4Ny4zNDY4IDY4Ny41LDgwOC41IEM2ODcuNSw4MDguNSA2ODcuNSw4MDguNSA2ODcuNSwxMzM3LjUgQzY4Ny41LDEzNjMuNjMzOCA2NjUuMzgyNiwxMzg1LjE2NjEgNjQ2LjM3NTQsMTM5OC44NDUzICIgZmlsbD0ibm9uZSIgaWQ9IlBlcnNvbmEtUGVyc29uYUNvbnRyaWJ1Y2nDs25NdW5pY2lwYWwiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwb2x5Z29uIGZpbGw9IiNBODAwMzYiIHBvaW50cz0iNjY5Ljc0NzQsNjEuMjkwMyw2NzAuNTQ3Niw2OC40NTY5LDY3Ny40NzA3LDcwLjQ3NDYsNjc2LjY3MDUsNjMuMzA4LDY2OS43NDc0LDYxLjI5MDMiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9Ijc1IiB4PSI2ODUuNSIgeT0iNzc0LjA2NjkiPmNvbnRyaW11bmlzPC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjciIHg9IjY0Ny40MTA3IiB5PSIxMzg3LjgwMzciPio8L3RleHQ+PCEtLWxpbmsgUGVyc29uYSB0byBQZXJzb25hQXJjaGl2by0tPjxwYXRoIGQ9Ik02OTYuOTg4Miw1NC4wNTQyIEM3MzguMTE2LDcyLjcxMyA3ODcuNSwxMDUuMjY0NCA3ODcuNSwxNTQgQzc4Ny41LDE1NCA3ODcuNSwxNTQgNzg3LjUsNzE1IEM3ODcuNSw3NzcuNzQzOCA3NzguNDU3Myw3OTMuMjg5NCA3ODAuNSw4NTYgQzc4MS4xNjcsODc2LjQ3NyA3ODMuNSw4ODEuNTEyMSA3ODMuNSw5MDIgQzc4My41LDkwMiA3ODMuNSw5MDIgNzgzLjUsMTQ5Mi41IEM3ODMuNSwxNTE1LjgxNzYgNzY5LjAyNDksMTUzOS4xMjY3IDc1Ny40OTAxLDE1NTMuOTk5NCAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFBcmNoaXZvIiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48cG9seWdvbiBmaWxsPSIjQTgwMDM2IiBwb2ludHM9IjY4NC44Mjk4LDQ4LjgxOTcsNjg4Ljc1OSw1NC44NjYzLDY5NS44NTE3LDUzLjU2NSw2OTEuOTIyNSw0Ny41MTg0LDY4NC44Mjk4LDQ4LjgxOTciIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjUzIiB4PSI3ODEuNSIgeT0iODUyLjA2NjkiPmFyY2hpdm9zPC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjciIHg9Ijc1NC4wOTYxIiB5PSIxNTQzLjAxMDgiPio8L3RleHQ+PCEtLWxpbmsgUGVyc29uYSB0byBQZXJzb25hRXRpcXVldGEtLT48cGF0aCBkPSJNNjk3LjYwMzksNDAuNTY2MyBDNzYyLjQ3ODIsNTEuMTIwMSA4NjEuNSw3OS40NDEgODYxLjUsMTU0IEM4NjEuNSwxNTQgODYxLjUsMTU0IDg2MS41LDE2NDcuNSBDODYxLjUsMTY3MC40NjA4IDg0OC4xMTA1LDE2OTMuODQyNCA4MzcuNDQwOCwxNzA4LjgyOTUgIiBmaWxsPSJub25lIiBpZD0iUGVyc29uYS1QZXJzb25hRXRpcXVldGEiIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwb2x5Z29uIGZpbGw9IiNBODAwMzYiIHBvaW50cz0iNjg0LjcyNTQsMzguNjI4Nyw2OTAuMDYzNSw0My40NzY5LDY5Ni41OTE4LDQwLjQxNDEsNjkxLjI1MzcsMzUuNTY1OSw2ODQuNzI1NCwzOC42Mjg3IiBzdHlsZT0ic3Ryb2tlOiAjQTgwMDM2OyBzdHJva2Utd2lkdGg6IDEuMDsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nQW5kR2x5cGhzIiB0ZXh0TGVuZ3RoPSI2MCIgeD0iODYyLjUiIHk9Ijk2MS4wNjY5Ij5ldGlxdWV0YXM8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNyIgeD0iODMzLjU2ODEiIHk9IjE2OTguMDc3NSI+KjwvdGV4dD48IS0tbGluayBQZXJzb25hIHRvIFBlcnNvbmFSZWxhY2nDs24tLT48cGF0aCBkPSJNNjk3LjY1MTIsNDQuNDY3NiBDNzg1LjI3ODIsNjEuODk0IDk0Ni41LDEwMS4xMzg4IDk0Ni41LDE1NCBDOTQ2LjUsMTU0IDk0Ni41LDE1NCA5NDYuNSwxODAyLjUgQzk0Ni41LDE4MjUuMDYyOSA5MzQuNzY5LDE4NDguNzE0NCA5MjUuNTEyNiwxODYzLjg2NSAiIGZpbGw9Im5vbmUiIGlkPSJQZXJzb25hLVBlcnNvbmFSZWxhY2nDs24iIHN0eWxlPSJzdHJva2U6ICNBODAwMzY7IHN0cm9rZS13aWR0aDogMS4wOyIvPjxwb2x5Z29uIGZpbGw9IiNBODAwMzYiIHBvaW50cz0iNjg0Ljc2OTksNDEuOTU3NSw2ODkuODk0LDQ3LjAzMTMsNjk2LjU0ODMsNDQuMjUyOCw2OTEuNDI0MiwzOS4xNzksNjg0Ljc2OTksNDEuOTU3NSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNjUiIHg9Ijk0Ny41IiB5PSIxMDM5LjA2NjkiPnJlbGFjaW9uZXM8L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNyIgeD0iOTIxLjA5NTEiIHk9IjE4NTIuODMwMiI+KjwvdGV4dD48IS0tbGluayBQZXJzb25hIHRvIFBlcnNvbmFTZWRlQ29udmVuaW9NdWx0aWxhdGVyYWwtLT48cGF0aCBkPSJNNjk3Ljg5MzcsMzkuNjM3MSBDODA2LjQwOSw1MS4yMzg0IDEwMzYuNSw4NC4wODExIDEwMzYuNSwxNTQgQzEwMzYuNSwxNTQgMTAzNi41LDE1NCAxMDM2LjUsMTk1Ny41IEMxMDM2LjUsMTk4Mi44NDE2IDEwMTYuMTEyMSwyMDA0Ljc4NDcgOTk4LjkwOTcsMjAxOC43ODg5ICIgZmlsbD0ibm9uZSIgaWQ9IlBlcnNvbmEtUGVyc29uYVNlZGVDb252ZW5pb011bHRpbGF0ZXJhbCIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHBvbHlnb24gZmlsbD0iI0E4MDAzNiIgcG9pbnRzPSI2ODQuNjY0OSwzOC4yNjM5LDY5MC4yMTk4LDQyLjg2Miw2OTYuNjAwOCwzOS41MDI5LDY5MS4wNDU4LDM0LjkwNDgsNjg0LjY2NDksMzguMjYzOSIgc3R5bGU9InN0cm9rZTogI0E4MDAzNjsgc3Ryb2tlLXdpZHRoOiAxLjA7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZ0FuZEdseXBocyIgdGV4dExlbmd0aD0iNTgiIHg9IjEwMzcuNSIgeT0iMTE0OC4wNjY5Ij5jbXNlZGVzPC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmdBbmRHbHlwaHMiIHRleHRMZW5ndGg9IjciIHg9Ijk5OC41MDQ4IiB5PSIyMDA4LjAyMzUiPio8L3RleHQ+PCEtLWxpbmsgUGVyc29uYUNhdGVnb3LDrWEgdG8gUGVyc29uYUltcHVlc3RvLS0+PCEtLWxpbmsgUGVyc29uYUltcHVlc3RvIHRvIFBlcnNvbmFEb21pY2lsaW8tLT48IS0tbGluayBQZXJzb25hRG9taWNpbGlvIHRvIFBlcnNvbmFUZWzDqWZvbm8tLT48IS0tbGluayBQZXJzb25hVGVsw6lmb25vIHRvIFBlcnNvbmFFbWFpbC0tPjwhLS1saW5rIFBlcnNvbmFFbWFpbCB0byBQZXJzb25hSnVyaXNkaWNjacOzbi0tPjwhLS1saW5rIFBlcnNvbmFKdXJpc2RpY2Npw7NuIHRvIFBlcnNvbmFBY3RpdmlkYWQtLT48IS0tbGluayBQZXJzb25hQWN0aXZpZGFkIHRvIFBlcnNvbmFDb250cmlidWNpw7NuTXVuaWNpcGFsLS0+PCEtLWxpbmsgUGVyc29uYUNvbnRyaWJ1Y2nDs25NdW5pY2lwYWwgdG8gUGVyc29uYUFyY2hpdm8tLT48IS0tbGluayBQZXJzb25hQXJjaGl2byB0byBQZXJzb25hRXRpcXVldGEtLT48IS0tbGluayBQZXJzb25hRXRpcXVldGEgdG8gUGVyc29uYVJlbGFjacOzbi0tPjwhLS1saW5rIFBlcnNvbmFSZWxhY2nDs24gdG8gUGVyc29uYVNlZGVDb252ZW5pb011bHRpbGF0ZXJhbC0tPjwhLS0KQHN0YXJ0dW1sDQpoaWRlIGVtcHR5IG1lbWJlcnMNCg0KY2xhc3MgUGVyc29uYSB7DQogICAgaWQNCn0NCg0KYWJzdHJhY3QgY2xhc3MgUGVyc29uYVBlcnNvbmEgIHsNCiAgICBpZA0KfQ0KDQpQZXJzb25hUGVyc29uYSA8fC0gLSBQZXJzb25hUGVyc29uYUbDrXNpY2ENClBlcnNvbmFQZXJzb25hIDx8LSAtIFBlcnNvbmFQZXJzb25hSnVyw61kaWNhDQoNClBlcnNvbmEgKi0gIjEiIFBlcnNvbmFQZXJzb25hIDogcGVyc29uYQ0KDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFDYXRlZ29yw61hIDogY2F0ZWdvcsOtYXMNClBlcnNvbmEgKi0gLSAiKiIgUGVyc29uYUltcHVlc3RvIDogaW1wdWVzdG9zDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFEb21pY2lsaW8gOiBkb21pY2lsaW9zDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFUZWzDqWZvbm8gOiB0ZWzDqWZvbm9zDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFFbWFpbCA6IGVtYWlscw0KUGVyc29uYSAqLSAtICIqIiBQZXJzb25hSnVyaXNkaWNjacOzbiA6IGp1cmlzZGljY2lvbmVzDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFBY3RpdmlkYWQgOiBhY3RpdmlkYWRlcw0KUGVyc29uYSAqLSAtICIqIiBQZXJzb25hQ29udHJpYnVjacOzbk11bmljaXBhbCA6IGNvbnRyaW11bmlzDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFBcmNoaXZvIDogYXJjaGl2b3MNClBlcnNvbmEgKi0gLSAiKiIgUGVyc29uYUV0aXF1ZXRhIDogZXRpcXVldGFzDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFSZWxhY2nDs24gOiByZWxhY2lvbmVzDQpQZXJzb25hICotIC0gIioiIFBlcnNvbmFTZWRlQ29udmVuaW9NdWx0aWxhdGVyYWwgOiBjbXNlZGVzDQoNClBlcnNvbmFDYXRlZ29yw61hIC1baGlkZGVuXS0gLSBQZXJzb25hSW1wdWVzdG8NClBlcnNvbmFJbXB1ZXN0byAtW2hpZGRlbl0tIC0gUGVyc29uYURvbWljaWxpbw0KUGVyc29uYURvbWljaWxpbyAtW2hpZGRlbl0tIC0gUGVyc29uYVRlbMOpZm9ubw0KUGVyc29uYVRlbMOpZm9ubyAtW2hpZGRlbl0tIC0gUGVyc29uYUVtYWlsDQpQZXJzb25hRW1haWwgLVtoaWRkZW5dLSAtIFBlcnNvbmFKdXJpc2RpY2Npw7NuDQpQZXJzb25hSnVyaXNkaWNjacOzbiAtW2hpZGRlbl0tIC0gUGVyc29uYUFjdGl2aWRhZA0KUGVyc29uYUFjdGl2aWRhZCAtW2hpZGRlbl0tIC0gUGVyc29uYUNvbnRyaWJ1Y2nDs25NdW5pY2lwYWwNClBlcnNvbmFDb250cmlidWNpw7NuTXVuaWNpcGFsIC1baGlkZGVuXS0gLSBQZXJzb25hQXJjaGl2bw0KUGVyc29uYUFyY2hpdm8gLVtoaWRkZW5dLSAtIFBlcnNvbmFFdGlxdWV0YQ0KUGVyc29uYUV0aXF1ZXRhIC1baGlkZGVuXS0gLSBQZXJzb25hUmVsYWNpw7NuDQpQZXJzb25hUmVsYWNpw7NuIC1baGlkZGVuXS0gLSBQZXJzb25hU2VkZUNvbnZlbmlvTXVsdGlsYXRlcmFsDQoNCkBlbmR1bWwNCgpQbGFudFVNTCB2ZXJzaW9uIDEuMjAxOS4wMyhTdW4gTWFyIDEwIDA4OjA0OjQ0IEFSVCAyMDE5KQooR1BMIHNvdXJjZSBkaXN0cmlidXRpb24pCkphdmEgUnVudGltZTogSmF2YShUTSkgU0UgUnVudGltZSBFbnZpcm9ubWVudApKVk06IEphdmEgSG90U3BvdChUTSkgNjQtQml0IFNlcnZlciBWTQpKYXZhIFZlcnNpb246IDEuOC4wXzE5MS1iMTIKT3BlcmF0aW5nIFN5c3RlbTogTGludXgKT1MgVmVyc2lvbjogNC4xNS4wLTQ4LWdlbmVyaWMKRGVmYXVsdCBFbmNvZGluZzogVVRGLTgKTGFuZ3VhZ2U6IGVzCkNvdW50cnk6IEFSCi0tPjwvZz48L3N2Zz4=" alt="Diagrama"></p>
+<h2 class="mume-header" id="objeto-persona-persona">Objeto: Persona - Persona</h2>
+
+<h3 class="mume-header" id="datos-comunes">Datos comunes</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td colspan="4">#cuit</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>tipoid</td>
+<td>string</td>
+<td colspan="3">C, E, I, L</td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td>string</td>
+<td colspan="3">F, J</td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>estado</td>
+<td>string</td>
+<td colspan="3">A, I</td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>pais</td>
+<td colspan="2">integer</td>
+
+<td>100</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>activoid</td>
+<td colspan="5">#cuit</td>
+
+
+
+
+</tr>
+<tr>
+<td>ch</td>
+<td colspan="5">[]string</td>
+
+
+
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>activoid</strong>: nueva cuit que se le asign&#xF3; a la persona</li>
+<li><strong>ch</strong>: array de nombres de campos cuyos valores fueron modificados en la mas reciente tx</li>
+</ul>
+<h3 class="mume-header" id="datos-de-personas-f%C3%ADsicas">Datos de personas f&#xED;sicas</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apellido</td>
+<td colspan="2">string</td>
+
+<td>1</td>
+<td>200</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>nombre</td>
+<td colspan="2">string</td>
+
+<td>1</td>
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>materno</td>
+<td colspan="2">string</td>
+
+<td>1</td>
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>sexo</td>
+<td>string</td>
+<td colspan="4">M, F</td>
+
+
+
+</tr>
+<tr>
+<td>documento</td>
+<td colspan="5">object</td>
+
+
+
+
+</tr>
+<tr>
+<td>documento.tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>99</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>documento.numero</td>
+<td colspan="4">string</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>nacimiento</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>fallecimiento</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>materno</strong>: apellido materno</li>
+</ul>
+<h3 class="mume-header" id="datos-de-personas-jur%C3%ADdicas">Datos de personas jur&#xED;dicas</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>razonsocial</td>
+<td colspan="2">string</td>
+
+<td>1</td>
+<td>200</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>formajuridica</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>mescierre</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">12</td>
+
+</tr>
+<tr>
+<td>contratosocial</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>duracion</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>inscripcion</td>
+<td colspan="5">object</td>
+
+
+
+
+</tr>
+<tr>
+<td>inscripcion.registro</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">99</td>
+
+</tr>
+<tr>
+<td>inscripcion.numero</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999999999999</td>
+<td>&#x1F5F8;</td>
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>inscripcion</strong>&#xFF1A;puede ser en IGJ (registro:1) o en otro registro p&#xFA;blico de sociedades</li>
+</ul>
+<h3 class="mume-header" id="key">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#per
+</pre>
+<h3 class="mume-header" id="ejemplos">Ejemplos</h3>
+
+<h4 class="mume-header undefined" id="persona-f%C3%ADsica">Persona F&#xED;sica</h4>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#per
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token number">20000000168</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;tipoid&quot;</span><span class="token operator">:</span> <span class="token string">&quot;C&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token string">&quot;F&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token string">&quot;A&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;nombre&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XXXXX&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;apellido&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XXXXXX&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;materno&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XXXXX&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;sexo&quot;</span><span class="token operator">:</span> <span class="token string">&quot;M&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;nacimiento&quot;</span><span class="token operator">:</span> <span class="token string">&quot;1963-01-01&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;fallecimiento&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2009-08-02&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;documento&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token number">96</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;numero&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XX&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2010-02-14&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h4 class="mume-header undefined" id="persona-jur%C3%ADdica">Persona Jur&#xED;dica</h4>
+
+<p>Key:</p>
+<pre class="language-text">per:30120013439
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token number">30120013439</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;tipoid&quot;</span><span class="token operator">:</span> <span class="token string">&quot;C&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token string">&quot;J&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token string">&quot;A&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;razonsocial&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XXXXXXXXX XXXX XX XXXXXXXXXX XXXXXXXXXXX XXXXX&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;formajuridica&quot;</span><span class="token operator">:</span> <span class="token number">86</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;mescierre&quot;</span><span class="token operator">:</span> <span class="token number">12</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;contratosocial&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2000-07-31&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;inscripcion&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;registro&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;numero&quot;</span><span class="token operator">:</span> <span class="token number">112345</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2008-01-21&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-impuesto">Colecci&#xF3;n: Persona - Impuesto</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>impuesto</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>estado</td>
+<td>string</td>
+<td colspan="3">AC, NA, BD, BP, EX</td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>periodo</td>
+<td colspan="2">#periodomensual</td>
+
+<td>100000</td>
+<td>999912</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>dia</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">31</td>
+
+</tr>
+<tr>
+<td>motivo &#x26A0;&#xFE0F;</td>
+<td colspan="2">#motivo</td>
+
+<td>1</td>
+<td colspan="2">999999</td>
+
+</tr>
+<tr>
+<td>inscripcion</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>#motivo</strong>: pendiente cambiar por objeto con estructura como:</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token string">&quot;xxxxxx&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;desde&quot;</span><span class="token operator">:</span><span class="token string">&quot;2015-02-24&quot;</span>
+<span class="token punctuation">}</span>
+</pre><p>Key:</p>
+<pre class="language-text">per:&lt;id&gt;#imp:&lt;impuesto&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-1">Ejemplos</h3>
+
+<h4 class="mume-header undefined" id="impuesto-activo-estado-ac">Impuesto Activo (estado AC)</h4>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#imp:20
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;impuesto&quot;</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;periodo&quot;</span><span class="token operator">:</span> <span class="token number">200504</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token string">&quot;AC&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;dia&quot;</span><span class="token operator">:</span> <span class="token number">19</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;motivo&quot;</span><span class="token operator">:</span> <span class="token number">44</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;inscripcion&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2005-04-20&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2015-12-30&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h4 class="mume-header undefined" id="impuesto-con-baja-definitiva-estado-bd">Impuesto con baja definitiva (estado BD)</h4>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#imp:5243
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;impuesto&quot;</span><span class="token operator">:</span> <span class="token number">5243</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;periodo&quot;</span><span class="token operator">:</span> <span class="token number">201807</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token string">&quot;BD&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;dia&quot;</span><span class="token operator">:</span> <span class="token number">31</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;motivo&quot;</span><span class="token operator">:</span> <span class="token number">557</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;inscripcion&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2018-06-07&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2018-07-10&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-domicilio">Colecci&#xF3;n: Persona - Domicilio</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>3</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>orden</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>estado</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">99</td>
+
+</tr>
+<tr>
+<td>calle</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>numero</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999999</td>
+
+</tr>
+<tr>
+<td>piso</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">5</td>
+
+</tr>
+<tr>
+<td>sector</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>manzana</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>torre</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>unidad</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">5</td>
+
+</tr>
+<tr>
+<td>provincia</td>
+<td colspan="2">integer</td>
+
+<td>0</td>
+<td colspan="2">24</td>
+
+</tr>
+<tr>
+<td>localidad</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>cp</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">8</td>
+
+</tr>
+<tr>
+<td>nomenclador</td>
+<td colspan="3">string &#x26A0;&#xFE0F;</td>
+
+
+<td colspan="2">9</td>
+
+</tr>
+<tr>
+<td>nombre</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>adicional</td>
+<td colspan="5">object</td>
+
+
+
+
+</tr>
+<tr>
+<td>adicional.tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>99</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>adicional.dato</td>
+<td colspan="3">string</td>
+
+
+<td>200</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>baja</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>partido &#x1F195;</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>partida &#x1F195;</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">9999999</td>
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>unidad</strong> es &#x201C;Oficina, Departamento o Local&#x201D;</li>
+<li><strong>nombre</strong> es &#x201C;Nombre de Fantasia&#x201D;</li>
+<li><strong>partido</strong> es el c&#xF3;digo del partido provincial</li>
+<li><strong>partida</strong> es el n&#xFA;mero de partida inmobiliaria</li>
+</ul>
+<h3 class="mume-header" id="key-1">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#dom:&lt;tipo&gt;.&lt;orden&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-2">Ejemplos</h3>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#dom:3.1
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;orden&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;provincia&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;localidad&quot;</span><span class="token operator">:</span> <span class="token string">&quot;MAR DEL PLATA SUR&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;cp&quot;</span><span class="token operator">:</span> <span class="token string">&quot;7600&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;nomenclador&quot;</span><span class="token operator">:</span> <span class="token string">&quot;1345&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;calle&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XXXXX&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;numero&quot;</span><span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;adicional&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;dato&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XXXXXXX XXXX&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;nombre&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XX XXXXXX XXXXXX&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2008-01-18&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-categor%C3%ADa">Colecci&#xF3;n: Persona - Categor&#xED;a</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>impuesto</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>categoria</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>estado</td>
+<td>string</td>
+<td colspan="3">AC, BD</td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>periodo</td>
+<td colspan="2">#periodomensual</td>
+
+<td>100000</td>
+<td>999912</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>motivo</td>
+<td colspan="2">#motivo</td>
+
+<td>1</td>
+<td colspan="2">999999</td>
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-2">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#cat:&lt;impuesto&gt;.&lt;categoria&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-3">Ejemplos</h3>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#cat:20.1
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;impuesto&quot;</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;categoria&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;periodo&quot;</span><span class="token operator">:</span> <span class="token number">200004</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token string">&quot;AC&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2003-04-14&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-contribuci%C3%B3n-municipal">Colecci&#xF3;n: Persona - Contribuci&#xF3;n Municipal</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>impuesto</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>municipio</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>provincia</td>
+<td colspan="2">integer</td>
+
+<td>0</td>
+<td>24</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>desde</td>
+<td colspan="4">#fecha</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>hasta</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-3">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#con:&lt;impuesto&gt;.&lt;municipio&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-4">Ejemplos</h3>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#con:5244.98
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;impuesto&quot;</span><span class="token operator">:</span> <span class="token number">5244</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;municipio&quot;</span><span class="token operator">:</span> <span class="token number">98</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;provincia&quot;</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;desde&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2018-06-01&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;hasta&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2018-07-31&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2018-07-10&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-actividad">Colecci&#xF3;n: Persona - Actividad</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>pattern</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actividad</td>
+<td>string</td>
+<td colspan="3">&#x201C;^883-[0-9]{3,8}$&#x201D;</td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>orden</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>desde</td>
+<td colspan="4">#fecha</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>hasta</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>articulo &#x1F195;</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>actividad</strong>: compuesto por codigo de nomenclador y codigo de actividad</li>
+</ul>
+<h3 class="mume-header" id="key-4">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#act:&lt;actividad&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-5">Ejemplos</h3>
+
+<h4 class="mume-header undefined" id="actividad-primaria-orden-1">Actividad primaria (orden 1)</h4>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#act:883-772099
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;actividad&quot;</span><span class="token operator">:</span> <span class="token string">&quot;883-772099&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;orden&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;desde&quot;</span><span class="token operator">:</span> <span class="token number">201805</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2018-06-07&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h4 class="mume-header undefined" id="actividad-secundaria-orden-1">Actividad secundaria (orden &gt; 1)</h4>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#act:883-131300
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;actividad&quot;</span><span class="token operator">:</span> <span class="token string">&quot;883-131300&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;orden&quot;</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;desde&quot;</span><span class="token operator">:</span> <span class="token number">201507</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2015-07-22&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-etiqueta">Colecci&#xF3;n: Persona - Etiqueta</h2>
+
+<p>Se asimila a la <em>Caracterizaci&#xF3;n</em> de AFIP.</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>etiqueta</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>periodo</td>
+<td colspan="2">#periododiario</td>
+
+<td>10000000</td>
+<td>99991231</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>estado</td>
+<td>string</td>
+<td colspan="3">AC, BD</td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-5">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#eti:&lt;etiqueta&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-6">Ejemplos</h3>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#eti:160
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;etiqueta&quot;</span><span class="token operator">:</span> <span class="token number">160</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;periodo&quot;</span><span class="token operator">:</span> <span class="token number">19940801</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token string">&quot;AC&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2003-04-11&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-tel%C3%A9fono">Colecci&#xF3;n: Persona - Tel&#xE9;fono</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orden</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>pais</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">9999</td>
+
+</tr>
+<tr>
+<td>area</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">9999</td>
+
+</tr>
+<tr>
+<td>numero</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999999999999999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">99</td>
+
+</tr>
+<tr>
+<td>linea</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-6">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#tel:&lt;orden&gt;
+</pre>
+<p>Ejemplo:</p>
+<pre class="language-text">per:20000000168#tel:1
+</pre>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;orden&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;pais&quot;</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;area&quot;</span><span class="token operator">:</span> <span class="token number">11</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;numero&quot;</span><span class="token operator">:</span> <span class="token number">99999999</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;linea&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2013-12-16&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="coleccci%C3%B3n-persona-email">Coleccci&#xF3;n: Persona - Email</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orden</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>direccion</td>
+<td colspan="3">string</td>
+
+
+<td>100</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">99</td>
+
+</tr>
+<tr>
+<td>estado</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">99</td>
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-7">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#ema:&lt;orden&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-7">Ejemplos</h3>
+
+<p>Key:</p>
+<pre class="language-text">per:20000000168#ema:1
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;orden&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;direccion&quot;</span><span class="token operator">:</span> <span class="token string">&quot;XXXXXXXXXXXXXX@XXXXX.XXX.XX&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;estado&quot;</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2016-10-20&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-relaci%C3%B3n">Colecci&#xF3;n: Persona - Relaci&#xF3;n</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>persona</td>
+<td colspan="4">#cuit</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>subtipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>desde</td>
+<td colspan="4">#fecha</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>tipo</strong>: Inicialmente ser&#xE1; siempre <code>3</code> que son relaciones societarias.</li>
+</ul>
+<h3 class="mume-header" id="key-8">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#rel:&lt;persona&gt;.&lt;tipo&gt;.&lt;subtipo&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-8">Ejemplos</h3>
+
+<p>Socio de una Sociedad An&#xF3;nima.</p>
+<p>Key:</p>
+<pre class="language-text">per:30120013439#rel:20012531001.3.4
+</pre>
+<p>Objeto:</p>
+<pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">&quot;persona&quot;</span><span class="token operator">:</span> <span class="token number">20012531001</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;tipo&quot;</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;subtipo&quot;</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;desde&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2009-01-12&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;ds&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2014-04-30&quot;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="colecci%C3%B3n-persona-jurisdiccion-new">Colecci&#xF3;n: Persona - Jurisdiccion &#x1F195;</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org</td>
+<td colspan="2">integer</td>
+
+<td>900</td>
+<td>924</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>provincia</td>
+<td colspan="2">integer</td>
+
+<td>0</td>
+<td>24</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>desde</td>
+<td colspan="4">#fecha</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>hasta</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-9">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#jur#&lt;org&gt;.&lt;provincia&gt;
+</pre>
+<p>Ejemplo:</p>
+<pre class="language-text">per:30120013439#jur:901.0
+</pre>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-sede-convenio-multilateral-new">Colecci&#xF3;n: Persona - Sede Convenio Multilateral &#x1F195;</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>provincia</td>
+<td colspan="2">integer</td>
+
+<td>0</td>
+<td>24</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>desde</td>
+<td colspan="4">#fecha</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>hasta</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-10">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#cms:&lt;provincia&gt;
+</pre>
+<p>Ejemplo:</p>
+<pre class="language-text">per:30120013439#cms:3
+</pre>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-actividad-jurisdiccional-soon">Colecci&#xF3;n: Persona - Actividad Jurisdiccional &#x1F51C;</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>pattern</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org</td>
+<td colspan="2">integer</td>
+
+<td>900</td>
+<td>924</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>actividad</td>
+<td>string</td>
+<td colspan="3"><code>^[0-9]{1,3}-[0-9]{3,8}$</code></td>
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>orden</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>desde</td>
+<td colspan="4">#fecha</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>hasta</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>articulo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-11">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#acj:&lt;org&gt;.&lt;actividad&gt;
+</pre>
+<p>Ejemplo:</p>
+<pre class="language-text">per:20000000168#acj:900.900-12345
+</pre>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-domicilio-jurisdiccional-soon">Colecci&#xF3;n: Persona - Domicilio Jurisdiccional &#x1F51C;</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org</td>
+<td colspan="2">integer</td>
+
+<td>900</td>
+<td>924</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>3</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>orden</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>estado</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">99</td>
+
+</tr>
+<tr>
+<td>calle</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>numero</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999999</td>
+
+</tr>
+<tr>
+<td>piso</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">5</td>
+
+</tr>
+<tr>
+<td>sector</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>manzana</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>torre</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>unidad</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">5</td>
+
+</tr>
+<tr>
+<td>provincia</td>
+<td colspan="2">integer</td>
+
+<td>0</td>
+<td colspan="2">24</td>
+
+</tr>
+<tr>
+<td>localidad</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>cp</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">8</td>
+
+</tr>
+<tr>
+<td>nomenclador</td>
+<td colspan="3">string &#x26A0;&#xFE0F;</td>
+
+
+<td colspan="2">9</td>
+
+</tr>
+<tr>
+<td>nombre</td>
+<td colspan="3">string</td>
+
+
+<td colspan="2">200</td>
+
+</tr>
+<tr>
+<td>adicional</td>
+<td colspan="5">object</td>
+
+
+
+
+</tr>
+<tr>
+<td>adicional.tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>99</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>adicional.dato</td>
+<td colspan="3">string</td>
+
+
+<td>200</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>baja</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>partido &#x1F195;</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">999</td>
+
+</tr>
+<tr>
+<td>partida &#x1F195;</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td colspan="2">9999999</td>
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<p>Aclaraciones:</p>
+<ul>
+<li><strong>tipo</strong>: Todos los domicilios jurisdiccionales tendran tipo <code>3</code></li>
+</ul>
+<p>Cambios &#x1F51C;:</p>
+<ul>
+<li><strong>numero</strong>: cambiaremos a tipo string para permitir adicionar descripciones no num&#xE9;ricas</li>
+</ul>
+<h3 class="mume-header" id="key-12">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#doj:&lt;org&gt;.&lt;tipo&gt;.&lt;orden&gt;
+</pre>
+<p>Ejemplo:</p>
+<pre class="language-text">per:20000000168#doj:900.3.20
+</pre>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-domicilio-rol-soon">Colecci&#xF3;n: Persona - Domicilio - Rol &#x1F51C;</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>enum</th>
+<th>min</th>
+<th>max</th>
+<th>req</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>924</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>tipo</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>3</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>orden</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>9999</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>rol</td>
+<td colspan="2">integer</td>
+
+<td>1</td>
+<td>99</td>
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>desde &#x26A0;&#xFE0F;</td>
+<td colspan="4">#fecha</td>
+
+
+
+<td>&#x1F5F8;</td>
+</tr>
+<tr>
+<td>hasta &#x26A0;&#xFE0F;</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+<tr>
+<td>ds</td>
+<td colspan="5">#fecha</td>
+
+
+
+
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="key-13">Key</h3>
+
+<pre class="language-text">per:&lt;id&gt;#dor:&lt;org&gt;.&lt;tipo&gt;.&lt;orden&gt;.&lt;rol&gt;
+</pre>
+<h3 class="mume-header" id="ejemplos-9">Ejemplos</h3>
+
+<h4 class="mume-header undefined" id="rol-fiscal-jurisdiccional">Rol &#x201C;Fiscal Jurisdiccional&#x201D;</h4>
+
+<p>Rol &#x201C;Fiscal Jurisdiccional&#x201D; asignado por C&#xF3;rdoba al domicilio con orden 1.</p>
+<p>Key:</p>
+<pre class="language-text">per:20000000168#dor:904.1.20.3
+</pre>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-archivo-soon">Colecci&#xF3;n: Persona - Archivo &#x1F51C;</h2>
+
+<p>Representar&#xE1; registro de archivos documentales almacenados en los sistemas de AFIP.</p>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-fusion-soon">Colecci&#xF3;n: Persona - Fusion &#x1F51C;</h2>
+
+<p>Represantar&#xE1; datos de fusiones empresarias en las cuales la persona tuvo participaci&#xF3;n.</p>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-transferencia-soon">Colecci&#xF3;n: Persona - Transferencia &#x1F51C;</h2>
+
+<p>Represantar&#xE1; datos de transferencias de empresas en las cuales la persona tuvo participaci&#xF3;n.</p>
+<h2 class="mume-header" id="colecci%C3%B3n-persona-escision-soon">Colecci&#xF3;n: Persona - Escision &#x1F51C;</h2>
+
+<p>Represantar&#xE1; datos de esciciones empresarias en las cuales la persona tuvo participaci&#xF3;n.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
