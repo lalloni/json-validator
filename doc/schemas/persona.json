@@ -462,14 +462,14 @@
     },
     "periododiario": {
       "format": "periododiario",
-      "maximum": 99991231,
-      "minimum": 10000000,
+      "maximum": 21001231,
+      "minimum": 19000000,
       "type": "integer"
     },
     "periodomensual": {
       "format": "periodomensual",
-      "maximum": 999912,
-      "minimum": 100000,
+      "maximum": 210012,
+      "minimum": 190000,
       "type": "integer"
     },
     "provincia": {
