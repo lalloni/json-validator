@@ -57,6 +57,11 @@ func Check() error {
 	return build.RunLinter("run")
 }
 
+// Ejecuta análisis estático de código fuente y tests
+func Verify() {
+	mg.Deps(Check, Test)
+}
+
 // Ejecuta compilación de librería de validación
 func Compilelibrary() error {
 	mg.Deps(Genall)
