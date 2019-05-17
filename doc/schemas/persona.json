@@ -280,6 +280,9 @@
           "minimum": 1,
           "type": "integer"
         },
+        "organismo": {
+          "$ref": "#/definitions/organismo"
+        },
         "partida": {
           "maximum": 9999999,
           "minimum": 1,
@@ -458,6 +461,20 @@
     "motivo": {
       "maximum": 999999,
       "minimum": 1,
+      "type": "integer"
+    },
+    "organismo": {
+      "anyOf": [
+        {
+          "const": 1,
+          "title": "AFIP (1)"
+        },
+        {
+          "maximum": 924,
+          "minimum": 900,
+          "title": "Provincia (900-924)"
+        }
+      ],
       "type": "integer"
     },
     "periododiario": {

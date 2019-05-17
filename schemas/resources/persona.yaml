@@ -277,6 +277,15 @@ definitions:
     minimum: 1
     maximum: 9999
 
+  organismo:
+    type: integer
+    anyOf:
+      - title: "AFIP (1)"
+        const: 1
+      - title: "Provincia (900-924)"
+        minimum: 900
+        maximum: 924
+
   actividad:
     type: object
     properties:
@@ -302,6 +311,8 @@ definitions:
   domicilio:
     type: object
     properties:
+      organismo:
+        $ref: "#/definitions/organismo"
       nombre:
         type: string
         maxLength: 200
