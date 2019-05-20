@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/Masterminds/semver"
-
 	"github.com/lalloni/go-archiver"
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
@@ -188,6 +187,11 @@ On unix-like shells you could do something like:
 	log.Infof("pushing tag %s to 'origin' remote", tag)
 	if err := sh.RunV("git", "push", "origin", tag); err != nil {
 		return errors.Wrap(err, "pushing tag to origin remote")
+	}
+
+	log.Infof("pushing current branch to 'origin' remote", tag)
+	if err := sh.RunV("git", "push", "origin"); err != nil {
+		return errors.Wrap(err, "pushing current branch to origin remote")
 	}
 
 	log.Info("release successfuly completed")
