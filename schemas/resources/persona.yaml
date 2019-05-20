@@ -256,9 +256,19 @@ definitions:
     maximum: 24
 
   motivo:
-    type: integer
-    minimum: 1
-    maximum: 999999
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+        maximum: 999999
+      desde:
+        $ref: "#/definitions/fecha"
+      hasta:
+        $ref: "#/definitions/fecha"
+    additionalProperties: false
+    required:
+      - id
 
   periodomensual:
     type: integer

@@ -59,7 +59,8 @@ document:
       estado: AC
       periodo: 201010
       dia: 20
-      motivo: 1
+      motivo: 
+        id: 1
       ds: "2016-10-11"
     30:
       impuesto: 30
@@ -67,7 +68,8 @@ document:
       estado: BD
       periodo: 201010
       dia: 20
-      motivo: 1
+      motivo: 
+        id: 1
       ds: "2016-10-11"
   domicilios:
     1.1:

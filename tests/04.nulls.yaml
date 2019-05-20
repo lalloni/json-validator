@@ -18,7 +18,8 @@ document:
       estado: AC
       periodo: 201001
       dia: 20
-      motivo: 2
+      motivo: 
+        id: 2
       ds: "2016-10-11"
     30: null
   domicilios:

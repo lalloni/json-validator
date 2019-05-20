@@ -469,9 +469,24 @@
       "type": "object"
     },
     "motivo": {
-      "maximum": 999999,
-      "minimum": 1,
-      "type": "integer"
+      "additionalProperties": false,
+      "properties": {
+        "desde": {
+          "$ref": "#/definitions/fecha"
+        },
+        "hasta": {
+          "$ref": "#/definitions/fecha"
+        },
+        "id": {
+          "maximum": 999999,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     },
     "organismo": {
       "anyOf": [
