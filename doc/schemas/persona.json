@@ -20,13 +20,13 @@
           "type": "integer"
         },
         "desde": {
-          "$ref": "#/definitions/periodomensual"
+          "$ref": "#/definitions/fecha"
         },
         "ds": {
           "$ref": "#/definitions/fecha"
         },
         "hasta": {
-          "$ref": "#/definitions/periodomensual"
+          "$ref": "#/definitions/fecha"
         },
         "orden": {
           "maximum": 999,

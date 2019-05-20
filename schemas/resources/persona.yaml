@@ -313,9 +313,9 @@ definitions:
         minimum: 1
         maximum: 999
       desde:
-        $ref: "#/definitions/periodomensual"
+        $ref: "#/definitions/fecha"
       hasta:
-        $ref: "#/definitions/periodomensual"
+        $ref: "#/definitions/fecha"
       ds:
         $ref: "#/definitions/fecha"
     additionalProperties: false

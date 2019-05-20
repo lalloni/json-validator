@@ -27,15 +27,15 @@ document:
       actividad: "883-12345"
       org: 1
       orden: 1
-      desde: 200112
-      hasta: 200404
+      desde: "2001-12-01"
+      hasta: "2004-04-30"
       ds: "2001-03-11"
     883-56789:
       actividad: "883-56789"
       org: 1
       orden: 2
-      desde: 200205
-      hasta: 200404
+      desde: "2002-05-01"
+      hasta: "2004-04-30"
       ds: "2001-12-21"
   impuestos:
     20:

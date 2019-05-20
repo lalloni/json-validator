@@ -8,8 +8,8 @@ document:
       actividad: "883-56789"
       org: 1
       orden: 2
-      desde: 200206
-      hasta: 200404
+      desde: "2002-06-01"
+      hasta: "2004-04-30"
       ds: "2001-12-21"
   impuestos:
     20:
