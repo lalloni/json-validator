@@ -289,10 +289,16 @@ definitions:
   actividad:
     type: object
     properties:
+      org:
+        $ref: "#/definitions/organismo"
       actividad:
         type: string
-        pattern: "^883-[0-9]{3,8}$"
+        pattern: "^[0-9]{1,3}-[0-9]{3,8}$"
       orden:
+        type: integer
+        minimum: 1
+        maximum: 999
+      articulo:
         type: integer
         minimum: 1
         maximum: 999
@@ -304,6 +310,7 @@ definitions:
         $ref: "#/definitions/fecha"
     additionalProperties: false
     required:
+      - org
       - actividad
       - orden
       - desde

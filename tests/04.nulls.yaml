@@ -6,6 +6,7 @@ document:
     883-12345: null
     883-56789:
       actividad: "883-56789"
+      org: 1
       orden: 2
       desde: 200206
       hasta: 200404
