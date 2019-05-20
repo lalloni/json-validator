@@ -31,6 +31,13 @@ document:
       calle: "Corrientes"
       numero: 348
       provincia: 0
+  domiroles:
+   1.1: null
+   2.2: 
+      orden: 2
+      tipo: 2
+      org: 1
+      rol: 3
   telefonos:
     1:
       orden: 1

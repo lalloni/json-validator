@@ -334,6 +334,40 @@
       ],
       "type": "object"
     },
+    "domirol": {
+      "additionalProperties": false,
+      "minProperties": 3,
+      "properties": {
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "orden": {
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "org": {
+          "$ref": "#/definitions/organismo"
+        },
+        "rol": {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "tipo": {
+          "maximum": 3,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "orden",
+        "tipo",
+        "org",
+        "rol"
+      ],
+      "type": "object"
+    },
     "email": {
       "additionalProperties": false,
       "properties": {
@@ -688,6 +722,22 @@
           "anyOf": [
             {
               "$ref": "#/definitions/domicilio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "domiroles": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/domirol"
             },
             {
               "type": "null"
