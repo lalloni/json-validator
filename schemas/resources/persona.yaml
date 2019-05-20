@@ -110,7 +110,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/domicilio"
           - type: "null"
     additionalProperties: false
-  domiroles:
+  domisroles:
     type: object
     patternProperties:
       '^[-0-9]+(\.[-0-9]+)*$':
