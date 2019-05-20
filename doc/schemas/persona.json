@@ -280,7 +280,7 @@
           "minimum": 1,
           "type": "integer"
         },
-        "organismo": {
+        "org": {
           "$ref": "#/definitions/organismo"
         },
         "partida": {
@@ -320,7 +320,8 @@
       },
       "required": [
         "orden",
-        "tipo"
+        "tipo",
+        "org"
       ],
       "type": "object"
     },

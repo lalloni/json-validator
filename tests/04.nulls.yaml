@@ -25,6 +25,7 @@ document:
     2.2:
       orden: 2
       tipo: 2
+      org: 1
       calle: "Corrientes"
       numero: 348
       provincia: 0

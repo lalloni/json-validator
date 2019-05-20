@@ -311,7 +311,7 @@ definitions:
   domicilio:
     type: object
     properties:
-      organismo:
+      org:
         $ref: "#/definitions/organismo"
       nombre:
         type: string
@@ -392,6 +392,7 @@ definitions:
     required:
       - orden
       - tipo
+      - org
 
   impuesto:
     type: object

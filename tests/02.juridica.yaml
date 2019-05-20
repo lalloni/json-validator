@@ -71,12 +71,14 @@ document:
     1.1:
       orden: 1
       tipo: 1
+      org: 1
       calle: "9 de Julio"
       numero: 1000
       provincia: 0
     2.2:
       orden: 2
       tipo: 2
+      org: 1
       adicional:
         tipo: 1
         dato: "asda das das das dasd asd a sd"
