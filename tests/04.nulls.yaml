@@ -6,9 +6,10 @@ document:
     883-12345: null
     883-56789:
       actividad: "883-56789"
+      org: 1
       orden: 2
-      desde: 200206
-      hasta: 200404
+      desde: "2002-06-01"
+      hasta: "2004-04-30"
       ds: "2001-12-21"
   impuestos:
     20:
@@ -17,7 +18,8 @@ document:
       estado: AC
       periodo: 201001
       dia: 20
-      motivo: 2
+      motivo: 
+        id: 2
       ds: "2016-10-11"
     30: null
   domicilios:
@@ -25,9 +27,17 @@ document:
     2.2:
       orden: 2
       tipo: 2
+      org: 1
       calle: "Corrientes"
       numero: 348
       provincia: 0
+  domisroles:
+   1.1: null
+   2.2: 
+      orden: 2
+      tipo: 2
+      org: 1
+      rol: 3
   telefonos:
     1:
       orden: 1

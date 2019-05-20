@@ -11,25 +11,34 @@
       "additionalProperties": false,
       "properties": {
         "actividad": {
-          "pattern": "^883-[0-9]{3,8}$",
+          "pattern": "^[0-9]{1,3}-[0-9]{3,8}$",
           "type": "string"
         },
+        "articulo": {
+          "maximum": 999,
+          "minimum": 1,
+          "type": "integer"
+        },
         "desde": {
-          "$ref": "#/definitions/periodomensual"
+          "$ref": "#/definitions/fecha"
         },
         "ds": {
           "$ref": "#/definitions/fecha"
         },
         "hasta": {
-          "$ref": "#/definitions/periodomensual"
+          "$ref": "#/definitions/fecha"
         },
         "orden": {
           "maximum": 999,
           "minimum": 1,
           "type": "integer"
+        },
+        "org": {
+          "$ref": "#/definitions/organismo"
         }
       },
       "required": [
+        "org",
         "actividad",
         "orden",
         "desde"
@@ -280,6 +289,9 @@
           "minimum": 1,
           "type": "integer"
         },
+        "org": {
+          "$ref": "#/definitions/organismo"
+        },
         "partida": {
           "maximum": 9999999,
           "minimum": 1,
@@ -317,7 +329,42 @@
       },
       "required": [
         "orden",
-        "tipo"
+        "tipo",
+        "org"
+      ],
+      "type": "object"
+    },
+    "domirol": {
+      "additionalProperties": false,
+      "minProperties": 3,
+      "properties": {
+        "ds": {
+          "$ref": "#/definitions/fecha"
+        },
+        "orden": {
+          "maximum": 9999,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "org": {
+          "$ref": "#/definitions/organismo"
+        },
+        "rol": {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "tipo": {
+          "maximum": 3,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "orden",
+        "tipo",
+        "org",
+        "rol"
       ],
       "type": "object"
     },
@@ -456,8 +503,37 @@
       "type": "object"
     },
     "motivo": {
-      "maximum": 999999,
-      "minimum": 1,
+      "additionalProperties": false,
+      "properties": {
+        "desde": {
+          "$ref": "#/definitions/fecha"
+        },
+        "hasta": {
+          "$ref": "#/definitions/fecha"
+        },
+        "id": {
+          "maximum": 999999,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "organismo": {
+      "anyOf": [
+        {
+          "const": 1,
+          "title": "AFIP (1)"
+        },
+        {
+          "maximum": 924,
+          "minimum": 900,
+          "title": "Provincia (900-924)"
+        }
+      ],
       "type": "integer"
     },
     "periododiario": {
@@ -646,6 +722,22 @@
           "anyOf": [
             {
               "$ref": "#/definitions/domicilio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "domisroles": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[-0-9]+(\\.[-0-9]+)*$": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/domirol"
             },
             {
               "type": "null"
