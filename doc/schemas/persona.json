@@ -85,7 +85,9 @@
           "$ref": "#/definitions/codigoimpuesto"
         },
         "motivo": {
-          "$ref": "#/definitions/motivo"
+          "maximum": 999999,
+          "minimum": 1,
+          "type": "integer"
         },
         "periodo": {
           "$ref": "#/definitions/periodomensual"
