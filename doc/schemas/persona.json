@@ -639,6 +639,7 @@
   "properties": {
     "actividades": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -655,6 +656,7 @@
     },
     "archivos": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -671,6 +673,7 @@
     },
     "categorias": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -687,6 +690,7 @@
     },
     "cmsedes": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -703,6 +707,7 @@
     },
     "contribmunis": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -719,6 +724,7 @@
     },
     "domicilios": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -735,6 +741,7 @@
     },
     "domisroles": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -751,6 +758,7 @@
     },
     "emails": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -767,6 +775,7 @@
     },
     "etiquetas": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -786,6 +795,7 @@
     },
     "impuestos": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -802,6 +812,7 @@
     },
     "jurisdicciones": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -996,6 +1007,7 @@
     },
     "relaciones": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [
@@ -1012,6 +1024,7 @@
     },
     "telefonos": {
       "additionalProperties": false,
+      "minProperties": 1,
       "patternProperties": {
         "^[-0-9]+(\\.[-0-9]+)*$": {
           "anyOf": [

@@ -94,6 +94,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/actividad"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   impuestos:
     type: object
     patternProperties:
@@ -102,6 +103,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/impuesto"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   domicilios:
     type: object
     patternProperties:
@@ -110,6 +112,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/domicilio"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   domisroles:
     type: object
     patternProperties:
@@ -118,6 +121,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/domirol"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   telefonos:
     type: object
     patternProperties:
@@ -126,6 +130,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/telefono"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   jurisdicciones:
     type: object
     patternProperties:
@@ -134,6 +139,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/jurisdiccion"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   emails:
     type: object
     patternProperties:
@@ -142,6 +148,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/email"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   archivos:
     type: object
     patternProperties:
@@ -150,6 +157,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/archivo"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   categorias:
     type: object
     patternProperties:
@@ -158,6 +166,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/categoria"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   etiquetas:
     type: object
     patternProperties:
@@ -166,6 +175,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/etiqueta"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   contribmunis:
     type: object
     patternProperties:
@@ -174,6 +184,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/contribucionmunicipal"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   relaciones:
     type: object
     patternProperties:
@@ -182,6 +193,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/relacion"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
   cmsedes:
     type: object
     patternProperties:
@@ -190,6 +202,7 @@ x-common-collections: &common-collections
           - $ref: "#/definitions/cmsede"
           - type: "null"
     additionalProperties: false
+    minProperties: 1
 
 #####################
 # Esquema principal #
