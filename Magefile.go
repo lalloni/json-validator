@@ -55,6 +55,7 @@ func Test() error {
 
 // Ejecuta análisis estático de código fuente
 func Check() error {
+	mg.Deps(Genall)
 	return build.RunLinter("run")
 }
 
