@@ -303,25 +303,11 @@ definitions:
     maximum: 21001231
     format: periododiario
 
-  codigoimpuesto:
-    type: integer
-    minimum: 1
-    maximum: 9999
-
-  organismo:
-    type: integer
-    anyOf:
-      - title: "AFIP (1)"
-        const: 1
-      - title: "Provincia (900-924)"
-        minimum: 900
-        maximum: 924
-
   actividad:
     type: object
     properties:
       org:
-        $ref: "#/definitions/organismo"
+        $ref: "https://metadata.afip.gob.ar/json-schemas/organismo-v1.0.0#"
       actividad:
         type: string
         pattern: "^[0-9]{1,3}-[0-9]{3,8}$"
@@ -350,7 +336,7 @@ definitions:
     type: object
     properties:
       org:
-        $ref: "#/definitions/organismo"
+        $ref: "https://metadata.afip.gob.ar/json-schemas/organismo-v1.0.0#"
       nombre:
         type: string
         maxLength: 200
@@ -436,7 +422,7 @@ definitions:
     type: object
     properties:
       org:
-        $ref: "#/definitions/organismo"
+        $ref: "https://metadata.afip.gob.ar/json-schemas/organismo-v1.0.0#"
       orden:
         type: integer
         minimum: 1
@@ -463,7 +449,7 @@ definitions:
     type: object
     properties:
       impuesto:
-        $ref: "#/definitions/codigoimpuesto"
+        $ref: "https://metadata.afip.gob.ar/json-schemas/impuesto-v1.0.0#/definitions/codigo"
       inscripcion:
         $ref: "#/definitions/fecha"
       estado:
@@ -614,7 +600,7 @@ definitions:
       estado:
         $ref: "#/definitions/estado"
       impuesto:
-        $ref: "#/definitions/codigoimpuesto"
+        $ref: "https://metadata.afip.gob.ar/json-schemas/impuesto-v1.0.0#/definitions/codigo"
       periodo:
         $ref: "#/definitions/periodomensual"
       ds:
@@ -649,7 +635,7 @@ definitions:
     type: object
     properties:
       impuesto:
-        $ref: "#/definitions/codigoimpuesto"
+        $ref: "https://metadata.afip.gob.ar/json-schemas/impuesto-v1.0.0#/definitions/codigo"
       municipio:
         type: integer
         minimum: 1

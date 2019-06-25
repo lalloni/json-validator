@@ -34,7 +34,7 @@
           "type": "integer"
         },
         "org": {
-          "$ref": "#/definitions/organismo"
+          "$ref": "https://metadata.afip.gob.ar/json-schemas/organismo-v1.0.0#"
         }
       },
       "required": [
@@ -82,7 +82,7 @@
           "$ref": "#/definitions/estado"
         },
         "impuesto": {
-          "$ref": "#/definitions/codigoimpuesto"
+          "$ref": "https://metadata.afip.gob.ar/json-schemas/impuesto-v1.0.0#/definitions/codigo"
         },
         "motivo": {
           "maximum": 999999,
@@ -151,11 +151,6 @@
       ],
       "type": "object"
     },
-    "codigoimpuesto": {
-      "maximum": 9999,
-      "minimum": 1,
-      "type": "integer"
-    },
     "contribucionmunicipal": {
       "additionalProperties": false,
       "properties": {
@@ -169,7 +164,7 @@
           "$ref": "#/definitions/fecha"
         },
         "impuesto": {
-          "$ref": "#/definitions/codigoimpuesto"
+          "$ref": "https://metadata.afip.gob.ar/json-schemas/impuesto-v1.0.0#/definitions/codigo"
         },
         "municipio": {
           "maximum": 9999,
@@ -292,7 +287,7 @@
           "type": "integer"
         },
         "org": {
-          "$ref": "#/definitions/organismo"
+          "$ref": "https://metadata.afip.gob.ar/json-schemas/organismo-v1.0.0#"
         },
         "partida": {
           "maximum": 9999999,
@@ -349,7 +344,7 @@
           "type": "integer"
         },
         "org": {
-          "$ref": "#/definitions/organismo"
+          "$ref": "https://metadata.afip.gob.ar/json-schemas/organismo-v1.0.0#"
         },
         "rol": {
           "maximum": 99,
@@ -457,7 +452,7 @@
           "$ref": "#/definitions/estado"
         },
         "impuesto": {
-          "$ref": "#/definitions/codigoimpuesto"
+          "$ref": "https://metadata.afip.gob.ar/json-schemas/impuesto-v1.0.0#/definitions/codigo"
         },
         "inscripcion": {
           "$ref": "#/definitions/fecha"
@@ -523,20 +518,6 @@
         "id"
       ],
       "type": "object"
-    },
-    "organismo": {
-      "anyOf": [
-        {
-          "const": 1,
-          "title": "AFIP (1)"
-        },
-        {
-          "maximum": 924,
-          "minimum": 900,
-          "title": "Provincia (900-924)"
-        }
-      ],
-      "type": "integer"
     },
     "periododiario": {
       "format": "periododiario",
