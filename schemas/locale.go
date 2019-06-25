@@ -7,23 +7,23 @@ func (l locale) Required() string {
 }
 
 func (l locale) InvalidType() string {
-	return `Tipo inválido. Se espera: {{.expected}}, se recibió: {{.given}}`
+	return `Tipo inválido: debe ser {{.expected}} pero se recibió {{.given}}`
 }
 
 func (l locale) NumberAnyOf() string {
-	return `Debe cumplir al menos un sub esquema{{ if .subtitles }} {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}"{{ . }}"{{ end }}{{ else }} (x){{ end }}`
+	return `Debe {{ if .subtitles }}ser uno de {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}{{ . }}{{ end }}{{else}}cumplir al menos un sub esquema{{ end }}`
 }
 
 func (l locale) NumberOneOf() string {
-	return `Debe cumplir un y sólo un sub esquema{{ if .subtitles }} {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}"{{ . }}"{{ end }}{{ else }} (x){{ end }}`
+	return `Debe {{ if .subtitles }}ser uno y sólo uno de {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}{{ . }}{{ end }}{{ else }}cumplir un y sólo un sub esquema{{ end }}`
 }
 
 func (l locale) NumberAllOf() string {
-	return `Debe cumplir todos los sub esquemas{{ if .subtitles }} {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}"{{ . }}"{{ end }}{{ else }} (x){{ end }}`
+	return `Debe {{ if .subtitles }}ser {{ range $i, $e := .subtitles }}{{ if $i }}, {{ end}}{{ . }}{{ end }}{{ else }}cumplir todos los sub esquemas{{ end }}`
 }
 
 func (l locale) NumberNot() string {
-	return `No debe cumplir el sub esquema {{ if .subtitle }}"{{ .subtitle }}"{{ else }}(x){{ end }}`
+	return `No debe {{ if .subtitle }}ser {{ .subtitle }}{{ else }}cumplir el sub esquema{{ end }}`
 }
 
 func (l locale) MissingDependency() string {
@@ -103,23 +103,23 @@ func (l locale) DoesNotMatchFormat() string {
 }
 
 func (l locale) MultipleOf() string {
-	return `Debe ser un múltiplo de {{.multiple}}`
+	return `Debe ser un múltiplo de {{ .multiple.RatString }}`
 }
 
 func (l locale) NumberGTE() string {
-	return `Debe ser mayor o igual que {{.min}}`
+	return `Debe ser mayor o igual que {{ .min.RatString }}`
 }
 
 func (l locale) NumberGT() string {
-	return `Debe ser mayor que {{.min}}`
+	return `Debe ser mayor que {{ .min.RatString }}`
 }
 
 func (l locale) NumberLTE() string {
-	return `Debe ser menor o igual que {{.max}}`
+	return `Debe ser menor o igual que {{ .max.RatString }}`
 }
 
 func (l locale) NumberLT() string {
-	return `Debe ser menor que {{.max}}`
+	return `Debe ser menor que {{ .max.RatString }}`
 }
 
 // Schema validators
@@ -200,9 +200,9 @@ func (l locale) ParseError() string {
 }
 
 func (l locale) ConditionThen() string {
-	return `Debe cumplir "{{ if .thentitle }}{{ .thentitle }}{{ else }}then{{ end }}" dado que se cumple "{{ if .iftitle }}{{ .iftitle }}{{ else }}if (x){{ end }}"`
+	return `Debe cumplir "{{ if .thentitle }}{{ .thentitle }}{{ else }}then{{ end }}" dado que se cumple "{{ if .iftitle }}{{ .iftitle }}{{ else }}if{{ end }}"`
 }
 
 func (l locale) ConditionElse() string {
-	return `Debe cumplir "{{ if .elsetitle }}{{ .elsetitle }}{{ else }}else{{ end }}" dado que no se cumple "{{ if .iftitle }}{{ .iftitle }}{{ else }}if (x){{ end }}"`
+	return `Debe cumplir "{{ if .elsetitle }}{{ .elsetitle }}{{ else }}else{{ end }}" dado que no se cumple "{{ if .iftitle }}{{ .iftitle }}{{ else }}if{{ end }}"`
 }
