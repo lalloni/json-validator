@@ -36,19 +36,23 @@ Y en el código...
 Importar:
 
 ```go
-import validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator"
+import (
+    validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
+    "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/schemas"
+)
 ```
 
-Instanciar:
+Cargar schema a utilizar:
 
 ```go
-v := validator.New()
+personaSchema, err := schemas.Load("persona")
+// manejar err
 ```
 
 Ejecutar validación:
 
 ```go
-res, err := v.ValidatePersonaJSON(persona)
+res, err := validator.ValidateJSON(personaSchema, persona)
 
 if err != nil {
     // hubo un error en el proceso de validación (r no debe usarse)
@@ -171,6 +175,8 @@ Dado que el proyecto es una librería Go su proceso de release es:
    1. Schemas JSON para documentación
       1. [Persona](doc/schemas/persona.json)
       2. [Lista de Personas](doc/schemas/persona-list.json)
+      3. [Impuesto](doc/schemas/impuesto.json)
+      4. [Lista de Impuestos](doc/schemas/impuesto-list.json)
    2. Schema YAML embebido en fuentes
 4. Validar que el working directory de git esté "limpio"
    1. Sin archivos controlados por git modificados localmente
