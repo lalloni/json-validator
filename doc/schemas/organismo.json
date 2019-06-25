@@ -2,7 +2,7 @@
   "$id": "https://metadata.afip.gob.ar/json-schemas/organismo-v1.0.0#",
   "$meta": {
     "comment": "SCHEMA GENERADO AUTOMÁTICAMENTE (NO MODIFICAR)",
-    "source": "schemas/resources/organismo.yaml"
+    "source": "schemas/organismo.yaml"
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
   "anyOf": [

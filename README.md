@@ -36,26 +36,24 @@ Y en el código...
 Importar:
 
 ```go
-import (
-    validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
-    "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/schemas"
-)
+import "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
 ```
 
 Cargar schema a utilizar:
 
 ```go
-personaSchema, err := schemas.Load("persona")
-// manejar err
+personaSchema, err := validator.LoadSchema("persona")
+// manejar err != nil
 ```
 
 Ejecutar validación:
 
 ```go
-res, err := validator.ValidateJSON(personaSchema, persona)
+res, err := validator.Validate(personaSchema, persona)
 
 if err != nil {
     // hubo un error en el proceso de validación (r no debe usarse)
+    // o el JSON suministrado no está bien formado
     return errors.Wrap(err, "validando persona")
 }
 ```

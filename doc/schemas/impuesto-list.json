@@ -2,7 +2,7 @@
   "$id": "https://metadata.afip.gob.ar/json-schemas/impuesto-list-v1.0.0#",
   "$meta": {
     "comment": "SCHEMA GENERADO AUTOMÁTICAMENTE (NO MODIFICAR)",
-    "source": "schemas/resources/impuesto-list.yaml"
+    "source": "schemas/impuesto-list.yaml"
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
   "items": {

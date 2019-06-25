@@ -3,6 +3,6 @@
 
 // You can use the "packr clean" command to clean up this,
 // and any other packr generated files.
-package schemas
+package validator
 
 import _ "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/packrd"

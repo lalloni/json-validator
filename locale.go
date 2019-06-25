@@ -1,4 +1,4 @@
-package schemas
+package validator
 
 type locale struct{}
 
@@ -187,7 +187,7 @@ func (l locale) Duplicated() string {
 	return `El tipo {{.type}} está duplicado`
 }
 
-func (l locale) HttpBadStatus() string {
+func (l locale) HttpBadStatus() string { // nolint: golint
 	return `No se pudo leer esquema desde HTTP, el estado de la respuesta es {{.status}}`
 }
 

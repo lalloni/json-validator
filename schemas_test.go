@@ -1,4 +1,4 @@
-package schemas
+package validator_test
 
 import (
 	"bytes"
@@ -17,7 +17,7 @@ import (
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/convert"
 )
 
-type TestCase struct {
+type testCase struct {
 	Name     string
 	Schema   string
 	Document interface{}
@@ -29,7 +29,7 @@ type TestCase struct {
 
 func TestSchemas(t *testing.T) {
 
-	files, err := filepath.Glob("../tests/*.yaml")
+	files, err := filepath.Glob("./tests/*.yaml")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -48,7 +48,7 @@ func TestSchemas(t *testing.T) {
 
 			for {
 
-				tc := TestCase{}
+				tc := testCase{}
 
 				err := dec.Decode(&tc)
 				if err == io.EOF {
@@ -78,7 +78,7 @@ func TestSchemas(t *testing.T) {
 					}
 
 					t.Logf("validating: %s", string(pbs))
-					vr, err = validator.ValidateJSON(MustLoad(tc.Schema), bs)
+					vr, err = validator.Validate(validator.MustLoadSchema(tc.Schema), bs)
 					if err != nil {
 						a.FailNow("validating document", err)
 					}

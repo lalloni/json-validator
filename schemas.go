@@ -1,9 +1,11 @@
-package schemas
+package validator
 
 import (
 	"io/ioutil"
+	"path/filepath"
+	"strings"
 
-	"github.com/gobuffalo/packr/v2"
+	packr "github.com/gobuffalo/packr/v2"
 	"github.com/lalloni/gojsonschema"
 	"github.com/pkg/errors"
 
@@ -11,25 +13,25 @@ import (
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/formats"
 )
 
-var fs = packr.New("schemas", "resources")
+var fs = packr.New("schemas", "./schemas")
 
-func init() {
-	gojsonschema.Locale = locale{}
-	gojsonschema.FormatCheckers.Add("cuit", formats.Cuit)
-	gojsonschema.FormatCheckers.Add("periododiario", formats.PeriodoDiario)
-	gojsonschema.FormatCheckers.Add("periodomensual", formats.PeriodoMensual)
-	gojsonschema.FormatCheckers.Add("periodoanual", formats.PeriodoAnual)
+func Schemas() []string {
+	names := []string(nil)
+	for _, f := range fs.List() {
+		names = append(names, strings.TrimSuffix(f, filepath.Ext(f)))
+	}
+	return names
 }
 
-func MustLoad(name string) *gojsonschema.Schema {
-	s, err := Load(name)
+func MustLoadSchema(name string) *gojsonschema.Schema {
+	s, err := LoadSchema(name)
 	if err != nil {
 		panic(err)
 	}
 	return s
 }
 
-func Load(name string) (*gojsonschema.Schema, error) {
+func LoadSchema(name string) (*gojsonschema.Schema, error) {
 
 	var root gojsonschema.JSONLoader
 	loaders := []gojsonschema.JSONLoader(nil)
@@ -89,4 +91,12 @@ func loaderFromYAML(name string) (gojsonschema.JSONLoader, error) {
 		return nil, errors.Wrapf(err, "parsing JSON converted from '%s'", name)
 	}
 	return loader, nil
+}
+
+func init() {
+	gojsonschema.Locale = locale{}
+	gojsonschema.FormatCheckers.Add("cuit", formats.Cuit)
+	gojsonschema.FormatCheckers.Add("periododiario", formats.PeriodoDiario)
+	gojsonschema.FormatCheckers.Add("periodomensual", formats.PeriodoMensual)
+	gojsonschema.FormatCheckers.Add("periodoanual", formats.PeriodoAnual)
 }

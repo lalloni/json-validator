@@ -11,12 +11,11 @@ import (
 	"github.com/pkg/errors"
 
 	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/schemas"
 )
 
 func main() {
 	schema := "persona"
-	flag.StringVar(&schema, "schema", "persona", "The schema to validate with (one of "+strings.Join(schemas.List(), ", ")+")")
+	flag.StringVar(&schema, "schema", "persona", "The schema to validate with (one of "+strings.Join(validator.Schemas(), ", ")+")")
 	flag.Parse()
 	dec := json.NewDecoder(os.Stdin)
 	for {
@@ -53,7 +52,7 @@ func validate(data map[string]interface{}, schema string) (map[string]interface{
 	if err != nil {
 		return report, errors.Wrapf(err, "error encoding next: %v", err)
 	}
-	res, err := validator.ValidateJSON(schemas.MustLoad(schema), bs)
+	res, err := validator.Validate(validator.MustLoadSchema(schema), bs)
 	if err != nil {
 		return report, errors.Wrapf(err, "error validating json document: %v", err)
 	}
