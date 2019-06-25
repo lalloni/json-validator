@@ -1,4 +1,4 @@
-name: Física con domicilios con oganismos
+name: Física con domicilios con organismos
 schema: persona
 document:
   id: 20242643772
@@ -31,7 +31,7 @@ document:
 assert:
   match: valid
 ---
-name: Física con domicilio con oganismo invalido
+name: Física con domicilio con organismo inválido
 schema: persona
 document:
   id: 20242643772
@@ -44,4 +44,4 @@ assert:
   match: include
   errors:
     - field: domicilios.1.1.org
-      description: Debe cumplir al menos un sub esquema "AFIP (1)", "Provincia (900-924)"
+      description: Debe ser uno de AFIP (1), Provincia (900-924)

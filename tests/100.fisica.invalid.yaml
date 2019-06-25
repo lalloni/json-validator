@@ -9,7 +9,7 @@ assert:
   match: include
   errors:
     - field: persona.id
-      description: "Debe ser menor o igual que 29999999999/1"
+      description: "Debe ser menor o igual que 29999999999"
 ---
 name: Física no debe tener inscripcion
 schema: persona

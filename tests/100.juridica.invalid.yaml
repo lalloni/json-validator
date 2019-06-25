@@ -13,4 +13,4 @@ assert:
   match: include
   errors:
     - field: persona.id
-      description: "Debe ser mayor o igual que 30000000000/1"
+      description: "Debe ser mayor o igual que 30000000000"

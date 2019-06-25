@@ -1,6 +1,6 @@
 name: Lista básica
-schema: personalist
-list:
+schema: persona-list
+document:
   - id: 20111111112
     emails:
       1:
