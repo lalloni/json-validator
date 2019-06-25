@@ -1,4 +1,4 @@
-package schemas_test
+package schemas
 
 import (
 	"bytes"
@@ -20,8 +20,7 @@ import (
 type TestCase struct {
 	Name     string
 	Schema   string
-	Document map[interface{}]interface{}
-	List     []interface{}
+	Document interface{}
 	Assert   struct {
 		Match  string
 		Errors []validator.ValidationError
@@ -29,11 +28,6 @@ type TestCase struct {
 }
 
 func TestSchemas(t *testing.T) {
-
-	v, err := validator.New()
-	if err != nil {
-		t.Fatal(err)
-	}
 
 	files, err := filepath.Glob("../tests/*.yaml")
 	if err != nil {
@@ -66,40 +60,29 @@ func TestSchemas(t *testing.T) {
 
 				t.Run(tc.Name, func(t *testing.T) {
 					a := assert.New(t)
+
 					var (
 						bs, pbs []byte
 						err     error
 						vr      *validator.ValidationResult
 					)
-					switch tc.Schema {
-					case "persona":
-						bs, err = json.Marshal(cleanupMap(tc.Document))
-						if err != nil {
-							a.FailNow("marshaling document", err)
-						}
-						pbs, err = convert.Pretty(bs)
-						if err != nil {
-							t.Errorf("prettifying document: %v", err)
-						}
-						t.Logf("validating: %s", string(pbs))
-						vr, err = v.ValidatePersonaJSON(bs)
-					case "personalist":
-						bs, err = json.Marshal(cleanupArray(tc.List))
-						if err != nil {
-							a.FailNow("marshaling list", err)
-						}
-						pbs, err = convert.Pretty(bs)
-						if err != nil {
-							t.Errorf("prettifying list: %v", err)
-						}
-						t.Logf("validating: %s", string(pbs))
-						vr, err = v.ValidatePersonaListJSON(bs)
-					default:
-						t.Fatalf("unkown schema %q", tc.Schema)
+
+					bs, err = json.Marshal(cleanupValue(tc.Document))
+					if err != nil {
+						a.FailNow("marshaling document", err)
 					}
+
+					pbs, err = convert.Pretty(bs)
+					if err != nil {
+						t.Errorf("prettifying document: %v", err)
+					}
+
+					t.Logf("validating: %s", string(pbs))
+					vr, err = validator.ValidateJSON(MustLoad(tc.Schema), bs)
 					if err != nil {
 						a.FailNow("validating document", err)
 					}
+
 					sb := strings.Builder{}
 					for _, e := range vr.Errors {
 						sb.WriteString("    ")
@@ -133,6 +116,7 @@ func TestSchemas(t *testing.T) {
 					default:
 						a.FailNowf("unknown assert match type", "match: %s", tc.Assert.Match)
 					}
+
 				})
 
 			}
