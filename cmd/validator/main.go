@@ -2,22 +2,22 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strings"
 
 	"github.com/pkg/errors"
 
 	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/schemas"
 )
 
 func main() {
-	val, err := validator.New()
-	if err != nil {
-		log.Fatalf("error creating validator: %v", err)
-	}
+	schema := "persona"
+	flag.StringVar(&schema, "schema", "persona", "The schema to validate with (one of "+strings.Join(schemas.List(), ", ")+")")
+	flag.Parse()
 	dec := json.NewDecoder(os.Stdin)
 	for {
 		data, err := next(dec)
@@ -27,7 +27,7 @@ func main() {
 		if err != nil {
 			fatal("reading next document: %v", err)
 		}
-		report, err := validate(data, val)
+		report, err := validate(data, schema)
 		if err != nil {
 			fatal("validating document: %v", err)
 		}
@@ -44,7 +44,7 @@ func next(dec *json.Decoder) (map[string]interface{}, error) {
 	return data, err
 }
 
-func validate(data map[string]interface{}, v validator.Validator) (map[string]interface{}, error) {
+func validate(data map[string]interface{}, schema string) (map[string]interface{}, error) {
 	report := make(map[string]interface{})
 	if id, ok := data["id"]; ok {
 		report["id"] = id
@@ -53,7 +53,7 @@ func validate(data map[string]interface{}, v validator.Validator) (map[string]in
 	if err != nil {
 		return report, errors.Wrapf(err, "error encoding next: %v", err)
 	}
-	res, err := v.ValidatePersonaJSON(bs)
+	res, err := validator.ValidateJSON(schemas.MustLoad(schema), bs)
 	if err != nil {
 		return report, errors.Wrapf(err, "error validating json document: %v", err)
 	}
