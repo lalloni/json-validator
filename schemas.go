@@ -18,6 +18,9 @@ var fs = packr.New("schemas", "./schemas")
 func Schemas() []string {
 	names := []string(nil)
 	for _, f := range fs.List() {
+		if !strings.HasSuffix(f, ".yaml") {
+			continue
+		}
 		names = append(names, strings.TrimSuffix(f, filepath.Ext(f)))
 	}
 	return names
@@ -36,12 +39,15 @@ func LoadSchema(name string) (*gojsonschema.Schema, error) {
 	var root gojsonschema.JSONLoader
 	loaders := []gojsonschema.JSONLoader(nil)
 
-	for _, file := range fs.List() {
-		loader, err := loaderFromYAML(file)
-		if err != nil {
-			return nil, errors.Wrapf(err, "creating json loader for %q", file)
+	for _, f := range fs.List() {
+		if !strings.HasSuffix(f, ".yaml") {
+			continue
 		}
-		if file == name+".yaml" {
+		loader, err := loaderFromYAML(f)
+		if err != nil {
+			return nil, errors.Wrapf(err, "creating json loader for %q", f)
+		}
+		if f == name+".yaml" {
 			root = loader
 		} else {
 			loaders = append(loaders, loader)
