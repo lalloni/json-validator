@@ -10,12 +10,9 @@ import (
 	"github.com/pkg/errors"
 
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/convert"
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/formats"
 )
 
-var fs = packr.New("schemas", "./schemas")
-
-func Schemas() []string {
+func Schemas(fs *packr.Box) []string { // nolint:interfacer
 	names := []string(nil)
 	for _, f := range fs.List() {
 		if !strings.HasSuffix(f, ".yaml") {
@@ -26,15 +23,15 @@ func Schemas() []string {
 	return names
 }
 
-func MustLoadSchema(name string) *gojsonschema.Schema {
-	s, err := LoadSchema(name)
+func MustLoadSchema(fs *packr.Box, name string) *gojsonschema.Schema {
+	s, err := LoadSchema(fs, name)
 	if err != nil {
 		panic(err)
 	}
 	return s
 }
 
-func LoadSchema(name string) (*gojsonschema.Schema, error) {
+func LoadSchema(fs *packr.Box, name string) (*gojsonschema.Schema, error) {
 
 	var root gojsonschema.JSONLoader
 	loaders := []gojsonschema.JSONLoader(nil)
@@ -43,7 +40,7 @@ func LoadSchema(name string) (*gojsonschema.Schema, error) {
 		if !strings.HasSuffix(f, ".yaml") {
 			continue
 		}
-		loader, err := loaderFromYAML(f)
+		loader, err := loaderFromYAML(fs, f)
 		if err != nil {
 			return nil, errors.Wrapf(err, "creating json loader for %q", f)
 		}
@@ -78,7 +75,7 @@ func LoadSchema(name string) (*gojsonschema.Schema, error) {
 
 }
 
-func loaderFromYAML(name string) (gojsonschema.JSONLoader, error) {
+func loaderFromYAML(fs *packr.Box, name string) (gojsonschema.JSONLoader, error) { // nolint:interfacer
 	f, err := fs.Open(name)
 	if err != nil {
 		return nil, errors.Wrapf(err, "opening '%s'", name)
@@ -97,12 +94,4 @@ func loaderFromYAML(name string) (gojsonschema.JSONLoader, error) {
 		return nil, errors.Wrapf(err, "parsing JSON converted from '%s'", name)
 	}
 	return loader, nil
-}
-
-func init() {
-	gojsonschema.Locale = locale{}
-	gojsonschema.FormatCheckers.Add("cuit", formats.Cuit)
-	gojsonschema.FormatCheckers.Add("periododiario", formats.PeriodoDiario)
-	gojsonschema.FormatCheckers.Add("periodomensual", formats.PeriodoMensual)
-	gojsonschema.FormatCheckers.Add("periodoanual", formats.PeriodoAnual)
 }

@@ -6,8 +6,17 @@ import (
 	"github.com/lalloni/gojsonschema"
 	"github.com/pkg/errors"
 
+	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/formats"
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/jsoncheck"
 )
+
+func init() {
+	gojsonschema.Locale = locale{}
+	gojsonschema.FormatCheckers.Add("cuit", formats.Cuit)
+	gojsonschema.FormatCheckers.Add("periododiario", formats.PeriodoDiario)
+	gojsonschema.FormatCheckers.Add("periodomensual", formats.PeriodoMensual)
+	gojsonschema.FormatCheckers.Add("periodoanual", formats.PeriodoAnual)
+}
 
 func Validate(schema *gojsonschema.Schema, json []byte) (*ValidationResult, error) {
 	err := jsoncheck.Check(json)

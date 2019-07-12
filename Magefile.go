@@ -14,15 +14,11 @@ import (
 	"github.com/magefile/mage/sh"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
-	prefix "github.com/x-cray/logrus-prefixed-formatter"
 
 	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/build"
 )
 
 func init() {
-	log.SetFormatter(&prefix.TextFormatter{
-		FullTimestamp: true,
-	})
 	log.Info("magefile initialized")
 }
 
@@ -31,31 +27,13 @@ func Clean() {
 	sh.Rm("target")
 }
 
-// Genera JSON Schema
-func Genschema() error {
-	return build.Convert("schemas", "doc/schemas")
-}
-
-// Genera recursos embebidos en código fuente
-func Genpack() error {
-	return build.RunPackr()
-}
-
-// Genera todos los "generables"
-func Genall() error {
-	mg.SerialDeps(Genschema, Genpack)
-	return nil
-}
-
 // Ejecuta tests
 func Test() error {
-	mg.Deps(Genall)
 	return sh.RunV("go", "test", "./...")
 }
 
 // Ejecuta análisis estático de código fuente
 func Check() error {
-	mg.Deps(Genall)
 	return build.RunLinter("run")
 }
 
@@ -66,13 +44,11 @@ func Verify() {
 
 // Ejecuta compilación de librería de validación
 func Compilelibrary() error {
-	mg.Deps(Genall)
 	return sh.Run("go", "build", "./...")
 }
 
 // Ejecuta compilación de herramienta de validación
 func Compilevalidatortool() error {
-	mg.Deps(Genall)
 	base := "target/bin/"
 	for _, goos := range []string{"windows", "linux"} {
 		for _, goarch := range []string{"amd64"} {
@@ -166,7 +142,6 @@ On unix-like shells you could do something like:
 	}
 
 	log.Info("updating generated resources")
-	mg.SerialDeps(Genall)
 
 	log.Info("checking working tree is not dirty")
 	out, err = sh.Output("git", "status", "-s")
@@ -203,28 +178,4 @@ On unix-like shells you could do something like:
 // Construye un binario estático de este build
 func Buildbuild() error {
 	return sh.RunV("mage", "-compile", "magestatic")
-}
-
-// Ejecuta los tests ante cambios en el proyecto
-func Testwatch() error {
-	c := make(chan build.Event, 1000)
-	err := build.Monitor(".", c, "-.*/**", "-target", "-target/**")
-	if err != nil {
-		return err
-	}
-	log.Info("Running tests for the first time...")
-	if Test() == nil {
-		log.Info("SUCCESS")
-	} else {
-		log.Error("FAILED")
-	}
-	for e := range c {
-		log.Infof("Running tests after receiving %s...", e.String())
-		if Test() == nil {
-			log.Info("SUCCESS")
-		} else {
-			log.Error("FAILED")
-		}
-	}
-	return nil
 }
