@@ -5,11 +5,9 @@ package main
 import (
 	"bufio"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/Masterminds/semver"
-	"github.com/lalloni/go-archiver"
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 	"github.com/pkg/errors"
@@ -42,65 +40,9 @@ func Verify() {
 	mg.Deps(Check, Test)
 }
 
-// Ejecuta compilación de librería de validación
-func Compilelibrary() error {
-	return sh.Run("go", "build", "./...")
-}
-
-// Ejecuta compilación de herramienta de validación
-func Compilevalidatortool() error {
-	base := "target/bin/"
-	for _, goos := range []string{"windows", "linux"} {
-		for _, goarch := range []string{"amd64"} {
-			out := filepath.Join(base, goos+"-"+goarch, "validator")
-			if goos == "windows" {
-				out = out + ".exe"
-			}
-			env := map[string]string{
-				"GOOS":   goos,
-				"GOARCH": goarch,
-			}
-			err := sh.RunWith(env, "go", "build", "-o", out, "./cmd/validator")
-			if err != nil {
-				return err
-			}
-		}
-	}
-	return nil
-}
-
 // Ejecuta todas las tareas de compilcación
 func Compile() error {
-	mg.Deps(Compilelibrary, Compilevalidatortool)
-	return nil
-}
-
-// Empaqueta los binarios del proyecto
-func Package() error {
-	mg.Deps(Clean, Compilevalidatortool)
-	p := "target/pkg/validator.zip"
-	log.Infof("packaging binaries into %s", p)
-	os.MkdirAll(filepath.Dir(p), 0777)
-	a, err := archiver.NewZip(p)
-	if err != nil {
-		return err
-	}
-	defer a.Close()
-	fs, err := filepath.Glob("target/bin/*/*")
-	if err != nil {
-		return err
-	}
-	err = a.AddAll(fs, func(n string) string {
-		d, f := filepath.Split(n)
-		d = filepath.Base(d)
-		nn := filepath.Join(d, f)
-		log.Infof("adding %s as %s", n, nn)
-		return nn
-	})
-	if err != nil {
-		return err
-	}
-	return a.Close()
+	return sh.Run("go", "build", "./...")
 }
 
 // Lanza GoConvey (http://goconvey.co/)
