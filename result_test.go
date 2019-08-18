@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	validator "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
+	validator "github.com/lalloni/json-validator"
 )
 
 func TestValidationResult(t *testing.T) {

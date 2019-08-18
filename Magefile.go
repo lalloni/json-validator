@@ -13,7 +13,7 @@ import (
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/build"
+	"github.com/lalloni/json-validator/build"
 )
 
 func init() {

@@ -9,7 +9,7 @@ import (
 	"github.com/lalloni/gojsonschema"
 	"github.com/pkg/errors"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/convert"
+	"github.com/lalloni/json-validator/convert"
 )
 
 func Schemas(fs *packr.Box) []string { // nolint:interfacer

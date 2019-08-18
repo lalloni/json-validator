@@ -1,13 +1,12 @@
-# padfed validator
+# JSON Validator
 
 ## ¿Qué es esto?
 
-Una librería Go para realizar validaciones de los datos que pasan a través de las API de padfed.
+Una librería Go para realizar validaciones a documentos JSON y dar buenos informes de los errores de validación.
 
 ## Objetivos principales
 
-- Ser usable dentro y fuera de padfed
-- Ofrecer mensajes claros mostrables al usuario final y que permitan resolver los problemas de validación
+- Ofrecer mensajes claros para mostrar al usuario final y que permitan resolver los problemas de validación
 
 ## Principios de diseño
 
@@ -28,7 +27,7 @@ Una librería Go para realizar validaciones de los datos que pasan a través de 
 Desde un módulo Go ejecutar...
 
 ```sh
-go get gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git
+go get github.com/lalloni/json-validator
 ```
 
 Y en el código...
@@ -36,25 +35,25 @@ Y en el código...
 Importar:
 
 ```go
-import "gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git"
+import "github.com/lalloni/json-validator"
 ```
 
 Cargar schema a utilizar:
 
 ```go
-personaSchema, err := validator.LoadSchema("persona")
+fooSchema, err := gosjson.LoadSchema(box, "foo")
 // manejar err != nil
 ```
 
 Ejecutar validación:
 
 ```go
-res, err := validator.Validate(personaSchema, persona)
+res, err := validator.Validate(fooSchema, foo)
 
 if err != nil {
     // hubo un error en el proceso de validación (r no debe usarse)
     // o el JSON suministrado no está bien formado
-    return errors.Wrap(err, "validando persona")
+    return errors.Wrap(err, "validando foo")
 }
 ```
 

@@ -3,7 +3,7 @@ package jsoncheck_test
 import (
 	"testing"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/jsoncheck"
+	"github.com/lalloni/json-validator/jsoncheck"
 )
 
 func TestCheck(t *testing.T) {

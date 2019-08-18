@@ -6,8 +6,8 @@ import (
 	"github.com/lalloni/gojsonschema"
 	"github.com/pkg/errors"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/formats"
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/jsoncheck"
+	"github.com/lalloni/json-validator/formats"
+	"github.com/lalloni/json-validator/jsoncheck"
 )
 
 func init() {

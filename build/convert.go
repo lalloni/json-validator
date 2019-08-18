@@ -9,7 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"gitlab.cloudint.afip.gob.ar/blockchain-team/padfed-validator.git/convert"
+	"github.com/lalloni/json-validator/convert"
 )
 
 // Convert convierte todos los archivos YAML que se encuentren en source/**/*.yaml
